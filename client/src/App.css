@@ -1,5 +1,55 @@
 .App {
   text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  height: 100vh;
+  border-style:solid;
+  border-width: 0 0.05cm 0 0.05cm;
+  border-color: gray;
+  border-radius: 0.1cm;
+  box-shadow: 3px 3px 3px 3px #888888;
+}
+
+.nav-menu-elements {
+  padding-left: 1em;
+  padding-right: 1em;
+  color: #696b69;
+  text-decoration: none;
+  justify-content: space-between;
+}
+#nav-menu {
+  padding: 2em;
+  background-color: #dbdbdb;
+}
+
+.message-form {
+  text-align: center;
+  position: relative;
+  padding: 10px 10px;
+  margin-left:25em;
+  margin-right:25em;
+  border-style:solid;
+  border-width: 0 0.05cm 0 0.05cm;
+  border-color: gray;
+  border-radius: 0.1cm;
+  box-shadow: 3px 3px 3px 3px #888888;
+}
+
+.input-text {
+  height: 30px;
+  width: 60%;
+  border-width: 0.05cm 0.05cm 0.05cm 0.05cm;
+  border-color: gray;
+  border-radius: 0.1cm;
+}
+
+.form-label {
+  display: inline-block;
+}
+
+.button-submit{
+  margin: 10px;
+  padding: 8px 8px;
 }
 
 .App-logo {
