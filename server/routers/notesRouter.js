@@ -1,9 +1,10 @@
 const express = require('express');
 
-const { createNote } = require('../api/noteController.js');
+const {apiCreateNote, apiDeleteNote} = require('../api/noteController.js');
 
 var router = express.Router();
 
-router.post('/', createNote);
+router.post('/', apiCreateNote);
+router.delete('/:noteID', apiDeleteNote);
 
 module.exports = router;
