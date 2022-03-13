@@ -53,5 +53,66 @@ function deleteNote(noteID){
   });
 }
 
+function updateNote(noteID, rollNo, title, content, tags) {
+  return new Promise((resolve, reject) => {
+    Note.findOne({
+      _id: noteID
+    },
+      function (err, note) {
+        if (err) {
+          reject({
+            status: 500,
+            response: "A server error occurred"
+          });
+          return;
+        }
+        else if (!note) {
+          reject({
+            status: 404,
+            response: "Note not found"
+          });
+          return;
+        }
+        else if (note.rollNo != rollNo) {
+          reject({
+            status: 403,
+            response: "Operation not allowed"
+          });
+          return;
+        }
+        
+        Note.updateOne({
+          _id: note._id
+        },
+        {
+          title: title,
+          content: content,
+          tags: tags
+        },
+        function(err, note){
+          if (err) {
+            reject({
+              status: 500,
+              response: "A server error occurred"
+            });
+            return;
+          }
+          else if (!note) {
+            reject({
+              status: 404,
+              response: "Note not found"
+            });
+            return;
+          }
+          else{
+            resolve({
+              status: 202,
+              response: "Note successfully updated"
+            });
+          }
+        });
+      });
+  });
+}
 
-module.exports = {insertNote, deleteNote};
+module.exports = {insertNote, deleteNote, updateNote};
