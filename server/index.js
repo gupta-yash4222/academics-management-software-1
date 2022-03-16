@@ -1,12 +1,13 @@
 const express = require("express");
 var bodyParser = require('body-parser');
-require('dotenv').config()
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
 const DBConnection = require('./dao/database.js');
 
 const notesRouter = require('./routers/notesRouter.js');
+const credRouter = require('./routers/credRouter.js')
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.get("/hello", (req, res) => {
 });
 
 app.use('/notes', notesRouter);
+app.use('/', credRouter);
 
 DBConnection.dial();
 

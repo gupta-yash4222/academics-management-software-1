@@ -7,7 +7,7 @@ function apiCreateNote(req, res) {
         tags = req.body.tags;
     if(!title || !rollNo)
         res.status(422).json("A required field is empty");
-    else {
+    else {  
         insertNote(rollNo, title, content, tags)
         .then(result => {
             res.status(result.status).json(result.response);
