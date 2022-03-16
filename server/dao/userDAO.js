@@ -1,4 +1,34 @@
+const { reject } = require('bcrypt/promises');
 const User = require('../../models/user.js');
+
+
+function findUser(username) {
+    return new Promise( (resolve, reject) => {
+
+        User.findOne({username: username}, (err, result) => {
+            if(err) {
+                reject({
+                    elem: null,
+                    message: err
+                });
+            }
+            else if (!result) {
+                reject({
+                    elem: result,
+                    message: "User not found"
+                });
+            }
+            else {
+                resolve({
+                    elem: result,
+                    message: "User found successfully"
+                })
+            }
+        });
+
+    });
+}
+
 
 function addUser(username, rollNo, name, hashPassword) {
     return new Promise( (resolve, reject) => {
@@ -6,29 +36,42 @@ function addUser(username, rollNo, name, hashPassword) {
             username: username,
             rollNo: rollNo,
             name: name,
-            password: hashPassword
+            password: hashPassword,
+            department: "Dharma"
         });
 
-        User.findOne({username: username}, (err, docs) => {
-            
+        findUser(username)
+        .then( result => {
+            reject({
+                status: 200,
+                message: "User already exists"
+            });
         })
-
-        user.save( err => {
-            if(err) {
-                console.log(err);
-                reject({
-                    status: 400,
-                    message: "Internal error in registering user."
+        .catch( error => {
+            if(error.message ===  "User not found"){
+                user.save( err => {
+                    if(err) {
+                        reject({
+                            status: 500,
+                            message: "Internal server error in registering user"
+                        });
+                    }
+                    else {
+                        resolve({
+                            status: 200,
+                            message: "User successfully registered"
+                        });
+                    }
                 });
             }
             else {
-                resolve({
-                    status: 200,
-                    message: "User successfully registered."
+                reject({
+                    status: 500,
+                    message: "Internal server error"
                 });
             }
         });
     });
 }
 
-module.exports = addUser;
+module.exports = {addUser, findUser};

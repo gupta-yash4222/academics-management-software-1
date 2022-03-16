@@ -4,7 +4,8 @@ var UserSchema = new mongoose.Schema({
     username: String,
     rollNo: Number,
     name: String,
-    password: String
+    password: String,
+    department: String
 },
 {
     toJSON: { virtuals: true }
