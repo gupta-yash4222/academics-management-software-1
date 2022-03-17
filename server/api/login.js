@@ -24,7 +24,7 @@ async function loginUser(req, res) {  // JWT token yet to be done
 
         var isValid = bcrypt.compareSync(password, user.password);
 
-        if(!isValid) return res.status(401).json({ message: "Incorrect password" });
+        if(!isValid) return res.status(403).json({ message: "Incorrect password" });
             
         const token = jwt.sign({username: username}, process.env.JWT_SECRET_KEY, {expiresIn: "15s"});
 
@@ -52,7 +52,7 @@ async function loginUser(req, res) {  // JWT token yet to be done
 const authorization =  async (req, res, next) => {
     const token = req.cookies.token;
 
-    if(!token) res.status(401).json({ message: "Access denied. Token is required for authentication"});
+    if(!token) return res.status(401).json({ message: "Access denied. Token is required for authentication"});
 
     try {
         const data = await jwt.verify(token, process.env.JWT_SECRET_KEY);
