@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+//debug statement
+typeof(mongoose);
+console.log(mongoose.connections);
+
 class DBConnection {
     static dial() {
         if ( this.db )
