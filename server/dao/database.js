@@ -9,7 +9,7 @@ class DBConnection {
         if ( this.db )
             return Promise.resolve(this.db);
         
-        mongoose.connect(process.env.ACADEMICS_DB_URI);
+        mongoose.connect(process.env.ACADEMICS_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
         this.db = mongoose.connection;
         
         this.db.on('error', console.error.bind(console, '[ERROR] [MongoDB]'));

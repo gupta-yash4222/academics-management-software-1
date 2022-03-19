@@ -1,12 +1,14 @@
 const express = require("express");
-var bodyParser = require('body-parser');
-require('dotenv').config()
+const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser")
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
 const DBConnection = require('./dao/database.js');
 
 const notesRouter = require('./routers/notesRouter.js');
+const credRouter = require('./routers/credRouter.js')
 
 const app = express();
 
@@ -15,12 +17,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+app.use(cookieParser());
 
 app.get("/hello", (req, res) => {
     res.send("Hello World!!");
 });
 
 app.use('/notes', notesRouter);
+app.use('/', credRouter);
 
 DBConnection.dial();
 
