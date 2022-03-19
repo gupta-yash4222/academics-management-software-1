@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/thakan25/academics-management-software#readme",
   "dependencies": {
+    "axios": "^0.26.1",
     "body-parser": "^1.19.2",
     "dotenv": "^16.0.0",
     "draft-js": "^0.11.7",
