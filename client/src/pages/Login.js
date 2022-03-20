@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import axios from 'axios';
 
-const Signup = function () {
+const Login = function () {
     const formStyle = {
         borderRadius: "5px",
         backgroundColor: "#f2f2f2",
@@ -41,26 +41,25 @@ const Signup = function () {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(inputs);
 
-        axios.post(baseUrl + 'signup', inputs )
+        axios.post(baseUrl + 'login', inputs )
         .then(function (res) {
             console.log(res);
-            if (res.status < 400) {
+            if (res.status === 200) {
                 console.log("Success")
             }
             else {
-                console.log("error1");
+                console.log("authentication failed");
             }
         }).catch(function (error) {
-            console.log(error);
+            console.log("error");
         });
     }
 
     return (
         <form style={formStyle} onSubmit={handleSubmit}>
             <div>
-                <h1>SignUp</h1>
+                <h1>Login</h1>
             </div>
             <div>
                 <input
@@ -68,26 +67,6 @@ const Signup = function () {
                     name="username"
                     placeholder='usename'
                     value={inputs.username || ""}
-                    style={inputStyle}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <input
-                    type="text"
-                    name="rollNo"
-                    placeholder='IITK rollnumber'
-                    value={inputs.age}
-                    style={inputStyle}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <input
-                    type="text"
-                    name="name"
-                    placeholder='IITK registered name'
-                    value={inputs.name}
                     style={inputStyle}
                     onChange={handleChange}
                 />
@@ -107,4 +86,4 @@ const Signup = function () {
     )
 }
 
-export default Signup;
+export default Login;

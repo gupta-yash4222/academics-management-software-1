@@ -1,8 +1,11 @@
+html, body, #App, #App>div {
+  height: 100%
+}
+
 .App {
   text-align: center;
-  margin-left: 10%;
-  margin-right: 10%;
-  height: 100vh;
+  margin: auto;
+  width:70%;
   border-style:solid;
   border-width: 0 0.05cm 0 0.05cm;
   border-color: gray;
@@ -150,4 +153,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }

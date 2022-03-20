@@ -6,7 +6,6 @@ function registerUser(req, res) { // validating the username not done yet (usern
            rollNo = req.body.rollNo,
            name = req.body.name,
            password = req.body.password;
-
     /*
     bcrypt.hash(password, 10, (err, hash) => {
         if(!err) hashPassword = hash;

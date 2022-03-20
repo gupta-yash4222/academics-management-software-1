@@ -27,7 +27,7 @@ function addUser(username, rollNo, name, hashPassword) {
 
         findUser(username)
         .then( result => {
-            reject({ status: 200, message: "User already exists" });
+            reject({ status: 208, message: "User already exists" });
         })
         .catch( error => {
             if(error.message ===  "User not found"){

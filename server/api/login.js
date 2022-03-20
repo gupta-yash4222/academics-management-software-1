@@ -1,58 +1,59 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const {findUser} = require("../dao/userDAO.js");
+const { findUser } = require("../dao/userDAO.js");
 
 async function loginUser(req, res) {  // JWT token yet to be done
     const username = req.body.username,
-          password = req.body.password;
-
+        password = req.body.password;
+   
     findUser(username)
-    .then( result => {
-        const user = result.elem;
-
-        /*
-        bcrypt.compare(password, user.password)
-        .then( result => {
-            if(result){
-                res.status(200).json("User logged in successfully");
-            }
-            else {
-                res.status(401).json("Incorrect password");
-            }
-        })
-        */
-
-        var isValid = bcrypt.compareSync(password, user.password);
-
-        if(!isValid) return res.status(403).json({ message: "Incorrect password" });
+        .then(result => {
+            const user = result.elem;
             
-        const token = jwt.sign({username: username}, process.env.JWT_SECRET_KEY, {expiresIn: "15s"});
+            /*
+            bcrypt.compare(password, user.password)
+            .then( result => {
+                if(result){
+                    res.status(200).json("User logged in successfully");
+                }
+                else {
+                    res.status(401).json("Incorrect password");
+                }
+            })
+            */
 
-        return res
-        .cookie("token", token, {
-            httpOnly: true
+            var isValid = bcrypt.compareSync(password, user.password);
+        
+            if (!isValid) return res.status(403).json({ message: "Incorrect password" });
+
+            const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, { expiresIn: "15s" });
+
+            return res
+                .cookie("token", token, {
+                    httpOnly: true
+                })
+                .status(200)
+                .json({ message: "Logged in successfully", token: token });
+
         })
-        .status(200)
-        .json({ message: "Logged in successfully", token: token });
- 
-    })
-    .catch( error => {
-        if(error.message === "User not found"){
-            console.log(error.message);
-            return res.status(400).json({ message: "User not registered" });
-        }
+        .catch(error => {
+            
+            if (error.message === "User not found") {
+                console.log(error.message);
+                return res.status(400).json({ message: "User not registered" });
+            }
 
-        else {
-            console.log(error.message);
-            return res.status(500).json({ message: "Internal server error" });
-        }
-    });
+            else {
+                console.log(error.message);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+        });
 }
 
-const authorization =  async (req, res, next) => {
+const authorization = async (req, res, next) => {
     const token = req.cookies.token;
 
-    if(!token) return res.status(401).json({ message: "Access denied. Token is required for authentication"});
+    if (!token) return res.status(401).json({ message: "Access denied. Token is required for authentication" });
 
     try {
         const data = await jwt.verify(token, process.env.JWT_SECRET_KEY);
@@ -60,8 +61,8 @@ const authorization =  async (req, res, next) => {
         return next();
     }
     catch {
-        return res.status(403).json({ message: "Token not valid"});
+        return res.status(403).json({ message: "Token not valid" });
     }
 };
 
-module.exports = {loginUser, authorization};
+module.exports = { loginUser, authorization };
