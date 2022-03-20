@@ -35,24 +35,7 @@ const Home = function () {
 
     return (
         <div>
-            <form className="message-form" >
-                <div>
-                    <input type="text" name="name" value={message.name} onChange={handleNameChange} className='input-text' />
-                </div>
-                <div>
-                    <label className='form-label'>name</label>
-                </div>
-                <div>
-                    <textarea name="note" className='input-text' value={message.note} onChange={handleNoteChange}/>
-                </div>
-                <div>
-                    <label className='form-label'>message</label>
-                </div>
-                <div>
-                    <button type="submit" className='button-submit' onClick={handleSubmit}>submit</button>
-                </div>
-
-            </form>
+           
         </div>
     )
 }

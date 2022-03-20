@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+document.body.style.height = "100vh";
+document.body.style.minHeight = "100vh";
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
