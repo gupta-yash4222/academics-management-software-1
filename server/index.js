@@ -8,7 +8,8 @@ const PORT = process.env.PORT || 3001;
 const DBConnection = require('./dao/database.js');
 
 const notesRouter = require('./routers/notesRouter.js');
-const credRouter = require('./routers/credRouter.js')
+const credRouter = require('./routers/credRouter.js');
+const courseRouter = require('./routers/courseRouter.js');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.get("/hello", (req, res) => {
 
 app.use('/notes', notesRouter);
 app.use('/', credRouter);
+app.use('/course', courseRouter);
 
 DBConnection.dial();
 
