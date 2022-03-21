@@ -27,13 +27,17 @@ async function loginUser(req, res) {  // JWT token yet to be done
             if (!isValid) return res.status(403).json({ message: "Incorrect password" });
 
             const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, { expiresIn: "15s" });
-
+      
             return res
                 .cookie("token", token, {
                     httpOnly: true
                 })
                 .status(200)
                 .json({ message: "Logged in successfully", token: token });
+
+        if(!isValid) return res.status(403).json({ message: "Incorrect password" });
+            
+        const token = jwt.sign({username: username}, process.env.JWT_SECRET_KEY, {expiresIn: process.env.JWT_EXPIRE_TIME});
 
         })
         .catch(error => {

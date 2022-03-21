@@ -5,7 +5,19 @@ var UserSchema = new mongoose.Schema({
     rollNo: Number,
     name: String,
     password: String,
-    department: String
+    department: String,
+    doubleMajor: {
+        type: String,
+        default: undefined
+    },
+    dualDegree: {
+        type: String,
+        default: undefined
+    },
+    favoriteCourses: {
+        type: [String],
+        default: []
+    }
 },
 {
     toJSON: { virtuals: true }
