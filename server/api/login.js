@@ -26,8 +26,8 @@ async function loginUser(req, res) {  // JWT token yet to be done
 
             if (!isValid) return res.status(403).json({ message: "Incorrect password" });
 
-            const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, { expiresIn: "15s" });
-
+            const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRE_TIME });
+      
             return res
                 .cookie("token", token, {
                     httpOnly: true

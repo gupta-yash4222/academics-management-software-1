@@ -2,19 +2,13 @@ express = require('express');
 
 const {validateCourseID} = require('../api/validation.js');
 const {authorization} = require('../api/login.js');
-const {apiAddReview, apiAddToFavourites} = require('../api/courseController.js');
+const {apiAddReview, apiAddToFavourites, apiGetPersonalReview, apiGetFavoriteCourses, apiGetReviews} = require('../api/courseController.js');
 
 router = express.Router();
-
-router.get('/:courseID', authorization, validateCourseID, (req, res) => {
-    const courseID = req.params['courseID'];
-    res.status(200).send(courseID);
-});
 
 /****** Adding courses to the database ******/
 
 const {addCourse} = require('../dao/courseDAO.js');
-
 router.post('/add', (req, res) => {
     const dict = req.body;
     for(const key in dict){
@@ -28,6 +22,12 @@ router.post('/add', (req, res) => {
 
 router.post('/:courseID/addReview', authorization, validateCourseID, apiAddReview);
 
-router.post('/:courseID/addToFavourite', authorization, validateCourseID, apiAddToFavourites)
+router.post('/:courseID/addToFavorite', authorization, validateCourseID, apiAddToFavourites)
+
+router.get('/:courseID/getPersonalReview', authorization, validateCourseID, apiGetPersonalReview);
+
+router.get('/:courseID/getReviews', authorization, validateCourseID, apiGetReviews);
+
+router.get('/getFavoriteCourses', authorization, apiGetFavoriteCourses);
 
 module.exports = router;

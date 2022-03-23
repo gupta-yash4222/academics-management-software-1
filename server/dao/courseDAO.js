@@ -29,7 +29,9 @@ async function updateCourseRating (courseID, rating, reviewID) {
 async function addReview (courseID, review, rating, username) {
     return new Promise( (resolve, reject) => {
 
-        Review.findOne({author: username}, (err, reviewFoundDoc) => {
+        const tempReviewID = courseID.concat("-", username);
+
+        Review.findOne({reviewID: tempReviewID}, (err, reviewFoundDoc) => {
             if(!reviewFoundDoc){
                 const reviewDoc = new Review({
                     reviewID: courseID.concat("-", username),
@@ -54,6 +56,50 @@ async function addReview (courseID, review, rating, username) {
             }
         });
 
+    });
+}
+
+async function getPersonalReview (courseID, username) {
+    const reviewID = courseID.concat("-", username);
+
+    return new Promise( (resolve, reject) => {
+
+        Review.findOne({reviewID: reviewID}, (err, reviewDoc) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+
+            if(!reviewDoc) return reject({status: 400, message: "Course review has not been given yet"});
+
+            return resolve({status: 200, message: "Review found successfully", review: reviewDoc.review});
+
+        });
+
+    });
+
+}
+
+async function getReviews (courseID) {
+    return new Promise( (resolve, reject) => {
+        Course.findOne({courseID: courseID}, (err, course) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            if(!course) return reject({status: 400, message: "Invalid course id"});
+
+            var reviewsList = [];
+            var requests = [];
+
+            for(var i = 0; i < course.reviews.length; i++) {
+                var p = Review.findOne({reviewID: course.reviews[i]}).exec();
+                requests.push(p);
+            }
+
+            p = Promise.all(requests)
+                .then( reviewDoc => {
+                    reviewsList = reviewDoc;
+                });
+
+            p.then( () => {
+                return resolve({status: 200, message: "Reviews found successfully", reviewsList: reviewsList});
+            });
+        })
     });
 }
 
@@ -84,6 +130,19 @@ async function addToFavourites (courseID, username) {
     });
 }
 
+async function getFavoriteCourses (username) {
+    return new Promise( (resolve, reject) => {
+        User.findOne({username: username}, (err, user) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if(!user) return reject({status: 400, message: "User not registered with the application"});
+
+            else{
+                return resolve({status: 200, message: "Favorite courses found successfully", favoriteCourses: user.favoriteCourses});
+            }
+        });
+    });
+}
+
 async function addCourse (courseID, courseName) {
     const course = new Course({
         courseID: courseID,
@@ -98,4 +157,4 @@ async function addCourse (courseID, courseName) {
 }
 
 
-module.exports = {addReview, addToFavourites, addCourse};
+module.exports = {addReview, getPersonalReview, getReviews, addToFavourites, getFavoriteCourses, addCourse};
