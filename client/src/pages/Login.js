@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = function () {
@@ -23,7 +24,7 @@ const Login = function () {
         backgroundColor: "#474948",
         color: "white",
         padding: "10px 10px",
-        // margin: "8px 0",
+        margin: "8px",
         border: "none",
         borderRadius: "4px",
         cursor: "pointer",
@@ -42,22 +43,22 @@ const Login = function () {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post(baseUrl + 'login', inputs )
-        .then(function (res) {
-            console.log(res);
-            if (res.status === 200) {
-                console.log("Success")
-            }
-            else {
-                console.log("authentication failed");
-            }
-        }).catch(function (error) {
-            console.log("error");
-        });
+        axios.post(baseUrl + 'login', inputs)
+            .then(function (res) {
+                console.log(res);
+                if (res.status === 200) {
+                    console.log("Success")
+                }
+                else {
+                    console.log("authentication failed");
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
     }
 
     return (
-        <form style={formStyle} onSubmit={handleSubmit}>
+        <form className = "notes-form" onSubmit={handleSubmit}>
             <div>
                 <h1>Login</h1>
             </div>
@@ -81,7 +82,13 @@ const Login = function () {
                     onChange={handleChange}
                 />
             </div>
-            <input type="submit" value="Submit" style={buttonStyle} />
+            <div>
+                
+            <Link to='/' >
+              <button style={buttonStyle}>Cancel</button>
+            </Link>
+                <input type="submit" value="Submit" style={buttonStyle} />
+            </div>
         </form>
     )
 }

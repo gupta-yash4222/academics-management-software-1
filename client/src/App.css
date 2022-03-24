@@ -35,7 +35,7 @@ html, body, #App, #App>div {
   min-width: 500px;
 }
 
-#input-text {
+.input-text {
   height: 30px;
   width: 60%;
   border-width: 0.05cm 0.05cm 0.05cm 0.05cm;
@@ -43,7 +43,7 @@ html, body, #App, #App>div {
   border-radius: 0.1cm;
 }
 
-#input-select {
+.input-select {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -53,15 +53,12 @@ html, body, #App, #App>div {
   box-sizing: border-box;
 }
 
-#input-tag{
-  padding: 100px 100px;
-  margin-right: 10px;
-}
-
-#input-textarea {
+.input-textarea {
   width: 100%;
-  height: 150px;
   padding: 2% 2%;
+  /* margin: 5%; */
+  /* justify-content; */
+  display: inline;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -69,17 +66,17 @@ html, body, #App, #App>div {
   font-size: 16px;
   resize: none;
 }
-#input-title {
+.input-title {
   width: 100%;
   padding: 2% 2%;
-  margin: 2% 0;
+  /* margin: 5%; */
   display: block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-#input-tag {
+.input-tag {
   position: relative;
   width: 50%;
   padding: 2% 2%;
@@ -94,7 +91,7 @@ html, body, #App, #App>div {
 }
 
 
-#button-note-submit{
+.button-submit{
   width: 20%;
   background-color: #474948;
   color: white;
@@ -105,7 +102,7 @@ html, body, #App, #App>div {
   cursor: pointer;
 }
 
-#input-cancel{
+.input-cancel{
   width: 20%;
   background-color: #f0f5f3;
   color: white;
@@ -118,11 +115,42 @@ html, body, #App, #App>div {
 .form-label {
   display: inline-block;
 }
-
-.button-submit{
-  margin: 10px;
-  padding: 8px 8px;
+/* select { 
+  text-align:center; 
 }
+
+.center-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: orange;
+}
+.off {
+  color: #ccc;
+}
+
+.star{
+  font-size: 35px;
+}
+
+.input{
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+/* body {
+  padding: 100px;
+} */
 
 .App-logo {
   height: 40vmin;

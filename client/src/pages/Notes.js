@@ -1,8 +1,20 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
+const buttonStyle = {
+    width: "10%",
+    backgroundColor: "#474948",
+    color: "white",
+    padding: "10px 10px",
+    margin: "8px",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    justifyContent: "center"
+}
 
 const Notes = function () {
     var [note, setNote] = useState({});
@@ -69,7 +81,7 @@ const Notes = function () {
         // console.log(note);
         // alert(note);
 
-        axios.post('http://localhost:3000/notes', { title:note.title, tags: note.tags, content: note.content, course:note.course })
+        axios.post('http://localhost:3000/notes', { title: note.title, tags: note.tags, content: note.content, course: note.course })
             .then(function (res) {
                 if (res.status === 201) {
                     console.log("posted successfully");
@@ -87,12 +99,12 @@ const Notes = function () {
             <form class="notes-form" >
                 <div>
                     <label>Note Title:</label>
-                    <input type="text" id="input-title" value={note.title} onChange={handleTitleChange} placeholder="note title" />
+                    <input type="text" className="input-title" value={note.title} onChange={handleTitleChange} placeholder="note title" />
                 </div>
 
                 <div>
                     <label>select relevant course: </label>
-                    <select value={note.courseName} id="input-select" onChange={handleCourseNameChange}>
+                    <select value={note.courseName} className="input-select" onChange={handleCourseNameChange}>
                         {
                             options.map(currValue => {
                                 return <option value={currValue}>{currValue}</option>
@@ -103,19 +115,20 @@ const Notes = function () {
 
                 <label>add tags: </label>
                 <div id="button-input-clubbed">
-                    <input type="text" id="input-tag" value={tag} onChange={handleTagChange} placeholder="enter tag" style={{marginRight:"20px"}}/>
-                    <button id="button-tag-submit" value={tag} onClick={handleTagSubmit} style={{backgroundColor:"#474948", padding:"10px", 
-                    color:"white", borderRadius:"5px", border:"none"}}>add tag</button>
+                    <input type="text" className="input-tag" value={tag} onChange={handleTagChange} placeholder="enter tag" style={{ marginRight: "20px" }} />
+                    <button style={buttonStyle} value={tag} onClick={handleTagSubmit} >add tag</button>
                 </div>
 
                 <div>
-                    <label>Note Description:</label>
-                    <br />
-                    <textarea type="text" id="input-textarea" value={note.description} onChange={handleDescriptionChange} placeholder="enter your notes here..." ></textarea>
+                    <label >Note Description:</label>
+                    <textarea type="text" className="input-textarea" value={note.description} onChange={handleDescriptionChange} placeholder="enter your notes here..." ></textarea>
                 </div>
 
                 <div>
-                    <button type="submit" id="button-note-submit" onClick={handleNoteSubmit}>Submit Note</button>
+                    <Link to='/' >
+                        <button style={buttonStyle}>Cancel</button>
+                    </Link>
+                    <button type="submit" style={buttonStyle} onClick={handleNoteSubmit}>Submit</button>
                 </div>
 
             </form>
