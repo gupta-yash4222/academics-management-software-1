@@ -1,6 +1,64 @@
 const {Course, Review, Comment} = require('../../models/course.js');
 const User = require('../../models/user.js');
 
+
+async function getReviewContent (reviewID) {
+
+    return new Promise( (resolve, reject) => {
+
+        Review.findOne({reviewID: reviewID}, (err, reviewDoc) => {
+            if(err) return reject("Internal server error");
+
+            if(!reviewDoc) return reject("No review found");
+
+            return resolve({author: reviewDoc.author, review: reviewDoc.review, likes: reviewDoc.likes});
+
+        });
+
+    });
+}
+
+async function getCourseDetails (courseID) {
+    return new Promise( (resolve, reject) => {
+
+        Course.findOne({courseID: courseID}, (err, course) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if(!course) return reject({status: 400, message: "Invalid course id"});
+
+            else {
+
+                var reviewsList = [];
+                var requests = [];
+
+                for(var i = 0; i < course.reviews.length; i++) {
+                    var p = getReviewContent(course.reviews[i]);
+                    requests.push(p);
+                }
+
+                var p = Promise.all(requests)
+                        .then(reviewsDoc => {
+                            reviewsList = reviewsDoc;
+                        })
+
+                p.then( () => {
+                    var course_details = {
+                        name: course.name,
+                        courseID: course.courseID,
+                        description: course.description,
+                        stars: course.stars,
+                        ratings: course.rating,
+                        reviews: reviewsList
+                    };
+    
+                    return resolve({status: 200, message: "Course found successfully", details: course_details});
+                })
+            }
+        });
+
+    });
+}
+
+
 async function updateCourseRating (courseID, rating, reviewID) {
     return new Promise( (resolve, reject) => {
 
@@ -65,22 +123,52 @@ async function addReview (courseID, review, rating, username) {
     });
 }
 
-async function getPersonalReview (courseID, username) {
-    const reviewID = courseID.concat("-", username);
-
+async function getCommentContent (commentID) {
     return new Promise( (resolve, reject) => {
+        Comment.findOne({commentID: commentID}, (err, commentDoc) => {
+            if(err) return reject("Internal server error");
 
+            if(!commentDoc) return reject("No comment found");
+
+            return resolve({author: commentDoc.author, comment: commentDoc.comment, likes: commentDoc.likes});
+        });
+    });
+}
+
+async function getReviewDetails (reviewID) {
+    return new Promise( (resolve, reject) => {
         Review.findOne({reviewID: reviewID}, (err, reviewDoc) => {
             if(err) return reject({status: 500, message: "Internal server error"});
+            else if(!reviewDoc) return reject({status: 400, message: "Invalid course id"});
 
-            if(!reviewDoc) return reject({status: 400, message: "Course review has not been given yet"});
+            else {
 
-            return resolve({status: 200, message: "Review found successfully", review: reviewDoc.review});
+                var commentsList = [];
+                var requests = [];
 
+                for(var i = 0; i < reviewDoc.comments.length; i++) {
+                    var p = getCommentContent(reviewDoc.comments[i]);
+                    requests.push(p);
+                }
+
+                var p = Promise.all(requests)
+                        .then(commentsDoc => {
+                            commentsList = commentsDoc;
+                        })
+
+                p.then( () => {
+                    var review_details = {
+                        review: reviewDoc.review,
+                        author: reviewDoc.author,
+                        likes: reviewDoc.likes,
+                        comments: commentsList
+                    };
+    
+                    return resolve({status: 200, message: "Review found successfully", details: review_details});
+                })
+            }
         });
-
     });
-
 }
 
 async function getReviews (courseID) {
@@ -264,4 +352,4 @@ async function addCourse (courseID, courseName) {
 }
 
 
-module.exports = {addReview, getPersonalReview, getReviews, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse};
+module.exports = {addReview, getReviewDetails, getReviews, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails};
