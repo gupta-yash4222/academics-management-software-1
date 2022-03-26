@@ -52,4 +52,4 @@ let Sem = mongoose.model('Sem', SemSchema)
 let CompletedCourses = mongoose.model('CompletedCourses', CompletedCoursesSchema);
 let UpcomingCourses = mongoose.model('UpcomingCourses', UpcomingCoursesSchema);
 
-module.exports = { CPCourse, Sem, CompletedCourses, UpcomingCourses };
+module.exports = { CompletedCoursesSchema, UpcomingCoursesSchema, CPCourse, Sem, CompletedCourses, UpcomingCourses };
