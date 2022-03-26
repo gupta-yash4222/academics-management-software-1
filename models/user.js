@@ -20,6 +20,7 @@ var UserSchema = new mongoose.Schema(
             type: [String],
             default: []
         },
+        numberOfSemsCompleted: Number,
         completedCourses: CompletedCoursesSchema,
         upcomingCourses: UpcomingCoursesSchema
     },
