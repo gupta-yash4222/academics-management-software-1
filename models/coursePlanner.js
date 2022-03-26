@@ -10,12 +10,24 @@ const CPCourseSchema = new mongoose.Schema(
     }
 );
 
+const SemSchema = new mongoose.Schema(
+    {
+        courses: {
+            type: [CPCourseSchema],
+            default: []
+        }
+    },
+    {
+        toJSON: { virtuals: true }
+    }
+);
+
 const CompletedCoursesSchema = new mongoose.Schema(
     {
-        // {semNumber => courseID}
-        courses: {
+        // {semNumber => SemSchema}
+        sems: {
             type: Map,
-            of: CPCourseSchema
+            of: SemSchema
         }
     },
     {
@@ -36,7 +48,8 @@ const UpcomingCoursesSchema = new mongoose.Schema(
 );
 
 let CPCourse = mongoose.model('CPCourse', CPCourseSchema);
-let CompletedCourses = mongoose.model('CompletedCourses', CompletedCoursesSchema)
-let UpcomingCourses = mongoose.model('UpcomingCourses', UpcomingCoursesSchema)
+let Sem = mongoose.model('Sem', SemSchema)
+let CompletedCourses = mongoose.model('CompletedCourses', CompletedCoursesSchema);
+let UpcomingCourses = mongoose.model('UpcomingCourses', UpcomingCoursesSchema);
 
-module.exports = { CPCourse, CompletedCourses, UpcomingCourses }
+module.exports = { CPCourse, Sem, CompletedCourses, UpcomingCourses };
