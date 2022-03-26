@@ -2,7 +2,7 @@ express = require('express');
 
 const {validateCourseID} = require('../api/validation.js');
 const {authorization} = require('../api/login.js');
-const {apiAddReview, apiAddToFavourites, apiGetPersonalReview, apiGetFavoriteCourses, apiGetReviews} = require('../api/courseController.js');
+const {apiAddReview, apiAddToFavourites, apiGetPersonalReview, apiGetFavoriteCourses, apiGetReviews, apiAddCommentToReview, apiLikeReview, apiLikeComment} = require('../api/courseController.js');
 
 router = express.Router();
 
@@ -29,5 +29,11 @@ router.get('/:courseID/getPersonalReview', authorization, validateCourseID, apiG
 router.get('/:courseID/getReviews', authorization, validateCourseID, apiGetReviews);
 
 router.get('/getFavoriteCourses', authorization, apiGetFavoriteCourses);
+
+router.post('/:reviewID/addComment', authorization, apiAddCommentToReview);
+
+router.post('/:reviewID/likeReview', authorization, apiLikeReview);
+
+router.post('/:commentID/likeComment', authorization, apiLikeComment);
 
 module.exports = router;

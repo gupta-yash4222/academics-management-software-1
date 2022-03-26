@@ -54,7 +54,13 @@ async function addReview (courseID, review, rating, username) {
             else{
                 console.log("Hello");
                 reviewFoundDoc.review = review;
-                reviewFoundDoc.save();
+                reviewFoundDoc.save()
+                .then( () => {
+                    return resolve({status: 200, message: "Review edited successfully"});
+                })
+                .catch( () => {
+                    return reject({status: 500, message: "Internal server error"});
+                });
             }
         });
 
@@ -145,6 +151,107 @@ async function getFavoriteCourses (username) {
     });
 }
 
+async function addComment (reviewID, commentID) {
+    return new Promise( (resolve, reject) => {
+        Review.findOne({reviewID: reviewID}, (err, reviewDoc) => {
+            if(err) return reject("Internal server error");
+            else if(!reviewDoc) return reject("Invalid reviewID");
+            else{
+                reviewDoc.comments.push(commentID);
+                reviewDoc.save()
+                .then( () => {
+                    return resolve("Comment added successfully");
+                })
+                .catch( () => {
+                    return reject("Internal server error");
+                })
+            }
+        })
+    })
+}
+
+async function addCommentToReview (reviewID, username, comment) {
+
+    const commentID = reviewID.concat("-", username);
+
+    return new Promise( (resolve, reject) => {
+
+        Comment.findOne({commentID: commentID}, (err, commentDocFound) => {
+
+            if(err) reject({status: 500, message: "Internal server error"});
+
+            else if(!commentDocFound){
+                const commentDoc = Comment({
+                    commentID: commentID,
+                    author: username,
+                    comment: comment
+                });
+
+                commentDoc.save();
+
+                addComment(reviewID, commentID)
+                .then( (result) => {
+                    return resolve({status: 200, message: result});
+                })
+                .catch( (error) => {
+                    if(error == "Internal server error") return reject({status: 500, message: error});
+                    else return reject({status: 400, message:error});
+                })
+            }
+
+            else {
+                commentDocFound.comment = comment;
+                commentDocFound.save()
+                .then( () => {
+                    return resolve({status: 200, message: "Comment edited successfully"});
+                })
+                .catch( () => {
+                    return reject({status: 500, message: "Internal server error"});
+                });
+            }
+        });
+
+    });
+}
+
+async function likeReview (reviewID) {
+    return new Promise( (resolve, reject) => {
+        Review.findOne({reviewID: reviewID}, (err, reviewDoc) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if(!reviewDoc) return reject({status: 400, message: "Invalid review id"});
+            else{
+                reviewDoc.likes = reviewDoc.likes + 1;
+                reviewDoc.save()
+                .then( () => {
+                    return resolve({status: 200, message: "Review liked successfully"});
+                })
+                .catch( () => {
+                    return reject({status: 500, message: "Internal server error"});
+                })
+            }
+        });
+    });
+}
+
+async function likeComment (commentID) {
+    return new Promise( (resolve, reject) => {
+        Comment.findOne({commentID: commentID}, (err, commentDoc) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if(!commentDoc) return reject({status: 400, message: "Invalid comment id"});
+            else{
+                commentDoc.likes = commentDoc.likes + 1;
+                commentDoc.save()
+                .then( () => {
+                    return resolve({status: 200, message: "Review liked successfully"});
+                })
+                .catch( () => {
+                    return reject({status: 500, message: "Internal server error"});
+                })
+            }
+        });
+    });
+}
+
 async function addCourse (courseID, courseName) {
     const course = new Course({
         courseID: courseID,
@@ -159,4 +266,4 @@ async function addCourse (courseID, courseName) {
 }
 
 
-module.exports = {addReview, getPersonalReview, getReviews, addToFavourites, getFavoriteCourses, addCourse};
+module.exports = {addReview, getPersonalReview, getReviews, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse};

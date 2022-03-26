@@ -1,4 +1,4 @@
-const { addReview, getPersonalReview, addToFavourites, getFavoriteCourses, getReviews } = require('../dao/courseDAO.js');
+const {addReview, getPersonalReview, addToFavourites, getFavoriteCourses, getReviews, addCommentToReview, likeComment, likeReview} = require('../dao/courseDAO.js');
 
 async function apiAddReview(req, res) {
     const courseID = req.params['courseID'],
@@ -60,14 +60,50 @@ async function apiGetFavoriteCourses(req, res) {
     console.log(username);
 
     getFavoriteCourses(username)
-        .then(result => {
-            console.log(result.favoriteCourses);
-            res.status(result.status).json({ message: result.message, favoriteCourses: result.favoriteCourses });
-        })
-        .catch(error => {
-            console.log("Whaaat!!0")
-            res.status(error.status).json({ message: error.message });
-        });
+    .then( result => {
+        res.status(result.status).json({message: result.message, favoriteCourses: result.favoriteCourses});
+    })
+    .catch( error => {
+        res.status(error.status).json({message: error.message});
+    });
 }
 
-module.exports = { apiAddReview, apiGetPersonalReview, apiGetReviews, apiAddToFavourites, apiGetFavoriteCourses };
+async function apiAddCommentToReview (req, res) {
+    const reviewID = req.params['reviewID'],
+        username = req.username,
+        comment = req.body.comment;
+
+    addCommentToReview(reviewID, username, comment)
+    .then( result => {
+        return res.status(result.status).json({message: result.message});
+    })
+    .catch( error => {
+        return res.status(error.status).json({message: error.message});
+    });
+}
+
+async function apiLikeReview (req, res) {
+    const reviewID = req.params['reviewID'];
+
+    likeReview(reviewID)
+    .then( result => {
+        return res.status(result.status).json({message: result.message});
+    })
+    .catch( error => {
+        return res.status(error.status).json({message: error.message});
+    })
+}
+
+async function apiLikeComment (req, res) {
+    const commentID = req.params['commentID'];
+
+    likeComment(commentID)
+    .then( result => {
+        return res.status(result.status).json({message: result.message});
+    })
+    .catch( error => {
+        return res.status(error.status).json({message: error.message});
+    })
+}
+
+module.exports = {apiAddReview, apiGetPersonalReview, apiGetReviews, apiAddToFavourites, apiGetFavoriteCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};
