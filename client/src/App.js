@@ -7,6 +7,8 @@ import Blogs from './pages/Blogs';
 import Signup from './pages/Signup'
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
+import StarRating from './components/Start-rating';
+import FeedbackForm from './components/Feedback-form';
 
 function App() {
   return (
@@ -16,9 +18,9 @@ function App() {
         <Routes>
           <Route path='/' exact element={ <Home /> } />
           <Route path='/notes' element={ <Notes /> } />
-          <Route path='/blogs' element={ <Blogs /> } />
           <Route path='/signup' element={ <Signup /> } />
           <Route path='/login' element={ <Login /> } />
+          <Route path='/feedback' element={ <FeedbackForm /> } />
         </Routes>
       </Router>
     </div>

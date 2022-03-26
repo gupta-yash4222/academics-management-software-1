@@ -1,11 +1,13 @@
 const {addReview, getReviewDetails, addToFavourites, getFavoriteCourses, getReviews, addCommentToReview, likeComment, likeReview, getCourseDetails} = require('../dao/courseDAO.js');
 
 async function apiAddReview (req, res) {
+    console.log(req.body);
     const courseID = req.params['courseID'],
         review = req.body.review,
         rating = req.body.rating || 0,
         username = req.username;
 
+    console.log(req.body);
     addReview(courseID, review, rating, username)
     .then( result => {
         return res.status(result.status).json({message: result.message});

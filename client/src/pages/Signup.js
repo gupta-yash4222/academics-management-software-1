@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Signup = function () {
     const formStyle = {
@@ -23,7 +24,7 @@ const Signup = function () {
         backgroundColor: "#474948",
         color: "white",
         padding: "10px 10px",
-        // margin: "8px 0",
+        margin: "8px",
         border: "none",
         borderRadius: "4px",
         cursor: "pointer",
@@ -43,18 +44,18 @@ const Signup = function () {
         event.preventDefault();
         console.log(inputs);
 
-        axios.post(baseUrl + 'signup', inputs )
-        .then(function (res) {
-            console.log(res);
-            if (res.status < 400) {
-                console.log("Success")
-            }
-            else {
-                console.log("error1");
-            }
-        }).catch(function (error) {
-            console.log(error);
-        });
+        axios.post(baseUrl + 'signup', inputs)
+            .then(function (res) {
+                console.log(res);
+                if (res.status < 400) {
+                    console.log("Success")
+                }
+                else {
+                    console.log("error1");
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
     }
 
     return (
@@ -102,7 +103,13 @@ const Signup = function () {
                     onChange={handleChange}
                 />
             </div>
-            <input type="submit" value="Submit" style={buttonStyle} />
+            <div>
+                <Link to='/' >
+                    <button style={buttonStyle}>Cancel</button>
+                </Link>
+                <input type="submit" value="Submit" style={buttonStyle} />
+            </div>
+
         </form>
     )
 }
