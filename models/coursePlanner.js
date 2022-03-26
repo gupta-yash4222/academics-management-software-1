@@ -21,13 +21,19 @@ const CompletedCoursesSchema = new mongoose.Schema(
     {
         toJSON: { virtuals: true }
     }
-)
+);
 
 const UpcomingCoursesSchema = new mongoose.Schema(
     {
-        courses: [CPCourseSchema]
+        courses: {
+            type: [CPCourseSchema],
+            default: []
+        }
+    },
+    {
+        toJSON: { virtuals: true }
     }
-)
+);
 
 let CPCourse = mongoose.model('CPCourse', CPCourseSchema);
 let CompletedCourses = mongoose.model('CompletedCourses', CompletedCoursesSchema)
