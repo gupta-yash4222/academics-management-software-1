@@ -5,6 +5,7 @@ import Dropdown from 'react-dropdown';
 import StarRating from './Start-rating';
 import 'react-dropdown/style.css';
 
+
 const buttonStyle = {
     width: "10%",
     backgroundColor: "#474948",
@@ -126,7 +127,7 @@ const FeedbackForm = function () {
             <form className="notes-form" >
                 <div>
                     <h1>Add Review</h1>
-                </div>
+                </div>  
                 <div className="input">
                     <span><label>courseID</label></span>
                     <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="courseID(i.e. MTH101A)" />

@@ -148,6 +148,10 @@ button {
   margin-bottom: 25px;
 }
 
+.dropdown-toggle::after {
+  content: none;
+}
+
 /* body {
   padding: 100px;
 } */
