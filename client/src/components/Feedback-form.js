@@ -103,7 +103,7 @@ const FeedbackForm = function () {
         // alert(feedback);
 
         //make sure courseID is filled
-        axios.post(`http://localhost:3000/course/${feedback.courseID}/addReview`, {
+        axios.post(`http://localhost:5000/course/${feedback.courseID}/addReview`, {
             courseID: feedback.courseID, tags: feedback.tags,
             sem: feedback.sem, year: feedback.year, rating: rating,
             review: feedback.review

@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -7,6 +8,18 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 const MyNavbar = () => {
   function handleLogOut(){
+    axios.delete(`http://localhost:5000/logout`)
+            .then(function (res) {
+                if (res.status === 201) {
+                    console.log("logged out successfully");
+                }
+                else {
+                    console.log("error1: " + "oops!! there was some ERROR");
+                }
+            }).catch(function (res) {
+                console.log(res);
+                console.log("oops!! API request failed");
+            });
     console.log("logged out")
   }
   return (
