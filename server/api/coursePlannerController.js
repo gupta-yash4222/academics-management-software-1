@@ -4,7 +4,7 @@ async function apiAddCompletedCourse(req, res) {
     const courseID = req.body.courseID,
         courseName = req.body.courseName,
         semNumber = req.body.semNumber,
-        username = req.body.username;
+        username = req.username;
 
     addCompletedCourse(courseID, courseName, semNumber, username)
         .then(result => {
