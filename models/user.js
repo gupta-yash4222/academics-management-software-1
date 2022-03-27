@@ -20,11 +20,11 @@ var UserSchema = new mongoose.Schema(
             type: [String],
             default: []
         },
-        // add functionality to set and update numberOfSemsCompleted
+        // todo: add functionality to set and update numberOfSemsCompleted
         numberOfSemsCompleted: Number,
         // will completedCourses and upcomingCourses be instantiated automatically?
         completedCourses: CompletedCoursesSchema,
-        // option to have multiple plans
+        // todo: option to have multiple plans
         upcomingCourses: UpcomingCoursesSchema
     },
     {
