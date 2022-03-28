@@ -24,10 +24,9 @@ const SemSchema = new mongoose.Schema(
 
 const CompletedCoursesSchema = new mongoose.Schema(
     {
-        // {semNumber => SemSchema}
         sems: {
-            type: Map,
-            of: SemSchema
+            type: [SemSchema],
+            default: []
         }
     },
     {

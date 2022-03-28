@@ -15,10 +15,11 @@ async function addCompletedCourse(courseID, courseName, semNumber, username) {
             else if (!user) {
                 reject({ status: 400, message: "User not registered with the application" });
             }
+            else if (!user.completedCourses.sems[semNumber - 1]) {
+                reject({ status: 400, message: `Sem ${semNumber} does not exist` });
+            }
             else {
-                // check if sem exists, otherwise make new sem
-                // is getter read-only?
-                user.completedCourses.sems.get(semNumber).push(course);
+                user.completedCourses.sems[semNumber - 1].courses.push(course);
                 user.save();
                 resolve({ status: 200, message: "Course added to completed courses" });
             }

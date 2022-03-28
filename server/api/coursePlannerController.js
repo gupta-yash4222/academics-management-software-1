@@ -8,7 +8,7 @@ async function apiAddCompletedCourse(req, res) {
 
     addCompletedCourse(courseID, courseName, semNumber, username)
         .then(result => {
-            return res.status(restult.status).json({ message: result.message });
+            return res.status(result.status).json({ message: result.message });
         })
         .catch(error => {
             return res.status(error.status).json({ message: error.message });
