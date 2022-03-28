@@ -1,4 +1,4 @@
-const {addReview, getPersonalReview, addToFavourites, getFavoriteCourses, getReviews, addCommentToReview, likeComment, likeReview} = require('../dao/courseDAO.js');
+const {addReview, getReviewDetails, addToFavourites, getFavoriteCourses, getReviews, addCommentToReview, likeComment, likeReview, getCourseDetails} = require('../dao/courseDAO.js');
 
 async function apiAddReview(req, res) {
     const courseID = req.params['courseID'],
@@ -16,6 +16,7 @@ async function apiAddReview(req, res) {
         });
 }
 
+<<<<<<< HEAD
 async function apiGetPersonalReview(req, res) {
     const courseID = req.params['courseID'],
         username = req.username;
@@ -27,6 +28,30 @@ async function apiGetPersonalReview(req, res) {
         .catch(error => {
             res.status(error.status).json({ message: error.message });
         })
+=======
+async function apiGetCourseDetails (req, res) {
+    const courseID = req.params['courseID'];
+
+    getCourseDetails(courseID)
+    .then( (result) => {
+        return res.status(result.status).json({message: result.message, details: result.details});
+    })
+    .catch( (error) => {
+        return res.status(error.status).json({message: error.message});
+    });
+}
+
+async function apiGetReviewDetails (req, res) {
+    const reviewID = req.params['reviewID'];
+
+    getReviewDetails(reviewID)
+    .then( result => {
+        res.status(result.status).json({message: result.message, review: result.details});
+    })
+    .catch( error => {
+        res.status(error.status).json({message: error.message});
+    })
+>>>>>>> main
 }
 
 async function apiGetReviews(req, res) {
@@ -106,4 +131,8 @@ async function apiLikeComment (req, res) {
     })
 }
 
+<<<<<<< HEAD
 module.exports = {apiAddReview, apiGetPersonalReview, apiGetReviews, apiAddToFavourites, apiGetFavoriteCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};
+=======
+module.exports = {apiAddReview, apiGetReviewDetails, apiGetReviews, apiGetCourseDetails, apiAddToFavourites, apiGetFavoriteCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};
+>>>>>>> main

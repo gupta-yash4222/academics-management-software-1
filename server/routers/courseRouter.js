@@ -2,7 +2,7 @@ express = require('express');
 
 const {validateCourseID} = require('../api/validation.js');
 const {authorization} = require('../api/login.js');
-const {apiAddReview, apiAddToFavourites, apiGetPersonalReview, apiGetFavoriteCourses, apiGetReviews, apiAddCommentToReview, apiLikeReview, apiLikeComment} = require('../api/courseController.js');
+const {apiAddReview, apiAddToFavourites, apiGetFavoriteCourses, apiGetReviews, apiAddCommentToReview, apiLikeReview, apiLikeComment, apiGetCourseDetails, apiGetReviewDetails} = require('../api/courseController.js');
 
 router = express.Router();
 
@@ -20,11 +20,13 @@ router.post('/add', (req, res) => {
 
 /****** For testing purpose *******/
 
+router.get('/:courseID/getCourseDetails', authorization, validateCourseID, apiGetCourseDetails)
+
 router.post('/:courseID/addReview', authorization, validateCourseID, apiAddReview);
 
 router.post('/:courseID/addToFavorite', authorization, validateCourseID, apiAddToFavourites)
 
-router.get('/:courseID/getPersonalReview', authorization, validateCourseID, apiGetPersonalReview);
+router.get('/:reviewID/getReviewDetails', authorization, validateCourseID, apiGetReviewDetails);
 
 router.get('/:courseID/getReviews', authorization, validateCourseID, apiGetReviews);
 
