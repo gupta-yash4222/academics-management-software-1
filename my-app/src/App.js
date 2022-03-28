@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import FeedbackForm from './components/Feedback-form';
 import BrowseNotes from './components/BrowseNotes';
 import BrowseReview from './components/BrowseReview';
-import Container from 'react-bootstrap/esm/Container';
+import Container from 'react-bootstrap/Container';
 
 function App() {
   return (

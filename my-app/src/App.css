@@ -7,6 +7,7 @@ html, body, #App, #App>div {
   margin: auto;
   /* padding: 2% 10% 5% 10%  ; */
   width:70%;
+  color: white;
   min-width: 700px;
   border-style:solid;
   border-width: 0 0.05cm 0 0.05cm;
@@ -139,6 +140,11 @@ button {
   color: #ccc;
 }
 
+.mb-3{
+  width:50%;
+  margin:0px auto;
+}
+
 .star{
   font-size: 35px;
 }
@@ -146,6 +152,10 @@ button {
 .input{
   margin-top: 25px;
   margin-bottom: 25px;
+}
+
+.dropdown-toggle::after {
+  content: none;
 }
 
 /* body {
