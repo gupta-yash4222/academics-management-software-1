@@ -97,19 +97,20 @@ const FeedbackForm = function () {
     }
 
     function handleFeedbackSubmit(event) {
-        // event.preventDefault();
+        event.preventDefault();
         event.stopPropagation();
         // console.log(feedback);
         // alert(feedback);
 
         //make sure courseID is filled
-        axios.post(`http://localhost:5000/course/${feedback.courseID}/addReview`, {
+        console.log(feedback.courseID);
+        axios.post(`http://localhost:3000/course/${feedback.courseID}/addReview`, {
             courseID: feedback.courseID, tags: feedback.tags,
             sem: feedback.sem, year: feedback.year, rating: rating,
             review: feedback.review
         })
             .then(function (res) {
-                if (res.status === 201) {
+                if (res.status === 200) {
                     console.log("posted successfully");
                 }
                 else {

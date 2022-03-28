@@ -8,6 +8,7 @@ var NotesSchema = new mongoose.Schema({
     },
     rollNo: Number,
     title: String,
+    courseID: String,
     content: String,
     tags: [String]
 },

@@ -30,7 +30,7 @@ async function addReview (courseID, review, rating, username) {
     return new Promise( (resolve, reject) => {
 
         const tempReviewID = courseID.concat("-", username);
-        // console.log(tempReviewID);
+        console.log(tempReviewID);
         Review.findOne({reviewID: tempReviewID}, (err, reviewFoundDoc) => {
             if(!reviewFoundDoc){
                 const reviewDoc = new Review({

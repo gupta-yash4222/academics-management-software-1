@@ -58,6 +58,7 @@ const authorization = async (req, res, next) => {
     try {
         const data = await jwt.verify(token, process.env.JWT_SECRET_KEY);
         req.username = data.username;
+        req.rollNo = data.rollNo;
         return next();
     }
     catch {
