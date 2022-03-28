@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import StarRating from './components/Start-rating';
 import FeedbackForm from './components/Feedback-form';
+import DemoApp from './components/Calendar'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path='/signup' element={ <Signup /> } />
           <Route path='/login' element={ <Login /> } />
           <Route path='/feedback' element={ <FeedbackForm /> } />
+          <Route path='/calendar' element={<DemoApp />} />
         </Routes>
       </Router>
     </div>
