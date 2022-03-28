@@ -1,5 +1,5 @@
-const {Course, Review, Comment} = require('../../models/course.js');
-const User = require('../../models/user.js');
+const {Course, Review, Comment} = require('../models/course.js');
+const User = require('../models/user.js');
 
 
 async function getReviewContent (reviewID) {

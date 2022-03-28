@@ -1,4 +1,4 @@
-const Note = require('../../models/note.js');
+const Note = require('../models/note.js');
 
 function insertNote(rollNo, title, courseID, content, tags){
   return new Promise((resolve, reject) => {

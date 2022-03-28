@@ -6,7 +6,6 @@ async function apiAddReview(req, res) {
         rating = req.body.rating || 0,
         username = req.username;
 
-    // console.log("hi" + req.body.rating);
     addReview(courseID, review, rating, username)
         .then(result => {
             return res.status(result.status).json({ message: result.message });
@@ -117,8 +116,4 @@ async function apiLikeComment (req, res) {
     })
 }
 
-<<<<<<< HEAD
-module.exports = {apiAddReview, apiGetPersonalReview, apiGetReviews, apiAddToFavourites, apiGetFavoriteCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};
-=======
 module.exports = {apiAddReview, apiGetReviewDetails, apiGetReviews, apiGetCourseDetails, apiAddToFavourites, apiGetFavoriteCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};
->>>>>>> main
