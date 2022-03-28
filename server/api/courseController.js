@@ -16,19 +16,6 @@ async function apiAddReview(req, res) {
         });
 }
 
-<<<<<<< HEAD
-async function apiGetPersonalReview(req, res) {
-    const courseID = req.params['courseID'],
-        username = req.username;
-
-    getPersonalReview(courseID, username)
-        .then(result => {
-            res.status(result.status).json({ message: result.message, review: result.review });
-        })
-        .catch(error => {
-            res.status(error.status).json({ message: error.message });
-        })
-=======
 async function apiGetCourseDetails (req, res) {
     const courseID = req.params['courseID'];
 
@@ -51,7 +38,6 @@ async function apiGetReviewDetails (req, res) {
     .catch( error => {
         res.status(error.status).json({message: error.message});
     })
->>>>>>> main
 }
 
 async function apiGetReviews(req, res) {
