@@ -20,6 +20,9 @@ const Navbar = () => {
             <Link to='/feedback' className="nav-menu-elements">
               feedback
             </Link>
+            <Link to='/calendar' className="nav-menu-elements">
+              Calendar
+            </Link>
           </div>
       </div>
     );
