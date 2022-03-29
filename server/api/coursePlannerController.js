@@ -1,4 +1,4 @@
-const { addCompletedCourse, addUpcomingCourse } = require('../dao/coursePlannerDAO')
+const { addCompletedCourse, addUpcomingCourse, deleteUpcomingCourse } = require('../dao/coursePlannerDAO')
 
 async function apiAddCompletedCourse(req, res) {
     const courseID = req.body.courseID,
@@ -29,4 +29,17 @@ async function apiAddUpcomingCourse(req, res) {
         });
 }
 
-module.exports = { apiAddCompletedCourse, apiAddUpcomingCourse };
+async function apiDeleteUpcomingCourse(req, res) {
+    const id = req.params.id,
+        username = req.username;
+
+    deleteUpcomingCourse(id, username)
+        .then(result => {
+            return res.status(result.status).json({ message: result.message });
+        })
+        .catch(error => {
+            return res.status(error.status).json({ message: error.message });
+        });
+}
+
+module.exports = { apiAddCompletedCourse, apiAddUpcomingCourse, apiDeleteUpcomingCourse };
