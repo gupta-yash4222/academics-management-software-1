@@ -8,6 +8,7 @@ async function addCompletedCourse(courseID, courseName, semNumber, username) {
             name: courseName
         });
         course.save();
+
         User.findOne({ username: username }, (err, user) => {
             if (err) {
                 reject({ status: 500, message: "Internal server error" });
@@ -27,4 +28,28 @@ async function addCompletedCourse(courseID, courseName, semNumber, username) {
     });
 }
 
-module.exports = { addCompletedCourse };
+async function addUpcomingCourse(courseID, courseName, username) {
+    return new Promise((resolve, reject) => {
+        const course = new CPCourse({
+            courseID: courseID,
+            name: courseName
+        });
+        course.save();
+
+        User.findOne({ username: username }, (err, user) => {
+            if (err) {
+                reject({ status: 500, message: "Internal server error" });
+            }
+            else if (!user) {
+                reject({ status: 400, message: "User not registered with the application" });
+            }
+            else {
+                user.UpcomingCourses.courses.push(course);
+                user.save();
+                resolve({ status: 200, message: "Course added to upcoming courses" });
+            }
+        });
+    });
+}
+
+module.exports = { addCompletedCourse, addUpcomingCourse };
