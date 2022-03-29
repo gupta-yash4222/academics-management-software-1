@@ -1,5 +1,6 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import './App.css';
 import Home from './pages/Home';
 import AddNotes from './pages/AddNotes';
@@ -11,6 +12,8 @@ import FeedbackForm from './components/Feedback-form';
 import BrowseNotes from './components/BrowseNotes';
 import BrowseReview from './components/BrowseReview';
 import Container from 'react-bootstrap/Container';
+import EventCalendar from './components/EventCalendar'
+import TimeCalendar from './components/TimeCalendar'
 
 function App() {
   return (
@@ -26,6 +29,8 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/feedback/create' element={<FeedbackForm />} />
             <Route path='/feedback/browse' element={<BrowseReview />} />
+            <Route path='/calendar/timetable' element={<TimeCalendar />} />
+            <Route path='/calendar/events' element={<EventCalendar />} />
           </Routes>
         </Router>
       </Container>
