@@ -52,6 +52,38 @@ async function addUpcomingCourse(courseID, courseName, username) {
     });
 }
 
+async function deleteCompletedCourse(id, username) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ username: username }, (err, user) => {
+            if (err) {
+                reject({ status: 500, message: "Internal server error" });
+            }
+            else if (!user) {
+                reject({ status: 400, message: "User not registered with the application" });
+            }
+            else {
+                user.completedCourses.sems.findOneAndDelete(
+                    {
+                        _id: id
+                    },
+                    (err, course) => {
+                        if (err) {
+                            reject({ status: 500, message: "Internal server error" });
+                        }
+                        else if (!course) {
+                            reject({ status: 400, message: "Course not found" });
+                        }
+                        else {
+                            user.save();
+                            resolve({ status: 200, message: "Course deleted" });
+                        }
+                    }
+                );
+            }
+        });
+    });
+}
+
 async function deleteUpcomingCourse(id, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
@@ -84,4 +116,4 @@ async function deleteUpcomingCourse(id, username) {
     });
 }
 
-module.exports = { addCompletedCourse, addUpcomingCourse, deleteUpcomingCourse };
+module.exports = { addCompletedCourse, addUpcomingCourse, deleteCompletedCourse, deleteUpcomingCourse };
