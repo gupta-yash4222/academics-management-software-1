@@ -8,27 +8,29 @@ const NoteSearchFrom = () => {
     const [tag, setTag] = useState('');
     const [courseID, setCourseID] = useState('');
 
-    async function handleTagSearch(event){
+    async function handleTagChange(event) {
         await setTag((lastTag) => {
             return event.target.value;
         });
-
-        axios.get()
     }
-    
+
+    async function handleTagSubmit(event) {
+        event.preventDefault();
+        // await axios()
+    }
+
     return (
         <div>
             <br></br>
-            <Form>
+            <Form onSubmit={handleTagSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control size='lg' value={tag} placeholder="Seach for tags" onChange={handleTagSearch}/>
+                    <Form.Control size='lg' value={tag} placeholder="Seach for tags" onChange={handleTagChange} />
                 </Form.Group>
-                <h3>OR</h3>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Control size="lg" value={courseID} placeholder="search for course" />
-                </Form.Group>
-                
+                <Button variant="primary" type="submit" >
+                    Submit
+                </Button>
             </Form>
+            <hr style={{color:"white"}} />
         </div>
     );
 };

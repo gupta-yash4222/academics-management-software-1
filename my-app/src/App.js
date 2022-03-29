@@ -14,7 +14,7 @@ import Container from 'react-bootstrap/Container';
 
 function App() {
   return (
-    <div className="App" style={{ height: "100vh" }}>
+    <div className="App">
       <Container fluid>
         <Router>
           <MyNavbar></MyNavbar>
