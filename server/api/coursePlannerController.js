@@ -1,10 +1,8 @@
 const { addCompletedCourse, addUpcomingCourse, deleteUpcomingCourse } = require('../dao/coursePlannerDAO')
 
 async function apiAddCompletedCourse(req, res) {
-    const courseID = req.body.courseID,
-        courseName = req.body.courseName,
-        semNumber = req.body.semNumber,
-        username = req.username;
+    const { courseID, courseName, semNumber } = req.body;
+    const { username } = req;
 
     addCompletedCourse(courseID, courseName, semNumber, username)
         .then(result => {
@@ -16,9 +14,8 @@ async function apiAddCompletedCourse(req, res) {
 }
 
 async function apiAddUpcomingCourse(req, res) {
-    const courseID = req.body.courseID,
-        courseName = req.body.courseName,
-        username = req.username;
+    const { courseID, courseName } = req.body;
+    const { username } = req;
 
     addUpcomingCourse(courseID, courseName, username)
         .then(result => {
@@ -30,8 +27,8 @@ async function apiAddUpcomingCourse(req, res) {
 }
 
 async function apiDeleteUpcomingCourse(req, res) {
-    const id = req.params.id,
-        username = req.username;
+    const { id } = req.params;
+    const { username } = req;
 
     deleteUpcomingCourse(id, username)
         .then(result => {
