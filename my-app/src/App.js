@@ -12,6 +12,7 @@ import FeedbackForm from './components/Feedback-form';
 import BrowseNotes from './components/BrowseNotes';
 import BrowseReview from './components/BrowseReview';
 import Container from 'react-bootstrap/Container';
+import ReviewDetail from './components/ReviewDetail';
 import EventCalendar from './components/EventCalendar'
 import TimeCalendar from './components/TimeCalendar'
 
@@ -29,6 +30,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/feedback/create' element={<FeedbackForm />} />
             <Route path='/feedback/browse' element={<BrowseReview />} />
+            <Route path='/feedback/browse/detailedReview'  exact element={<ReviewDetail />} />
             <Route path='/calendar/timetable' element={<TimeCalendar />} />
             <Route path='/calendar/events' element={<EventCalendar />} />
           </Routes>
