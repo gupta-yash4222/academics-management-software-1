@@ -16,7 +16,7 @@ const buttonStyle = {
     justifyContent: "center"
 }
 
-const Notes = function () {
+const AddNotes = function () {
     var [note, setNote] = useState({});
     var [tag, setTag] = useState();
 
@@ -136,4 +136,4 @@ const Notes = function () {
     )
 }
 
-export default Notes;
+export default AddNotes;

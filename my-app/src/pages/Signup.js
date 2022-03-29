@@ -13,7 +13,7 @@ const Signup = function () {
     }
 
     const inputStyle = {
-        width: "30%",
+        width: "40%",
         fontSize: "20px",
         padding: "12px 20px",
         margin: "8px"
@@ -59,7 +59,7 @@ const Signup = function () {
     }
 
     return (
-        <form style={formStyle} onSubmit={handleSubmit}>
+        <form className='notes-form' onSubmit={handleSubmit}>
             <div>
                 <h1>SignUp</h1>
             </div>

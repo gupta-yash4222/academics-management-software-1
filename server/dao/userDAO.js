@@ -1,5 +1,5 @@
 const { reject } = require('bcrypt/promises');
-const User = require('../../models/user.js');
+const User = require('../models/user.js');
 
 
 function findUser(username) {

@@ -1,9 +1,10 @@
-const {insertNote, deleteNote, updateNote} = require('../dao/NotesDAO.js');
+const {insertNote, deleteNote, updateNote, fetchNotesByCourseID} = require('../dao/NotesDAO.js');
 
 function apiCreateNote(req, res) {
     
     req.body.rollNo = 180639;
     var content = req.body.content,
+        courseID = req.body.courseID,
         rollNo = req.body.rollNo,
         title = req.body.title,
         tags = req.body.tags;
@@ -12,7 +13,7 @@ function apiCreateNote(req, res) {
     if(!title || !rollNo)
         res.status(422).json("A required field is empty");
     else {  
-        insertNote(rollNo, title, content, tags)
+        insertNote(rollNo, title, courseID, content, tags)
         .then(result => {
             res.status(result.status).json(result.response);
         })
@@ -51,5 +52,25 @@ function apiUpdateNote(req, res){
     }
 }
 
+function apiFetchNotes(req, res){
+    var courseID = req.params.courseID,
+        rollNo = req.body.rollNo;
+    //    console.log(courseID);
+    if(!courseID)
+        res.status(422).json("A required field is empty");
+    else {
+        // console.log("hello");
+        fetchNotesByCourseID(rollNo, courseID)
+        .then(result => {
+            // console.log("database worked fine");
+            res.status(result.status).json(result.response);
+        })
+        .catch(error => {
+            console.log(error.status);
+            console.log(error.response);
+            res.status(error.status).json(error.response);
+        });
+    }
+}
 
-module.exports = {apiCreateNote, apiDeleteNote, apiUpdateNote};
+module.exports = {apiCreateNote, apiDeleteNote, apiUpdateNote, apiFetchNotes};

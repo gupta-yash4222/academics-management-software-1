@@ -13,7 +13,7 @@ const Login = function () {
     }
 
     const inputStyle = {
-        width: "30%",
+        width: "40%",
         fontSize: "20px",
         padding: "12px 20px",
         margin: "8px"

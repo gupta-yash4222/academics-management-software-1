@@ -1,5 +1,5 @@
-const {Course, Review, Comment} = require('../../models/course.js');
-const User = require('../../models/user.js');
+const {Course, Review, Comment} = require('../models/course.js');
+const User = require('../models/user.js');
 
 
 async function getReviewContent (reviewID) {
@@ -88,7 +88,7 @@ async function addReview (courseID, review, rating, username) {
     return new Promise( (resolve, reject) => {
 
         const tempReviewID = courseID.concat("-", username);
-
+        console.log(tempReviewID);
         Review.findOne({reviewID: tempReviewID}, (err, reviewFoundDoc) => {
             if(!reviewFoundDoc){
                 const reviewDoc = new Review({
@@ -96,6 +96,7 @@ async function addReview (courseID, review, rating, username) {
                     author: username,
                     review: review
                 }); 
+                
                 reviewDoc.save();
 
                 updateCourseRating(courseID, rating, reviewDoc.reviewID)
@@ -109,6 +110,7 @@ async function addReview (courseID, review, rating, username) {
             } 
 
             else{
+                console.log("Hello");
                 reviewFoundDoc.review = review;
                 reviewFoundDoc.save()
                 .then( () => {
