@@ -34,6 +34,7 @@ const MyNavbar = () => {
             {/* <Nav.Link as={Link} to="/notes">Notes</Nav.Link> */}
             <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
             <Nav.Link as={Link} to="/login">login</Nav.Link>
+            <Nav.Link as={Link} to="/feedback/browse/detailedReview">detailedReview</Nav.Link>
 
             <NavDropdown title="Feedback" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to="/feedback/create" >add review</NavDropdown.Item>
