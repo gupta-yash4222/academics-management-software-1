@@ -34,6 +34,7 @@ const MyNavbar = () => {
             {/* <Nav.Link as={Link} to="/notes">Notes</Nav.Link> */}
             <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
             <Nav.Link as={Link} to="/login">login</Nav.Link>
+            <Nav.Link as={Link} to="/feedback/browse/detailedReview">detailedReview</Nav.Link>
 
             <NavDropdown title="Feedback" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to="/feedback/create" >add review</NavDropdown.Item>
@@ -43,6 +44,10 @@ const MyNavbar = () => {
             <NavDropdown title="Notes" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to="/notes/create" >add notes</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/notes/browse" >browse notes</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Calendar" id="collasible-nav-dropdown">
+              <NavDropdown.Item as={Link} to="/calendar/events" >Events</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/calendar/timetable" >Time</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="Profile" id="collasible-nav-dropdown" style={{ position: "absolute", right: "10px", color: "#ffffff" }}>
