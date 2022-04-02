@@ -1,7 +1,6 @@
 from curses.ascii import isalnum
 import json
 import csv
-from os import remove
 
 def removeSpaces(st):
   return "".join([ch for ch in st if ch != ""])
@@ -47,7 +46,7 @@ def parse_time(timeStr):
         res[weekDay[days[i]]] = [st, ed]
   return res
 
-csv_file = open("all_courses.csv")
+csv_file = open("all_courses_odd.csv")
 csv_reader = csv.reader(csv_file, delimiter=',')
 
 cnt = 0
@@ -92,5 +91,5 @@ json_data = {
   "courses": course_list,
 }
 
-with open("course_list.json", 'w') as write_json_file:
+with open("course_list_odd.json", 'w') as write_json_file:
   json.dump(json_data, write_json_file, indent=4)

@@ -1,19 +1,19 @@
 const {
-	addCourse,
-	deleteCourse,
-	addSemester,
-	deleteLastSemester,
 	getNumberOfSemesters,
 	getSemester,
 	getCourse,
+	addSemester,
+	addSemesterAtEnd,
+	addCourse,
+	deleteSemester,
+	deleteCourse,
 } = require('../dao/coursePlannerDAO')
 
 async function apiAddCourse(req, res) {
-	const { semNumber } = req.params;
-    const { courseID, courseName } = req.body;
+	const { semNumber, courseID } = req.params;
     const { username } = req;
 
-    addCourse(courseID, courseName, semNumber, username)
+    addCourse(courseID, semNumber, username)
         .then(result => {
             return res.status(result.status).json({ message: result.message });
         })
@@ -36,9 +36,10 @@ async function apiDeleteCourse(req, res) {
 }
 
 async function apiAddSemester(req, res) {
+	const { semNumber } = req.params;
 	const { username } = req;
 
-	addSemester(username)
+	addSemester(semNumber, username)
 		.then(result => {
 			return res.status(result.status).json({ message: result.message });
 		})
@@ -47,10 +48,23 @@ async function apiAddSemester(req, res) {
 		});
 }
 
-async function apiDeleteLastSemester(req, res) {
+async function apiAddSemesterAtEnd(req, res) {
 	const { username } = req;
 
-	deleteLastSemester(username)
+	addSemesterAtEnd(username)
+		.then(result => {
+			return res.status(result.status).json({ message: result.message });
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
+}
+
+async function apiDeleteSemester(req, res) {
+	const { semNumber } = req.params;
+	const { username } = req;
+
+	deleteSemester(semNumber, username)
 		.then(result => {
 			return res.status(result.status).json({ message: result.message });
 		})
@@ -109,8 +123,9 @@ async function apiGetCourse(req, res) {
 module.exports = {
 	apiAddCourse,
 	apiDeleteCourse,
+	apiAddSemesterAtEnd,
 	apiAddSemester,
-	apiDeleteLastSemester,
+	apiDeleteSemester,
 	apiGetNumberOfSemesters,
 	apiGetSemester,
 	apiGetCourse,
