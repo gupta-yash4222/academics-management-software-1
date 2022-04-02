@@ -1,19 +1,17 @@
 const {insertNote, deleteNote, updateNote, fetchNotesByCourseID} = require('../dao/NotesDAO.js');
 
 function apiCreateNote(req, res) {
-    
-    req.body.rollNo = 180639;
-    var content = req.body.content,
-        courseID = req.body.courseID,
-        rollNo = req.body.rollNo,
+
+    const username = req.username,
+        content = req.body.content,
+        courseID = req.params['courseID'],
         title = req.body.title,
         tags = req.body.tags;
 
-        console.log(req.body);
-    if(!title || !rollNo)
+    if(!title)
         res.status(422).json("A required field is empty");
     else {  
-        insertNote(rollNo, title, courseID, content, tags)
+        insertNote(username, title, courseID, content, tags)
         .then(result => {
             res.status(result.status).json(result.response);
         })
@@ -34,15 +32,17 @@ function apiDeleteNote(req, res) {
 }
 
 function apiUpdateNote(req, res){
-    var noteID = req.params.noteID,
+
+    const username = req.username,
+        noteID = req.params.noteID,
         content = req.body.content,
-        rollNo = req.body.rollNo,
         title = req.body.title,
         tags = req.body.tags;
-    if(!noteID ||!title || !rollNo)
+
+    if(!noteID ||!title)
         res.status(422).json("A required field is empty");
     else {
-        updateNote(noteID, rollNo, title, content, tags)
+        updateNote(noteID, username, title, content, tags)
         .then(result => {
             res.status(result.status).json(result.response);
         })

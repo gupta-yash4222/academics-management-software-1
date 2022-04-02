@@ -30,9 +30,35 @@ const ReviewSchema = new mongoose.Schema({
     toJSON: { virtuals: true } 
 });
 
+const DaySchedule = new mongoose.Schema({
+    day: String,
+    start: [Number],
+    end: [Number]
+});
+
 const CourseSchema = new mongoose.Schema({
     courseID: String,
     name: String,
+    department: String,
+    credits: Number,
+    instructors: [String],
+    instructor_mailID: [String],
+    prerequisites: {
+        type: [[String]],
+        default: []
+    },
+    lecture_time: {
+        type: [DaySchedule],
+        default: []
+    },
+    tutorial_time: {
+        type: [DaySchedule],
+        default: []
+    },
+    practical_time: {
+        type: [DaySchedule],
+        default: []
+    },
     stars: {
         type: Number,
         default: 0
