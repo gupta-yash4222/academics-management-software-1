@@ -22,7 +22,7 @@ const SemSchema = new mongoose.Schema(
     }
 );
 
-const CompletedCoursesSchema = new mongoose.Schema(
+const CoursePlanSchema = new mongoose.Schema(
     {
         sems: {
             type: [SemSchema],
@@ -34,21 +34,13 @@ const CompletedCoursesSchema = new mongoose.Schema(
     }
 );
 
-const UpcomingCoursesSchema = new mongoose.Schema(
-    {
-        courses: {
-            type: [CPCourseSchema],
-            default: []
-        }
-    },
-    {
-        toJSON: { virtuals: true }
-    }
-);
-
 let CPCourse = mongoose.model('CPCourse', CPCourseSchema);
-let Sem = mongoose.model('Sem', SemSchema)
-let CompletedCourses = mongoose.model('CompletedCourses', CompletedCoursesSchema);
-let UpcomingCourses = mongoose.model('UpcomingCourses', UpcomingCoursesSchema);
+let Semester = mongoose.model('Semester', SemSchema)
+let CoursePlan = mongoose.model('CoursePlan', CoursePlanSchema);
 
-module.exports = { CompletedCoursesSchema, UpcomingCoursesSchema, CPCourse, Sem, CompletedCourses, UpcomingCourses };
+module.exports = {
+	CoursePlanSchema,
+	CPCourse,
+	Semester,
+	CoursePlan
+};

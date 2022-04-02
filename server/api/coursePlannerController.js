@@ -1,23 +1,19 @@
-const { addCompletedCourse, addUpcomingCourse, deleteCompletedCourse, deleteUpcomingCourse } = require('../dao/coursePlannerDAO')
+const {
+	addCourse,
+	deleteCourse,
+	addSemester,
+	deleteLastSemester,
+	getNumberOfSemesters,
+	getSemester,
+	getCourse,
+} = require('../dao/coursePlannerDAO')
 
-async function apiAddCompletedCourse(req, res) {
-    const { courseID, courseName, semNumber } = req.body;
-    const { username } = req;
-
-    addCompletedCourse(courseID, courseName, semNumber, username)
-        .then(result => {
-            return res.status(result.status).json({ message: result.message });
-        })
-        .catch(error => {
-            return res.status(error.status).json({ message: error.message });
-        });
-}
-
-async function apiAddUpcomingCourse(req, res) {
+async function apiAddCourse(req, res) {
+	const { semNumber } = req.params;
     const { courseID, courseName } = req.body;
     const { username } = req;
 
-    addUpcomingCourse(courseID, courseName, username)
+    addCourse(courseID, courseName, semNumber, username)
         .then(result => {
             return res.status(result.status).json({ message: result.message });
         })
@@ -26,11 +22,11 @@ async function apiAddUpcomingCourse(req, res) {
         });
 }
 
-async function apiDeleteCompletedCourse(req, res) {
-    const { id } = req.params;
+async function apiDeleteCourse(req, res) {
+    const { semNumber, courseID } = req.params;
     const { username } = req;
 
-    deleteCompletedCourse(id, username)
+    deleteCourse(courseID, semNumber, username)
         .then(result => {
             return res.status(result.status).json({ message: result.message });
         })
@@ -39,17 +35,83 @@ async function apiDeleteCompletedCourse(req, res) {
         });
 }
 
-async function apiDeleteUpcomingCourse(req, res) {
-    const { id } = req.params;
-    const { username } = req;
+async function apiAddSemester(req, res) {
+	const { username } = req;
 
-    deleteUpcomingCourse(id, username)
-        .then(result => {
-            return res.status(result.status).json({ message: result.message });
-        })
-        .catch(error => {
-            return res.status(error.status).json({ message: error.message });
-        });
+	addSemester(username)
+		.then(result => {
+			return res.status(result.status).json({ message: result.message });
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
 }
 
-module.exports = { apiAddCompletedCourse, apiAddUpcomingCourse, apiDeleteCompletedCourse, apiDeleteUpcomingCourse };
+async function apiDeleteLastSemester(req, res) {
+	const { username } = req;
+
+	deleteLastSemester(username)
+		.then(result => {
+			return res.status(result.status).json({ message: result.message });
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
+}
+
+async function apiGetNumberOfSemesters(req, res) {
+	const { username } = req;
+
+	getNumberOfSemesters(username)
+		.then(result => {
+			return res.status(result.status).json({
+				message: result.message,
+				numSem: result.numSem
+			});
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
+}
+
+async function apiGetSemester(req, res) {
+	const { username } = req;
+	const { semNumber } = req.params;
+
+	getSemester(semNumber, username)
+		.then(result => {
+			return res.status(result.status).json({
+				message: result.message,
+				semester: result.semester,
+			});
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
+}
+
+async function apiGetCourse(req, res) {
+	const { username } = req;
+	const { courseID, semNumber } = req.params;
+
+	getCourse(courseID, semNumber, username)
+		.then(result => {
+			return res.status(result.status).json({
+				message: result.message,
+				semester: result.semester,
+			});
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
+}
+
+module.exports = {
+	apiAddCourse,
+	apiDeleteCourse,
+	apiAddSemester,
+	apiDeleteLastSemester,
+	apiGetNumberOfSemesters,
+	apiGetSemester,
+	apiGetCourse,
+};

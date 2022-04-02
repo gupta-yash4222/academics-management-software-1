@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { CompletedCoursesSchema, UpcomingCoursesSchema } = require('./coursePlanner')
+const { CoursePlanSchema } = require('./coursePlanner')
 
 var UserSchema = new mongoose.Schema(
     {
@@ -20,12 +20,9 @@ var UserSchema = new mongoose.Schema(
             type: [String],
             default: []
         },
-        // todo: add functionality to set and update numberOfSemsCompleted
-        numberOfSemsCompleted: Number,
-        // will completedCourses and upcomingCourses be instantiated automatically?
-        completedCourses: CompletedCoursesSchema,
+        // will coursePlan be instantiated automatically?
+        coursePlan: CoursePlanSchema
         // todo: option to have multiple plans
-        upcomingCourses: UpcomingCoursesSchema
     },
     {
         toJSON: { virtuals: true }

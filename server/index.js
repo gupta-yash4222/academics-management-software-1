@@ -28,7 +28,7 @@ app.get("/hello", (req, res) => {
 app.use('/notes', notesRouter);
 app.use('/', credRouter);
 app.use('/course', courseRouter);
-app.use('/coursePlanner', coursePlannerRouter)
+app.use('/coursePlanner', coursePlannerRouter);
 
 DBConnection.dial();
 

@@ -1,6 +1,6 @@
 const { reject } = require('bcrypt/promises');
 const User = require('../../models/user.js');
-const { CPCourse, Sem, CompletedCourses, UpcomingCourses } = require('../../models/coursePlanner');
+const { CoursePlan } = require('../../models/coursePlanner');
 
 function findUser(username) {
     return new Promise((resolve, reject) => {
@@ -22,14 +22,8 @@ function addUser(username, rollNo, name, hashPassword) {
             name: name,
             password: hashPassword,
             department: "Dharma",
-            numberOfSemsCompleted: 4,
-            completedCourses: new CompletedCourses,
-            upcomingCourses: new UpcomingCourses
+            coursePlan: new CoursePlan,
         });
-
-        for (let i = 0; i < user.numberOfSemsCompleted; i++) {
-            user.completedCourses.sems.push(new Sem);
-        }
 
         findUser(username)
             .then(result => {
