@@ -179,7 +179,7 @@ async function getCourse(courseID, semNumber, username) {
             if (!semester) {
                 reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
             }
-            courseFound = semester.courses.findOne({ courseID: courseID });
+            courseFound = semester.courses.find(elem => elem.courseID === courseID);
             if (!courseFound) {
                 reject({ status: 400, message: `Course ${courseID} not found in semester ${semNumber}` });
             }
