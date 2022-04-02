@@ -8,17 +8,17 @@ const SEM_NOT_FOUND_ERROR_MSG = semNumber => `Semester ${semNumber} does not exi
 async function addCourse(courseID, semNumber, username) {
     return new Promise((resolve, reject) => {
         CPCourse.findOne({ courseID: courseID }, (err, course) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
-            else if (!course) reject({ status: 400, message: `Course ${courseID} not found` });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
+            else if (!course) return reject({ status: 400, message: `Course ${courseID} not found` });
             else User.findOne({ username: username }, (err, user) => {
                 if (err) {
-                    reject({ status: 500, message: SERVER_ERROR_MSG });
+                    return reject({ status: 500, message: SERVER_ERROR_MSG });
                 }
                 else if (!user) {
-                    reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                    return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
                 }
                 else if (!user.coursePlan.sems[semNumber - 1]) {
-                    reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
+                    return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
                 }
                 else {
                     let semester = user.coursePlan.sems[semNumber - 1];
@@ -26,10 +26,10 @@ async function addCourse(courseID, semNumber, username) {
                     if (!alreadyPresentCourse) {
                         semester.courses.push(course);
                         user.save();
-                        resolve({ status: 200, message: `Course ${courseID} added to semester ${semNumber} courses` });
+                        return resolve({ status: 200, message: `Course ${courseID} added to semester ${semNumber} courses` });
                     }
                     else {
-                        reject({ status: 400, message: `Course ${courseID} already exists in semester ${semNumber}` });
+                        return reject({ status: 400, message: `Course ${courseID} already exists in semester ${semNumber}` });
                     }
                 }
             });
@@ -41,26 +41,26 @@ async function addCourse(courseID, semNumber, username) {
 async function deleteCourse(courseID, semNumber, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             let semester = user.coursePlan.sems[semNumber - 1];
             if (!semester) {
-                reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
+                return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
             }
             semester.courses.findOneAndDelete(
                 { courseID: courseID },
                 (err, course) => {
                     if (err) {
-                        reject({ status: 500, message: SERVER_ERROR_MSG });
+                        return reject({ status: 500, message: SERVER_ERROR_MSG });
                     }
                     else if (!course) {
-                        reject({ status: 400, message: "Course not found" });
+                        return reject({ status: 400, message: "Course not found" });
                     }
                     else {
                         user.save();
-                        resolve({ status: 200, message: "Course deleted successfully" });
+                        return resolve({ status: 200, message: "Course deleted successfully" });
                     }
                 }
             );
@@ -71,19 +71,19 @@ async function deleteCourse(courseID, semNumber, username) {
 async function addSemester(semNumber, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             else if (+semNumber && !user.coursePlan.sems[semNumber - 1]) {
-                reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
+                return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
             }
             else {
                 const semester = new Semester();
                 semester.save();
                 user.coursePlan.sems.splice(semNumber, 0, semester);
                 user.save();
-                resolve({ status: 200, message: "New semester added" });
+                return resolve({ status: 200, message: "New semester added" });
             }
         });
     });
@@ -93,17 +93,17 @@ async function addSemesterAtEnd(username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
             if (err) {
-                reject({ status: 500, message: SERVER_ERROR_MSG });
+                return reject({ status: 500, message: SERVER_ERROR_MSG });
             }
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             else {
                 const semester = new Semester();
                 semester.save();
                 user.coursePlan.sems.push(semester);
                 user.save();
-                resolve({ status: 200, message: "New empty semester added!" });
+                return resolve({ status: 200, message: "New empty semester added!" });
             }
         });
     });
@@ -112,17 +112,17 @@ async function addSemesterAtEnd(username) {
 async function deleteSemester(semNumber, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             else if (!user.coursePlan.sems[semNumber - 1]) {
-                reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
+                return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
             }
             else {
                 user.coursePlan.sems.splice(semNumber - 1, 1); // removes semester
                 user.save();
-                resolve({ status: 200, message: `Deleted semester ${semNumber} successfully!` });
+                return resolve({ status: 200, message: `Deleted semester ${semNumber} successfully!` });
             }
         });
     });
@@ -131,13 +131,13 @@ async function deleteSemester(semNumber, username) {
 async function getNumberOfSemesters(username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             else {
                 const numSem = user.coursePlan.sems.length;
-                resolve({
+                return resolve({
                     status: 200,
                     message: "Found number of semesters",
                     numSem: numSem,
@@ -150,15 +150,15 @@ async function getNumberOfSemesters(username) {
 async function getSemester(semNumber, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             else if (!user.coursePlan.sems[semNumber - 1]) {
-                reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) })
+                return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) })
             }
             else {
-                resolve({
+                return resolve({
                     status: 200,
                     message: `Found semester ${semNumber} successfully!`,
                     semester: user.coursePlan.sems[semNumber - 1],
@@ -171,19 +171,19 @@ async function getSemester(semNumber, username) {
 async function getCourse(courseID, semNumber, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
-            if (err) reject({ status: 500, message: SERVER_ERROR_MSG });
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!user) {
-                reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+                return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
             }
             const semester = user.coursePlan.sems[semNumber - 1];
             if (!semester) {
-                reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
+                return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
             }
             courseFound = semester.courses.find(elem => elem.courseID === courseID);
             if (!courseFound) {
-                reject({ status: 400, message: `Course ${courseID} not found in semester ${semNumber}` });
+                return reject({ status: 400, message: `Course ${courseID} not found in semester ${semNumber}` });
             }
-            resolve({
+            return resolve({
                 status: 200,
                 message: `Course ${courseID} in semester ${semNumber} found successfully`,
                 course: courseFound,
