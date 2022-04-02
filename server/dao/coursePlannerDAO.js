@@ -1,5 +1,5 @@
-const { CPCourse, Semester, CoursePlan } = require('../../models/coursePlanner');
-const User = require('../../models/user');
+const { CPCourse, Semester, CoursePlan } = require('../models/coursePlanner');
+const User = require('../models/user');
 
 const SERVER_ERROR_MSG = "Internal Server Error";
 const USER_NOT_FOUND_ERROR_MSG = "User not found in the database";
