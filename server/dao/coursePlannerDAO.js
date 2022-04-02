@@ -49,21 +49,15 @@ async function deleteCourse(courseID, semNumber, username) {
             if (!semester) {
                 return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
             }
-            semester.courses.findOneAndDelete(
-                { courseID: courseID },
-                (err, course) => {
-                    if (err) {
-                        return reject({ status: 500, message: SERVER_ERROR_MSG });
-                    }
-                    else if (!course) {
-                        return reject({ status: 400, message: "Course not found" });
-                    }
-                    else {
-                        user.save();
-                        return resolve({ status: 200, message: "Course deleted successfully" });
-                    }
-                }
-            );
+            let courseIndex = semester.courses.findIndex(elem => elem.courseID === courseID);
+            if (courseIndex == -1) {
+                return reject({ status: 400, message: "Course not found" });
+            }
+            else {
+                semester.courses.splice(courseIndex, 1);
+                user.save();
+                return resolve({ status: 200, message: "Course deleted successfully" });
+            }
         });
     });
 }
