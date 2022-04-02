@@ -31,6 +31,7 @@ const ReviewSchema = new mongoose.Schema({
 });
 
 const DaySchedule = new mongoose.Schema({
+    day: String,
     start: [Number],
     end: [Number]
 });
@@ -43,20 +44,20 @@ const CourseSchema = new mongoose.Schema({
     instructors: [String],
     instructor_mailID: [String],
     prerequisites: {
-        type: [String],
+        type: [[String]],
         default: []
     },
     lecture_time: {
         type: [DaySchedule],
-        default: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]
+        default: []
     },
     tutorial_time: {
         type: [DaySchedule],
-        default: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]
+        default: []
     },
     practical_time: {
         type: [DaySchedule],
-        default: [undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]
+        default: []
     },
     stars: {
         type: Number,
