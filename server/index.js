@@ -1,15 +1,16 @@
-const express = require("express");
+const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require("cookie-parser")
+const cookieParser = require('cookie-parser')
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
 
-const DBConnection = require('./dao/database.js');
+const DBConnection = require('./dao/database');
 
-const notesRouter = require('./routers/notesRouter.js');
-const credRouter = require('./routers/credRouter.js');
-const courseRouter = require('./routers/courseRouter.js');
+const notesRouter = require('./routers/notesRouter');
+const credRouter = require('./routers/credRouter');
+const courseRouter = require('./routers/courseRouter');
+const coursePlannerRouter = require('./routers/coursePlannerRouter')
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get("/hello", (req, res) => {
 app.use('/notes', notesRouter);
 app.use('/', credRouter);
 app.use('/course', courseRouter);
+app.use('/coursePlanner', coursePlannerRouter);
 
 DBConnection.dial();
 
