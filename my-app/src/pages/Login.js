@@ -48,6 +48,7 @@ const Login = function () {
                 console.log(res);
                 if (res.status === 200) {
                     console.log("Success")
+                    this.props.history.post('/signup')
                 }
                 else {
                     console.log("authentication failed");
