@@ -6,6 +6,7 @@ function registerUser(req, res) { // validating the username not done yet (usern
            rollNo = req.body.rollNo,
            name = req.body.name,
            password = req.body.password;
+           department = req.body.department;
     /*
     bcrypt.hash(password, 10, (err, hash) => {
         if(!err) hashPassword = hash;
@@ -15,7 +16,7 @@ function registerUser(req, res) { // validating the username not done yet (usern
 
     const hashPassword = bcrypt.hashSync(password, 10);
 
-    addUser(username, rollNo, name, hashPassword)
+    addUser(username, rollNo, name, hashPassword, department)
     .then( result => {
         res.status(result.status).json({ message: result.message });
     })

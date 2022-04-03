@@ -15,14 +15,14 @@ function findUser(username) {
 }
 
 
-function addUser(username, rollNo, name, hashPassword) {
+function addUser(username, rollNo, name, hashPassword, department) {
     return new Promise( (resolve, reject) => {
         const user = new User({
             username: username,
             rollNo: rollNo,
             name: name,
             password: hashPassword,
-            department: "Dharma"
+            department: department
         });
 
         findUser(username)
