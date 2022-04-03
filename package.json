@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --detectOpenHandles",
     "start": "node server/index.js",
     "dev": "nodemon server/index.js"
   },
@@ -31,10 +31,12 @@
     "jsonwebtoken": "^8.5.1",
     "mongo": "^0.1.0",
     "mongoose": "^6.2.4",
-    "nodemon": "^2.0.15",
-    "react-draft-wysiwyg": "^1.14.7"
+    "react-draft-wysiwyg": "^1.14.7",
+    "safe-buffer": "^5.2.1"
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2"
   }
 }

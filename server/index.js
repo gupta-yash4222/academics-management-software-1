@@ -29,8 +29,10 @@ app.use('/notes', notesRouter);
 app.use('/', credRouter);
 app.use('/course', courseRouter);
 
-DBConnection.dial();
+if(process.env.STATUS == "production") DBConnection.dial();
 
 app.listen(PORT, () => {
     console.log(`server is listing on port ${PORT}`);
 });
+
+module.exports = app;
