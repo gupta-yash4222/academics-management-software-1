@@ -7,17 +7,11 @@ const PORT = process.env.PORT || 3001;
 
 const DBConnection = require('./dao/database');
 
-<<<<<<< HEAD
 const notesRouter = require('./routers/notesRouter.js');
 const credRouter = require('./routers/credRouter.js');
 const courseRouter = require('./routers/courseRouter.js');
+const coursePlannerRouter = require('./routers/coursePlannerRouter.js')
 const { authorization } = require("./api/login.js");
-=======
-const notesRouter = require('./routers/notesRouter');
-const credRouter = require('./routers/credRouter');
-const courseRouter = require('./routers/courseRouter');
-const coursePlannerRouter = require('./routers/coursePlannerRouter')
->>>>>>> 3c690f239bec2c33ffbc6a201134ba29276ac3f9
 
 const app = express();
 
@@ -39,8 +33,9 @@ app.use('/coursePlanner', coursePlannerRouter);
 
 if(process.env.STATUS == "production") DBConnection.dial();
 
-app.listen(PORT, () => {
+
+const serverInstance = app.listen(PORT, () => {
     console.log(`server is listing on port ${PORT}`);
 });
 
-module.exports = app;
+module.exports = { app, serverInstance };

@@ -14,13 +14,8 @@ function findUser(username) {
 }
 
 
-<<<<<<< HEAD
 function addUser(username, rollNo, name, hashPassword, department) {
     return new Promise( (resolve, reject) => {
-=======
-function addUser(username, rollNo, name, hashPassword) {
-    return new Promise((resolve, reject) => {
->>>>>>> 3c690f239bec2c33ffbc6a201134ba29276ac3f9
         const user = new User({
             username: username,
             rollNo: rollNo,
