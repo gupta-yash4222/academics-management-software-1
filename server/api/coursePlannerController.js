@@ -112,7 +112,7 @@ async function apiGetCourse(req, res) {
 		.then(result => {
 			return res.status(result.status).json({
 				message: result.message,
-				semester: result.semester,
+				course: result.course,
 			});
 		})
 		.catch(error => {
