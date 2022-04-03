@@ -62,6 +62,7 @@ async function deleteCourse(courseID, semNumber, username) {
     });
 }
 
+// add a new sem after semNumber
 async function addSemester(semNumber, username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
