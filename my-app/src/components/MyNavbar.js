@@ -18,8 +18,8 @@ const MyNavbar = () => {
         else {
           console.log("error1: oops!! there was some ERROR");
         }
-      }).catch(function (res) {
-        console.log(res);
+      }).catch(function (err) {
+        console.log(err);
         console.log("oops!! API request failed");
       });
     console.log("logged out")
