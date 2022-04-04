@@ -61,7 +61,7 @@ const Signup = function () {
     return (
         <form className='notes-form' onSubmit={handleSubmit}>
             <div>
-                <h1>SignUp</h1>
+                <h1 style={{color:"black"}}>SignUp</h1>
             </div>
             <div>
                 <input

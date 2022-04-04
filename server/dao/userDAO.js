@@ -14,7 +14,6 @@ function findUser(username) {
     });
 }
 
-
 function addUser(username, rollNo, name, hashPassword) {
     return new Promise( (resolve, reject) => {
         const user = new User({

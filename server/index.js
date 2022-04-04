@@ -10,6 +10,7 @@ const DBConnection = require('./dao/database.js');
 const notesRouter = require('./routers/notesRouter.js');
 const credRouter = require('./routers/credRouter.js');
 const courseRouter = require('./routers/courseRouter.js');
+const calenderRouter = require('./routers/calenderRouter.js');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.get("/hello", (req, res) => {
 app.use('/notes', notesRouter);
 app.use('/', credRouter);
 app.use('/course', courseRouter);
+app.use('/calender', calenderRouter);
 
 DBConnection.dial();
 
