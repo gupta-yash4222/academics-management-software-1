@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -14,9 +14,19 @@ import BrowseReview from './components/BrowseReview';
 import Container from 'react-bootstrap/Container';
 import ReviewDetail from './components/ReviewDetail';
 import EventCalendar from './components/EventCalendar'
-import TimeCalendar from './components/TimeCalendar'
 
 function App() {
+
+  const [token, setToken] = useState();
+
+  if (!token) {
+    return (
+      <><MyNavbar></MyNavbar>
+        <Login setToken={setToken} />
+      </>
+    )
+  }
+
   return (
     <div className="App">
       <Container fluid>
@@ -30,8 +40,7 @@ function App() {
             <Route path='/login' element={<Login />} />
             <Route path='/feedback/create' element={<FeedbackForm />} />
             <Route path='/feedback/browse' element={<BrowseReview />} />
-            <Route path='/feedback/browse/detailedReview'  exact element={<ReviewDetail />} />
-            <Route path='/calendar/timetable' element={<TimeCalendar />} />
+            <Route path='/feedback/browse/detailedReview' exact element={<ReviewDetail />} />
             <Route path='/calendar/events' element={<EventCalendar />} />
           </Routes>
         </Router>
