@@ -47,11 +47,17 @@ const Signup = function () {
         axios.post(baseUrl + 'signup', inputs)
             .then(function (res) {
                 console.log(res);
-                if (res.status < 400) {
+                if (res.status === 200) {
                     console.log("Success")
+                    alert("User registered successfully!")
+                    this.props.history.push('/login')
+                }
+                else if (res.status === 208) {
+                    alert("User already exists")
                 }
                 else {
                     console.log("error1");
+                    alert("Invalid user credentials")
                 }
             }).catch(function (error) {
                 console.log(error);
