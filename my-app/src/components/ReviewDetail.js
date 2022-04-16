@@ -20,7 +20,7 @@ const ReviewDetail = () => {
             <Card style={{ color: "black", textAlign: "left", paddingLeft: "3%", paddingRight: "2%" }}>
 
                 <div style={{ paddingTop: "2%" }}>
-                    <h4 style={{ display: "inline" }}>Title of course</h4>
+                    <h4 style={{ display: "inline" }}>cs253a</h4>
                     {/* <Stack gap={2} style={{ float: 'right'}}>
                     <img src="https://i.pravatar.cc/300" style={{ borderRadius: "50%", float: 'right', width: "25%", height: "25%" }} />
                         <span style={{ float: 'right', position: "" }}>{username}</span>
