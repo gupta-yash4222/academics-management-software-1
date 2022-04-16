@@ -19,6 +19,7 @@ function App() {
 
   const [token, setToken] = useState();
 
+  /*
   if (!token) {
     return (
       <><MyNavbar></MyNavbar>
@@ -26,6 +27,7 @@ function App() {
       </>
     )
   }
+  */
 
   return (
     <div className="App">

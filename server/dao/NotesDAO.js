@@ -56,13 +56,13 @@ function deleteNote(noteID){
   });
 }
 
-/*
+
 
 function fetchNotesByCourseID(currRollNo, currCourseID){
   return new Promise((resolve, reject) => {
     Note.find({
       courseID: currCourseID,
-      rollNo:currRollNo
+      rollNo: currRollNo
     }, 
     function(err, note){
       if(err){
@@ -87,6 +87,9 @@ function fetchNotesByCourseID(currRollNo, currCourseID){
   });
 
 }
+
+
+/*
 
 function fetchNotes(noteID){
   return new Promise((resolve, reject) => {
