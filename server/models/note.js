@@ -6,11 +6,14 @@ var NotesSchema = new mongoose.Schema({
         type : Date,
         default : Date.now
     },
-    rollNo: Number,
+    username: String,
     title: String,
     courseID: String,
     content: String,
-    tags: [String]
+    tags: {
+        type: [String],
+        default: []
+    }
 },
 {
     toJSON: { virtuals: true } 
