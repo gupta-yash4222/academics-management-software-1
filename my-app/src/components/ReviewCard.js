@@ -36,11 +36,11 @@ const ReviewCard = (props) => {
                 <Card.Body >
                     <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{props.reviewID}</Card.Title>
                     <h5>
-                        <Badge bg="secondary" style={{ position: "absolute", top: "10px", right: "10px" }}> rating: {props.likes}</Badge>
+                        <Badge bg="secondary" style={{ position: "absolute", top: "10px", right: "10px" }}> likes: {props.likes}</Badge>
                     </h5>
                     <br></br>
-                    <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem" }}>
-                        <h6 style={{ position: "absolute", left: "20px" }}>course content:</h6>
+                    <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem",  color:"black" }}>
+                        <h6 style={{ position: "absolute", left: "20px" }}>review content:</h6>
                         <br></br>
                         {
                             props.content
@@ -48,7 +48,7 @@ const ReviewCard = (props) => {
                     </Card.Text>
 
                     <OverlayTrigger trigger="click" placement="right" overlay={popover} delay={{ show: 250, hide: 400 }}>
-                        <Button variant="success" style={{ position: "absolute", bottom: "10px", right: "10px" }} onClick={addCourseToFav}>Add to favourite</Button>
+                        <Button variant="success" style={{ position: "absolute", bottom: "10px", right: "10px" }} onClick={addCourseToFav}>View Details</Button>
                     </OverlayTrigger>
 
                 </Card.Body>

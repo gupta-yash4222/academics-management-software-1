@@ -26,12 +26,12 @@ async function loginUser(req, res) {  // JWT token yet to be done
 
             if (!isValid) return res.status(403).json({ message: "Incorrect password" });
 
-            const token = jwt.sign({ username: username }, process.env.JWT_SECRET_KEY, { expiresIn: process.env.JWT_EXPIRE_TIME });
+            const token = jwt.sign({ username: username }, "cs253ams", { expiresIn: "15m" });
       
             return res
-                .cookie("token", token, {
-                    httpOnly: true
-                })
+                // .cookie("token", token, {
+                //     httpOnly: true
+                // })
                 .status(200)
                 .json({ message: "Logged in successfully", token: token });
 
@@ -56,7 +56,7 @@ const authorization = async (req, res, next) => {
     if (!token) return res.status(401).json({ message: "Access denied. Token is required for authentication" });
 
     try {
-        const data = await jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const data = await jwt.verify(token, "cs253ams");
         req.username = data.username;
         req.rollNo = data.rollNo;
         return next();

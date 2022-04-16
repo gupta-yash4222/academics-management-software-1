@@ -125,7 +125,7 @@ const FeedbackForm = function () {
     return (
         <div>
 
-            <form className="notes-form" >
+            <form className="notes-form" style={{color : "black"}}>
                 <div>
                     <h1>Add Review</h1>
                 </div>  

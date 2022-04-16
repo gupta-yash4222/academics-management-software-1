@@ -14,50 +14,38 @@ import BrowseReview from './components/BrowseReview';
 import Container from 'react-bootstrap/Container';
 import ReviewDetail from './components/ReviewDetail';
 import EventCalendar from './components/EventCalendar'
+import Profile from './pages/Profile';
+import Footer from './pages/Footer';
+import useToken from './components/userToken';
+import HomePrivate from './pages/HomePrivate';
 
 function App() {
 
-  const [token, setToken] = useState();
-
-  /*
-  if (!token) {
-    return (
-      <><MyNavbar></MyNavbar>
-        <Login setToken={setToken} />
-      </>
-    )
-  }
-  */
+  const { token, setToken } = useToken();
 
   return (
     <div className="App">
       <Container fluid>
         <Router>
-          <MyNavbar></MyNavbar>
+          <MyNavbar setToken={setToken}></MyNavbar>
           <Routes>
-            <Route path='/' exact element={<Home />} />
+            <Route path='/' exact element={!token ? <Home setToken={setToken}/> : <HomePrivate />} />
             <Route path='/notes/create' element={<AddNotes />} />
             <Route path='/notes/browse' element={<BrowseNotes />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<Login setToken={setToken}/>} />
+            <Route path='/profile' element={<Profile />} />
             <Route path='/feedback/create' element={<FeedbackForm />} />
             <Route path='/feedback/browse' element={<BrowseReview />} />
             <Route path='/feedback/browse/detailedReview' exact element={<ReviewDetail />} />
             <Route path='/calendar/events' element={<EventCalendar />} />
+            <Route path='random' element={<ReviewDetail />} />
+            
           </Routes>
+          {/* <Footer></Footer> */}
         </Router>
+
       </Container>
-      {/* <Router>
-        <MyNavbar></MyNavbar>
-        <Routes>
-          <Route path='/' exact element={<Home />} />
-          <Route path='/notes/create' element={<AddNotes />} />
-          <Route path='/notes/browse' element={<BrowseNotes />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/feedback' element={<FeedbackForm />} />
-        </Routes>
-      </Router> */}
     </div>
   );
 }
