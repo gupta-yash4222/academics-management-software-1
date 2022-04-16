@@ -76,7 +76,7 @@ const Login = function ({ setToken }) {
     return (
         <form className="notes-form" onSubmit={handleSubmit}>
             <div>
-                <h1 style={{ color: "black" }}>Login</h1>
+                <h1>login</h1>
             </div>
             <div>
                 <input
