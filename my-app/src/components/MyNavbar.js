@@ -6,23 +6,28 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from 'react-bootstrap/Image';
+import Cookies from 'js-cookie';
 
 
-const MyNavbar = () => {
+const MyNavbar = ({ setToken }) => {
   function handleLogOut() {
-    axios.delete(`http://localhost:3000/logout`)
-      .then(function (res) {
-        if (res.status === 200) {
-          console.log("logged out successfully");
-        }
-        else {
-          console.log("error1: oops!! there was some ERROR");
-        }
-      }).catch(function (err) {
-        console.log(err);
-        console.log("oops!! API request failed");
-      });
-    console.log("logged out")
+    // Cookies.remove('token', { path: '' })
+    setToken();
+    localStorage.clear();
+    // setToken(null);
+    // axios.delete(`http://localhost:3000/logout`)
+    //   .then(function (res) {
+    //     if (res.status === 200) {
+    //       console.log("logged out successfully");
+    //     }
+    //     else {
+    //       console.log("error1: oops!! there was some ERROR");
+    //     }
+    //   }).catch(function (err) {
+    //     console.log(err);
+    //     console.log("oops!! API request failed");
+    //   });
+    // console.log("logged out")
   }
   return (
     <div>
