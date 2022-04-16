@@ -44,7 +44,12 @@ async function getCourseDetails (courseID) {
                     var course_details = {
                         name: course.name,
                         courseID: course.courseID,
+                        credits: course.credits,
                         description: course.description,
+                        prerequisites: course.prerequisites,
+                        lecture_time: course.lecture_time,
+                        tutorial_time: course.tutorial_time,
+                        practical_time: course.practical_time,
                         stars: course.stars,
                         ratings: course.rating,
                         reviews: reviewsList
@@ -88,7 +93,6 @@ async function addReview (courseID, review, rating, username) {
     return new Promise( (resolve, reject) => {
 
         const tempReviewID = courseID.concat("-", username);
-        console.log(tempReviewID);
         Review.findOne({reviewID: tempReviewID}, (err, reviewFoundDoc) => {
             if(!reviewFoundDoc){
                 const reviewDoc = new Review({
@@ -110,7 +114,6 @@ async function addReview (courseID, review, rating, username) {
             } 
 
             else{
-                console.log("Hello");
                 reviewFoundDoc.review = review;
                 reviewFoundDoc.save()
                 .then( () => {
