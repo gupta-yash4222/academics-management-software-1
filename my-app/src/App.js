@@ -14,18 +14,27 @@ import BrowseReview from './components/BrowseReview';
 import Container from 'react-bootstrap/Container';
 import ReviewDetail from './components/ReviewDetail';
 import EventCalendar from './components/EventCalendar'
+import Profile from './pages/Profile';
+import Footer from './pages/Footer';
 
 function App() {
 
   const [token, setToken] = useState();
 
-  if (!token) {
-    return (
-      <><MyNavbar></MyNavbar>
-        <Login setToken={setToken} />
-      </>
-    )
-  }
+  // if (!token) {
+  //   return (
+  //     <div className="App">
+  //       <MyNavbar></MyNavbar>
+  //       <Login setToken={setToken}></Login>
+  //       <Container fluid>
+  //         <Router>
+  //           <Route path='/signup' element={<Signup />} />
+  //         </Router>
+
+  //       </Container>
+  //     </div>
+  //   )
+  // }
 
   return (
     <div className="App">
@@ -38,24 +47,18 @@ function App() {
             <Route path='/notes/browse' element={<BrowseNotes />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/profile' element={<Profile />} />
             <Route path='/feedback/create' element={<FeedbackForm />} />
             <Route path='/feedback/browse' element={<BrowseReview />} />
             <Route path='/feedback/browse/detailedReview' exact element={<ReviewDetail />} />
             <Route path='/calendar/events' element={<EventCalendar />} />
+            <Route path='random' element={<ReviewDetail />} />
+            
           </Routes>
+          {/* <Footer></Footer> */}
         </Router>
+
       </Container>
-      {/* <Router>
-        <MyNavbar></MyNavbar>
-        <Routes>
-          <Route path='/' exact element={<Home />} />
-          <Route path='/notes/create' element={<AddNotes />} />
-          <Route path='/notes/browse' element={<BrowseNotes />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/feedback' element={<FeedbackForm />} />
-        </Routes>
-      </Router> */}
     </div>
   );
 }

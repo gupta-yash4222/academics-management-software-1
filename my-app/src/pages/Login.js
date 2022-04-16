@@ -13,7 +13,7 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-const Login = function () {
+const Login = function ({ setToken }) {
     const formStyle = {
         borderRadius: "5px",
         backgroundColor: "#f2f2f2",
@@ -58,7 +58,8 @@ const Login = function () {
             .then(function (res) {
                 console.log(res);
                 if (res.status === 200) {
-                    console.log("Success")
+                    console.log(res.token);
+                    // setToken(res.token);
                 }
                 else {
                     console.log("authentication failed");
