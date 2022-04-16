@@ -4,6 +4,9 @@ import Image from 'react-bootstrap/Image';
 import Stack from 'react-bootstrap/Stack';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
+import LikeButton from './LikeButton';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 const ReviewDetail = () => {
     const tags = ["tag1", "tag21", "tag24"];
@@ -22,11 +25,11 @@ const ReviewDetail = () => {
                     <img src="https://i.pravatar.cc/300" style={{ borderRadius: "50%", float: 'right', width: "25%", height: "25%" }} />
                         <span style={{ float: 'right', position: "" }}>{username}</span>
                     </Stack> */}
-                  
-                  <span >
-                  <img src="https://i.pravatar.cc/300" style={{ borderRadius: "50%", float: 'right', width: "5%", height: "5%" }} />
-                  <p style={{ display:"block", float: 'right', position: "" }}>{username}</p>
-                  </span>
+
+                    <span >
+                        <img src="https://i.pravatar.cc/300" style={{ borderRadius: "50%", float: 'right', width: "5%", height: "5%" }} />
+                        <p style={{ display: "block", float: 'right', position: "" }}>{username}</p>
+                    </span>
 
 
                 </div>
@@ -62,13 +65,35 @@ const ReviewDetail = () => {
                             );
                         })}
                     </span>
+
                     {' '}
                     <Badge bg="success" width="40px" height="22px" verticalAlign="super">{rating}</Badge>
                     <p style={{ textAlign: "center", opacity: "0.5" }}>
                         posted on: {new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() + ' ' + new Date().getHours() + ':' + new Date().getMinutes()}
                     </p>
+
+
                 </div>
+
             </Card>
+            <br />
+
+            {/* <Row>
+                <Col xs={7}>
+                    <Form.Control placeholder="City" />
+                </Col>
+
+            </Row> */}
+            <Form>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label><strong>Add comment:</strong></Form.Label>
+                    <Form.Control as="textarea" rows={3} />
+                </Form.Group>
+                <br />
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
         </div >
     );
 };

@@ -1,11 +1,11 @@
 const Note = require('../models/note.js');
 
-function insertNote(rollNo, title, courseID, content, tags){
+function insertNote(username, title, courseID, content, tags){
   return new Promise((resolve, reject) => {
     var note = new Note({
-      rollNo: rollNo,
+      username: username,
       title: title,
-      courseId: courseID,
+      courseID: courseID,
       content: content,
       tags: tags
     });
@@ -17,6 +17,7 @@ function insertNote(rollNo, title, courseID, content, tags){
         });
       }
       else{
+        console.log(note._id);
         resolve({
           status: 201,
           response: "Note successfully inserted"
@@ -25,6 +26,7 @@ function insertNote(rollNo, title, courseID, content, tags){
     });
   });
 }
+
 
 function deleteNote(noteID){
   return new Promise((resolve, reject) => {
@@ -54,6 +56,8 @@ function deleteNote(noteID){
   });
 }
 
+/*
+
 function fetchNotesByCourseID(currRollNo, currCourseID){
   return new Promise((resolve, reject) => {
     Note.find({
@@ -81,6 +85,7 @@ function fetchNotesByCourseID(currRollNo, currCourseID){
       }
     });
   });
+
 }
 
 function fetchNotes(noteID){
@@ -111,7 +116,9 @@ function fetchNotes(noteID){
   });
 }
 
-function updateNote(noteID, rollNo, title, content, tags) {
+*/
+
+function updateNote(noteID, username, title, content, tags) {
   return new Promise((resolve, reject) => {
     Note.findOne({
       _id: noteID
@@ -131,7 +138,7 @@ function updateNote(noteID, rollNo, title, content, tags) {
           });
           return;
         }
-        else if (note.rollNo != rollNo) {
+        else if (note.username != username) {
           reject({
             status: 403,
             response: "Operation not allowed"
@@ -173,4 +180,8 @@ function updateNote(noteID, rollNo, title, content, tags) {
   });
 }
 
-module.exports = {insertNote, deleteNote, updateNote, fetchNotesByCourseID};
+
+
+//module.exports = {insertNote, deleteNote, updateNote, fetchNotesByCourseID};
+
+module.exports = {insertNote, deleteNote, updateNote};

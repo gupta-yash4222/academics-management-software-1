@@ -2,6 +2,17 @@ import { React, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+async function loginUser(credentials) {
+    return fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+        .then(data => data.json())
+}
+
 const Login = function () {
     const formStyle = {
         borderRadius: "5px",
@@ -48,6 +59,7 @@ const Login = function () {
                 console.log(res);
                 if (res.status === 200) {
                     console.log("Success")
+                    this.props.history.post('/signup')
                 }
                 else {
                     console.log("authentication failed");
@@ -58,7 +70,7 @@ const Login = function () {
     }
 
     return (
-        <form className = "notes-form" onSubmit={handleSubmit}>
+        <form className="notes-form" onSubmit={handleSubmit}>
             <div>
                 <h1>login</h1>
             </div>
@@ -83,10 +95,10 @@ const Login = function () {
                 />
             </div>
             <div>
-                
-            <Link to='/' >
-              <button style={buttonStyle}>Cancel</button>
-            </Link>
+
+                <Link to='/' >
+                    <button style={buttonStyle}>Cancel</button>
+                </Link>
                 <input type="submit" value="Submit" style={buttonStyle} />
             </div>
         </form>

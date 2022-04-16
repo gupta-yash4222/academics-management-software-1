@@ -211,11 +211,12 @@ async function addToFavourites (courseID, username) {
 
                 if(found) return reject({status: 409, message: "Courses already in the Favourites list"});
 
-                user.favoriteCourses.push(courseID); user.save();
                 Course.findOne({courseID: courseID}, (err, course) => {
                     if(err) reject({status: 500, message: "Internal server error"});
 
                     if(!course) reject({status: 400, message: "Invalid course id"});
+
+                    user.favoriteCourses.push(courseID); user.save();
 
                     course.stars = course.stars + 1; course.save();
                     resolve({status: 200, message: "Course added to favourites"});
