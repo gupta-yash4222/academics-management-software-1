@@ -3,7 +3,8 @@ require('dotenv').config();
 
 var client;
 async function main() {
-    const uri = process.env.ACADEMICS_DB_URI;
+    const uri = (process.env.ACADEMICS_DB_URI).toString;
+    
     client = new MongoClient(uri);
     try {
         await client.connect();

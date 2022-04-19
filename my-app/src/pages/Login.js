@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 async function loginUser(credentials) {
@@ -13,7 +13,10 @@ async function loginUser(credentials) {
         .then(data => data.json())
 }
 
-const Login = function () {
+const Login = function ({ setToken }) {
+
+    const navigate = useNavigate();
+    
     const formStyle = {
         borderRadius: "5px",
         backgroundColor: "#f2f2f2",
@@ -58,9 +61,9 @@ const Login = function () {
             .then(function (res) {
                 console.log(res);
                 if (res.status === 200) {
-                    console.log("Success");
-										alert("Logged in!");
-                    // this.props.history.post('/signup')
+                    // console.log(res.data.token);
+                    setToken(res.data.token);
+                    navigate('/');
                 }
                 else {
                     console.log("authentication failed");
@@ -73,7 +76,7 @@ const Login = function () {
     return (
         <form className="notes-form" onSubmit={handleSubmit}>
             <div>
-                <h1 style={{ color: "black" }}>Login</h1>
+                <h1>login</h1>
             </div>
             <div>
                 <input

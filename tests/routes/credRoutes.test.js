@@ -25,15 +25,16 @@ describe('Endpoints for signup/login/logout', () => {
                 department: "test",
                 password: "1234"
             });
-        expect(res.statusCode).toEqual(200);
+        expect(res.statusCode).toEqual(208);
         expect(res.body).toHaveProperty('message');
-        expect(res.body.message).toEqual('User successfully registered');
+        expect(res.body.message).toEqual('User already exists');
     });
 
     it('should find the created user in the DB', async () => {
-        return User.findOne({username: "test"}, (user) => {
+        function callback(data) {
             expect(data).toBeDefined();
-        });
+        }
+        User.findOne({username: "test"}, callback);
     });
 
     it('should create a session for the user', async () => {
@@ -48,5 +49,12 @@ describe('Endpoints for signup/login/logout', () => {
         expect(res.body).toHaveProperty('token');
         expect(res.body.message).toEqual('Logged in successfully');
     });
+
+    it('should return valid statement from GET /hello', async () => {
+        const res = await request(app)
+            .get('/hello');
+
+        expect(res.body).toEqual('Hello test');
+    })
 
 });

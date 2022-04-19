@@ -14,59 +14,41 @@ import BrowseNotes from './components/BrowseNotes';
 import BrowseReview from './components/BrowseReview';
 import Container from 'react-bootstrap/Container';
 import ReviewDetail from './components/ReviewDetail';
-import EventCalendar from './components/EventCalendar';
-
-function tokenExists() {
-	const token_str = sessionStorage.getItem('token');
-	const token = JSON.parse(token_str);
-	return token ? true: false;
-} 
+import EventCalendar from './components/EventCalendar'
+import Profile from './pages/Profile';
+import Footer from './pages/Footer';
+import useToken from './components/userToken';
+import HomePrivate from './pages/HomePrivate';
 
 function App() {
 	const logged = tokenExists();
 
-	// if (!logged) {
-  //   return (
-	// 		<Router>
-	// 			<MyNavbar logged={false}></MyNavbar>
-	// 			<Routes>
-	// 				<Route path='/login' element={<Login />} />
-	// 				<Route path='/signup' element={<Signup />} />
-	// 			</Routes>
-	// 		</Router>
-	// 	)
-  // }
-  console.log(sessionStorage.getItem("profileId"));
+  const { token, setToken } = useToken();
+
   return (
     <div className="App">
       <Container fluid>
         <Router>
-          <MyNavbar logged={true}></MyNavbar>
+          <MyNavbar setToken={setToken}></MyNavbar>
           <Routes>
-            <Route path='/' exact element={<Home />} />
+            <Route path='/' exact element={!token ? <Home setToken={setToken}/> : <HomePrivate />} />
             <Route path='/notes/create' element={<AddNotes />} />
             <Route path='/notes/browse' element={<BrowseNotes />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/login' element={<Login />} />
+            <Route path='/login' element={<Login setToken={setToken}/>} />
+            <Route path='/profile' element={<Profile />} />
             <Route path='/feedback/create' element={<FeedbackForm />} />
             <Route path='/feedback/browse' element={<BrowseReview />} />
             <Route path='/feedback/browse/detailedReview' exact element={<ReviewDetail />} />
             <Route path='/calendar/events' element={<EventCalendar />} />
 						<Route path='/planner' element={<CoursePlannerPage />} />
+            <Route path='random' element={<ReviewDetail />} />
+            
           </Routes>
+          {/* <Footer></Footer> */}
         </Router>
+
       </Container>
-      {/* <Router>
-        <MyNavbar></MyNavbar>
-        <Routes>
-          <Route path='/' exact element={<Home />} />
-          <Route path='/notes/create' element={<AddNotes />} />
-          <Route path='/notes/browse' element={<BrowseNotes />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/feedback' element={<FeedbackForm />} />
-        </Routes>
-      </Router> */}
     </div>
   );
 }
