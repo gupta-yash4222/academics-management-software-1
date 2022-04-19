@@ -34,7 +34,7 @@ const Login = function ({ setToken }) {
     }
 
     const buttonStyle = {
-        width: "10%",
+        width: "17%",
         backgroundColor: "#474948",
         color: "white",
         padding: "10px 10px",
@@ -47,6 +47,13 @@ const Login = function ({ setToken }) {
 
     const [inputs, setInputs] = useState({});
     const baseUrl = 'http://localhost:3000/';
+
+    const config = {
+        header: {
+            "Content-Type": "application/json",
+            "Clear-Site-Data": "*"
+        }
+    }
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -62,21 +69,23 @@ const Login = function ({ setToken }) {
                 console.log(res);
                 if (res.status === 200) {
                     // console.log(res.data.token);
-                    setToken(res.data.token);
+                    //setToken(res.data.token);
                     navigate('/');
                 }
                 else {
                     console.log("authentication failed");
                 }
             }).catch(function (error) {
-                console.log(error);
+                const response = error.response
+                alert(response.data.message)
+                navigate('/')
             });
     }
 
     return (
         <form className="notes-form" onSubmit={handleSubmit}>
             <div>
-                <h1>login</h1>
+                <h1 style={{color:"black"}}>Login</h1>
             </div>
             <div>
                 <input
