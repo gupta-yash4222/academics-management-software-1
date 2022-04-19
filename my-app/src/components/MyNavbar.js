@@ -8,7 +8,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Image from 'react-bootstrap/Image';
 
 
-const MyNavbar = () => {
+const MyNavbar = (props) => {
+	const { logged } = props;
+	console.log(logged);
+
   function handleLogOut() {
     axios.delete(`http://localhost:3000/logout`)
       .then(function (res) {
@@ -34,6 +37,7 @@ const MyNavbar = () => {
             {/* <Nav.Link as={Link} to="/notes">Notes</Nav.Link> */}
             <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
             <Nav.Link as={Link} to="/login">login</Nav.Link>
+						<Nav.Link as={Link} to="/planner">Planner</Nav.Link>
             <Nav.Link as={Link} to="/feedback/browse/detailedReview">detailedReview</Nav.Link>
 
             <NavDropdown title="Feedback" id="collasible-nav-dropdown">
