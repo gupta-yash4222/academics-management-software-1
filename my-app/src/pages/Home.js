@@ -45,6 +45,9 @@ const popover3 = (
             <ListGroup.Item action href="#link2">
                 Browse Feedback
             </ListGroup.Item>
+            <ListGroup.Item action href="#link3">
+                Browse Courses
+            </ListGroup.Item>
         </ListGroup>
     </Popover >
 );

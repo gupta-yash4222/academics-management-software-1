@@ -32,7 +32,7 @@ app.get("/hello", authorization, (req, res) => {
 app.use('/notes', notesRouter);
 app.use('/', credRouter);
 app.use('/course', courseRouter);
-app.use('/calender', calenderRouter);
+app.use('/calendar', calenderRouter);
 app.use('/coursePlanner', coursePlannerRouter);
 
 if(process.env.STATUS == "production") DBConnection.dial();
