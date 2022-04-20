@@ -32,7 +32,7 @@ const NoteSearchFrom = () => {
 
         console.log(event)
 
-        axios.get(`/notes`)
+        axios.get('/notes')
             .then((response) => {
                 setNoteList(() => {
                     return response.data;
