@@ -35,7 +35,7 @@ const NoteSearchFrom = () => {
         axios.get('/notes')
             .then((response) => {
                 setNoteList(() => {
-                    return response.data;
+                    return response.data.notes;
                 });
             })
             .catch((error) => {
