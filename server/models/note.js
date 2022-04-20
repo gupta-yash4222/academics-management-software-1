@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 
-var NotesSchema = new mongoose.Schema({
+let NoteSchema = new mongoose.Schema({
     timestamp : {
         type : Date,
         default : Date.now
@@ -19,6 +19,6 @@ var NotesSchema = new mongoose.Schema({
     toJSON: { virtuals: true } 
 });
 
-var Note = mongoose.model('Note', NotesSchema);
+let Note = mongoose.model('Note', NoteSchema);
 
 module.exports = Note;

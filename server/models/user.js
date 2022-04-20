@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const { CoursePlanSchema } = require('./coursePlanner')
+const { CoursePlanSchema } = require('./coursePlanner');
+const { NoteSchema } = require('./note');
 
-var UserSchema = new mongoose.Schema(
+let UserSchema = new mongoose.Schema(
     {
         username: String,
         rollNo: Number,
@@ -20,14 +21,17 @@ var UserSchema = new mongoose.Schema(
             type: [String],
             default: []
         },
-        // will coursePlan be instantiated automatically?
-        coursePlan: CoursePlanSchema
         // todo: option to have multiple plans
+        coursePlan: CoursePlanSchema,
+        notes: {
+            type: [NoteSchema],
+            default: []
+        },
     },
     {
         toJSON: { virtuals: true }
     }
 );
 
-var User = mongoose.model('User', UserSchema);
+let User = mongoose.model('User', UserSchema);
 module.exports = User;

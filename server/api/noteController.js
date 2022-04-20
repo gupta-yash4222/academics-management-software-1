@@ -1,12 +1,16 @@
 const { getNotes, insertNote, deleteNote, updateNote, fetchNotesByCourseID } = require('../dao/NotesDAO.js');
 
 function apiGetNotes(req, res) {
-    getNotes()
+    const username = req.username;
+    getNotes(username)
         .then(result => {
-            res.status(result.status).json(result.notes);
+            res.status(result.status).json({
+                message: result.message,
+                notes: result.notes,
+            });
         })
         .catch(error => {
-            res.status(error.status).json(error.response);
+            res.status(error.status).json(error.message);
         });
 }
 
