@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser')
+const http = require('http');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
+
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
@@ -16,6 +18,7 @@ const coursePlannerRouter = require('./routers/coursePlannerRouter.js')
 const { authorization } = require("./api/login.js");
 
 const app = express();
+const httpServer = http.createServer({maxHeaderSize: 16384}, app);
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -33,13 +36,13 @@ app.get("/hello", authorization, (req, res) => {
 app.use('/notes', notesRouter);
 app.use('/', credRouter);
 app.use('/course', courseRouter);
-app.use('/calender', calenderRouter);
+app.use('/calendar', calenderRouter);
 app.use('/coursePlanner', coursePlannerRouter);
 
 if(process.env.STATUS == "production") DBConnection.dial();
 
 
-const serverInstance = app.listen(PORT, () => {
+const serverInstance = httpServer.listen(PORT, () => {
     console.log(`server is listing on port ${PORT}`);
 });
 

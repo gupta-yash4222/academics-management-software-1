@@ -17,6 +17,8 @@ const ReviewSchema = new mongoose.Schema({
     reviewID: String,
     author: String,    // username of the author
     review: String,
+    semester: Number,
+    year: String, 
     likes: {
         type: Number,
         default: 0
@@ -70,7 +72,7 @@ const CourseSchema = new mongoose.Schema({
     rating: {
         type: Number,
         min: 0,
-        max: 10,
+        max: 5,
         default: 0
     }
 },

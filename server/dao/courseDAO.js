@@ -73,7 +73,7 @@ async function updateCourseRating (courseID, rating, reviewID) {
 
             else if(!course) reject("Invalid course id");
 
-            course.rating = (( course.rating * course.reviews.length ) + rating ) / (course.reviews.length + 1);   // averaging the available ratings
+            //course.rating = (( course.rating * course.reviews.length ) + rating ) / (course.reviews.length + 1);   // averaging the available ratings
             course.reviews.push(reviewID);
 
             course.save()
@@ -89,7 +89,7 @@ async function updateCourseRating (courseID, rating, reviewID) {
     });
 }
 
-async function addReview (courseID, review, rating, username) {
+async function addReview (courseID, review, semester, year, rating, username) {
     return new Promise( (resolve, reject) => {
 
         const tempReviewID = courseID.concat("-", username);
@@ -98,7 +98,9 @@ async function addReview (courseID, review, rating, username) {
                 const reviewDoc = new Review({
                     reviewID: courseID.concat("-", username),
                     author: username,
-                    review: review
+                    review: review,
+                    semester: semester,
+                    year: year
                 }); 
                 
                 reviewDoc.save();
@@ -357,5 +359,15 @@ async function addCourse (courseID, courseName) {
     })
 }
 
+async function checkCourse (courseID) {
+    return new Promise( (resolve, reject) => {
+        Course.findOne({courseID: courseID}, (err, course) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if (!course) return reject({status: 403, message: "Invalid course id"});
+            else return resolve("Course found successfully")
+        });
+    });
+}
 
-module.exports = {addReview, getReviewDetails, getReviews, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails};
+
+module.exports = {addReview, getReviewDetails, getReviews, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, checkCourse, getCourseDetails};
