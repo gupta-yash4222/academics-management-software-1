@@ -1,6 +1,6 @@
-const { getNotes, addNote, deleteNote, updateNote, fetchNotesByCourseID } = require('../dao/NotesDAO.js');
+const { getNotes, searchNotes, addNote, deleteNote, updateNote, fetchNotesByCourseID } = require('../dao/NotesDAO.js');
 
-function apiGetNotes(req, res) {
+async function apiGetNotes(req, res) {
     const username = req.username;
     getNotes(username)
         .then(result => {
@@ -14,7 +14,22 @@ function apiGetNotes(req, res) {
         });
 }
 
-function apiAddNote(req, res) {
+async function apiSearchNotes(req, res) {
+    const username = req.username;
+    const { courseID } = req.params
+    searchNotes(username, courseID)
+        .then(result => {
+            res.status(result.status).json({
+                message: result.message,
+                notes: result.notes,
+            });
+        })
+        .catch(error => {
+            res.status(error.status).json(error.message);
+        });
+}
+
+async function apiAddNote(req, res) {
     const username = req.username,
         content = req.body.content,
         courseID = req.params['courseID'],
@@ -34,7 +49,7 @@ function apiAddNote(req, res) {
     }
 }
 
-function apiDeleteNote(req, res) {
+async function apiDeleteNote(req, res) {
     deleteNote(req.params.noteID)
         .then(result => {
             res.status(result.status).json(result.response);
@@ -44,7 +59,7 @@ function apiDeleteNote(req, res) {
         });
 }
 
-function apiUpdateNote(req, res) {
+async function apiUpdateNote(req, res) {
 
     const username = req.username,
         noteID = req.params.noteID,
@@ -65,7 +80,7 @@ function apiUpdateNote(req, res) {
     }
 }
 
-function apiFetchNotes(req, res) {
+async function apiFetchNotes(req, res) {
     var courseID = req.params.courseID,
         rollNo = req.body.rollNo;
     //    console.log(courseID);
@@ -86,4 +101,4 @@ function apiFetchNotes(req, res) {
     }
 }
 
-module.exports = { apiGetNotes, apiAddNote, apiDeleteNote, apiUpdateNote, apiFetchNotes };
+module.exports = { apiGetNotes, apiSearchNotes, apiAddNote, apiDeleteNote, apiUpdateNote, apiFetchNotes };

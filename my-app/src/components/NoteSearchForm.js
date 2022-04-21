@@ -6,7 +6,7 @@ import axios from 'axios';
 import NoteCard from './NoteCard';
 
 const NoteSearchFrom = () => {
-    const [tag, setTag] = useState('');
+    // const [tag, setTag] = useState('');
     const [courseID, setCourseID] = useState('');
     const [noteList, setNoteList] = useState(
         // [
@@ -21,18 +21,18 @@ const NoteSearchFrom = () => {
         // ]
     );
 
-    async function handleTagChange(event) {
-        await setTag((lastTag) => {
+    async function handleCourseIDChange(event) {
+        await setCourseID((lastCourseID) => {
             return event.target.value;
         });
     }
 
-    async function handleTagSubmit(event) {
+    async function handleCourseIDSubmit(event) {
         event.preventDefault();
 
         console.log(event)
 
-        axios.get('/notes')
+        axios.get(`/notes/${courseID}`)
             .then((response) => {
                 setNoteList(() => {
                     return response.data.notes;
@@ -46,9 +46,9 @@ const NoteSearchFrom = () => {
     return (
         <div>
             <br></br>
-            <Form onSubmit={handleTagSubmit}>
+            <Form onSubmit={handleCourseIDSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control size='lg' value={tag} placeholder="Seach for tags" onChange={handleTagChange} />
+                    <Form.Control size='lg' value={courseID} placeholder="Search for courses" onChange={handleCourseIDChange} />
                 </Form.Group>
                 <Button variant="primary" type="submit" >
                     Submit

@@ -32,7 +32,7 @@ const AddNotes = function () {
         // console.log(note);
     }
 
-    function handleCourseNameChange(event) {
+    function handleCourseIDChange(event) {
         setNote(previousState => {
             return { ...previousState, course: event.target.value }
         });
@@ -81,7 +81,7 @@ const AddNotes = function () {
         // console.log(note);
         // alert(note);
         
-        axios.post(`/notes/${note.courseName}/addNote`, { title: note.title, tags: note.tags, content: note.content, course: note.courseName }, { withCredentials: true })
+        axios.post(`/notes/${note.courseID}/addNote`, { title: note.title, tags: note.tags, content: note.content, course: note.courseID }, { withCredentials: true })
             .then((res) => {
                 if (res.status === 200) {
                     console.log("posted successfully");
@@ -104,7 +104,7 @@ const AddNotes = function () {
 
                 <div>
                     <label>select relevant course: </label>
-                    <select value={note.courseName} className="input-select" onChange={handleCourseNameChange}>
+                    <select value={note.courseID} className="input-select" onChange={handleCourseIDChange}>
                         {
                             options.map(currValue => {
                                 return <option value={currValue}>{currValue}</option>

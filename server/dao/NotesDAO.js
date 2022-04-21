@@ -30,6 +30,33 @@ async function getNotes(username) {
     });
 }
 
+async function searchNotes(username, courseID) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ username: username }, (err, user) => {
+            if (err) {
+                reject({
+                    status: 500,
+                    message: SERVER_ERROR_MSG
+                });
+            }
+            else if (!user) {
+                reject({
+                    status: 400,
+                    message: USER_NOT_FOUND_ERROR_MSG
+                });
+            }
+            else {
+                courseNotes = user.notes.filter(note => note.courseID.toLowerCase() == courseID.toLowerCase())
+                resolve({
+                    status: 200,
+                    message: 'Notes found',
+                    notes: courseNotes
+                });
+            }
+        });
+    });
+}
+
 async function addNote(username, title, courseID, content, tags) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
@@ -220,4 +247,4 @@ function updateNote(noteID, username, title, content, tags) {
     });
 }
 
-module.exports = { getNotes, addNote, deleteNote, updateNote };
+module.exports = { getNotes, searchNotes, addNote, deleteNote, updateNote };
