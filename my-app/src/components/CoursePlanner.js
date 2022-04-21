@@ -1,19 +1,123 @@
+import axios from 'axios';
+import { fetchSemData } from '../pages/CoursePlanner';
+import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Alert from 'react-bootstrap/Alert';
+import ListGroup from 'react-bootstrap/ListGroup';
+import { FaPlus, FaTrash } from 'react-icons/fa';
 
-export default function CoursePlannerComp({ data }) {
-	console.log(data);
-	const maxCourses = Math.max(data.map((sem) => sem.courses.length));
-	console.log(maxCourses);
+const api = axios.create({
+	baseURL: "http://localhost:3000/coursePlanner",
+});
+
+function DeleteButton({ onClick, color }) {
 	return (
-		<table>
-			<thead>
-				<tr>
-					{data.map((semester, index) => <th>Semester {index+1}</th>)}
-				</tr>
-			</thead>
-			<tbody>
+		<Button variant='outline-danger' className='rounded-circle' size='sm'>
+			<FaTrash size={12} onClick={onClick} color={color} />
+		</Button>
+	);
+}
 
-			</tbody>
-		</table>
+function PlusButton({ onClick }) {
+	return (
+		<Button className='pill-button' size='sm' onClick={onClick} variant='success'>
+			<b><FaPlus />Add Semester</b>
+		</Button>
+	);
+}
 
+export default function CoursePlannerComp({ semData, setSemData }) {
+
+	async function handleStuff(localURL, method) {
+		method(localURL).then(res => {
+			if(res.status === 200) {
+				// alert(res.data.message);
+				fetchSemData(setSemData);
+			}
+		}).catch(err => {
+			alert(err.message);
+			console.log(err);
+		});
+	}
+
+	async function handleAddSemAtEnd() {
+		handleStuff(`/semester`, api.post).catch(err => alert(err.message));
+	}
+
+	async function handleAddSem(semNum) {
+		handleStuff(`/semester/${semNum}`, api.post).catch(err => alert(err.message));
+	}
+
+	async function handleDeleteSem(semNum) {
+		handleStuff(`/semester/${semNum}`, api.delete).catch(err => alert(err.message));
+	}
+
+	async function handleDeleteCourse(semNum, courseID) {
+		handleStuff(`/semester/${semNum}/course/${courseID}`, api.delete)
+		.catch(err => alert(err.message));
+	}
+
+	function SemesterData({ semester, num }) {
+		return (
+			<div>
+				<h1><Badge pill bg='light' text='dark'>Courses</Badge></h1>
+				<ListGroup>
+					{semester.courses.map(course => 
+						<ListGroup.Item variant='success'
+						className='d-flex justify-content-between align-items-start'
+						>
+							<div className='ms-2 me-auto'>
+								<div className="fw-bold">{course.courseID}</div>
+								{course.name}
+							</div>
+							<DeleteButton onClick={() => handleDeleteCourse(num, course.courseID)} color='black' />
+						</ListGroup.Item>
+					)}
+				</ListGroup>
+			</div>
+		);
+	}
+
+	function BottomParts() {
+		return (
+			<p align="left">
+			</p>
+		);
+	}
+
+	if(semData.length === 0) return (
+		<div>
+			<Alert variant='light'>
+			<div align='left' style={{ marginBottom: '.5rem' }}> <PlusButton onClick={handleAddSemAtEnd} /> </div>
+				<h3>Nothing to show here :)</h3>
+			</Alert>
+			<BottomParts />
+		</div>
+	);
+
+	else return (
+		<div>
+			<Alert variant='light'>
+			<div align='left' style={{ marginBottom: '.5rem' }}> <PlusButton onClick={handleAddSemAtEnd} /> </div>
+			{' '}
+			<Tabs defaultActiveKey={`sem${semData.length}`} id='all_sems_tab' variant='pills'>
+				{semData.map((sem, idx) => {
+					return (
+						<Tab eventKey={`sem${idx+1}`} title={
+							<>
+								<b>{`Sem ${idx+1}`}</b>
+								<DeleteButton onClick={() => handleDeleteSem(idx+1)} color='white' />
+							</>
+						}>
+							<SemesterData semester={sem} num={idx+1} />
+						</Tab>
+					)
+				})}
+			</Tabs>
+			</Alert>
+			<BottomParts />
+		</div>
 	)
 }

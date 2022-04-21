@@ -21,8 +21,6 @@ import useToken from './components/userToken';
 import HomePrivate from './pages/HomePrivate';
 
 function App() {
-	const logged = tokenExists();
-
   const { token, setToken } = useToken();
 
   return (
