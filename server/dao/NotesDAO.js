@@ -57,7 +57,7 @@ async function searchNotes(username, courseID) {
     });
 }
 
-async function addNote(username, courseID, title, content, tags) {
+async function addNote(username, courseID, title, content) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
             if (err) {
@@ -76,8 +76,7 @@ async function addNote(username, courseID, title, content, tags) {
                 let note = new Note({
                     courseID: courseID,
                     title: title,
-                    content: content,
-                    tags: tags
+                    content: content
                 });
                 note.save();
                 user.notes.push(note);
@@ -121,66 +120,4 @@ async function deleteNote(username, noteID) {
     });
 }
 
-function updateNote(noteID, username, title, content, tags) {
-    return new Promise((resolve, reject) => {
-        Note.findOne({
-            _id: noteID
-        },
-            function (err, note) {
-                if (err) {
-                    reject({
-                        status: 500,
-                        response: "A server error occurred"
-                    });
-                    return;
-                }
-                else if (!note) {
-                    reject({
-                        status: 404,
-                        response: "Note not found"
-                    });
-                    return;
-                }
-                else if (note.username != username) {
-                    reject({
-                        status: 403,
-                        response: "Operation not allowed"
-                    });
-                    return;
-                }
-
-                Note.updateOne({
-                    _id: note._id
-                },
-                    {
-                        title: title,
-                        content: content,
-                        tags: tags
-                    },
-                    function (err, note) {
-                        if (err) {
-                            reject({
-                                status: 500,
-                                response: "A server error occurred"
-                            });
-                            return;
-                        }
-                        else if (!note) {
-                            reject({
-                                status: 404,
-                                response: "Note not found"
-                            });
-                            return;
-                        }
-                        else {
-                            resolve({
-                                status: 202,
-                                response: "Note successfully updated"
-                            });
-                        }
-                    });
-            });
-    });
-}
-
-module.exports = { getNotes, searchNotes, addNote, deleteNote, updateNote };
+module.exports = { getNotes, searchNotes, addNote, deleteNote };

@@ -1,4 +1,4 @@
-const { getNotes, searchNotes, addNote, deleteNote, updateNote, fetchNotesByCourseID } = require('../dao/NotesDAO.js');
+const { getNotes, searchNotes, addNote, deleteNote } = require('../dao/NotesDAO.js');
 
 async function apiGetNotes(req, res) {
     const username = req.username;
@@ -30,13 +30,13 @@ async function apiSearchNotes(req, res) {
 }
 
 async function apiAddNote(req, res) {
-    const username = req.username
-    const { courseID, title, content, tags } = req.body
+    const username = req
+    const { courseID, title, content } = req.body
 
     if (!title)
         res.status(422).json("A required field is empty");
     else {
-        addNote(username, courseID, title, content, tags)
+        addNote(username, courseID, title, content)
             .then(result => {
                 res.status(result.status).json(result.message);
             })
@@ -58,46 +58,4 @@ async function apiDeleteNote(req, res) {
         });
 }
 
-async function apiUpdateNote(req, res) {
-
-    const username = req.username,
-        noteID = req.params.noteID,
-        content = req.body.content,
-        title = req.body.title,
-        tags = req.body.tags;
-
-    if (!noteID || !title)
-        res.status(422).json("A required field is empty");
-    else {
-        updateNote(noteID, username, title, content, tags)
-            .then(result => {
-                res.status(result.status).json(result.response);
-            })
-            .catch(error => {
-                res.status(error.status).json(error.response);
-            });
-    }
-}
-
-async function apiFetchNotes(req, res) {
-    var courseID = req.params.courseID,
-        rollNo = req.body.rollNo;
-    //    console.log(courseID);
-    if (!courseID)
-        res.status(422).json("A required field is empty");
-    else {
-        // console.log("hello");
-        fetchNotesByCourseID(rollNo, courseID)
-            .then(result => {
-                // console.log("database worked fine");
-                res.status(result.status).json(result.response);
-            })
-            .catch(error => {
-                console.log(error.status);
-                console.log(error.response);
-                res.status(error.status).json(error.response);
-            });
-    }
-}
-
-module.exports = { apiGetNotes, apiSearchNotes, apiAddNote, apiDeleteNote, apiUpdateNote, apiFetchNotes };
+module.exports = { apiGetNotes, apiSearchNotes, apiAddNote, apiDeleteNote };

@@ -9,10 +9,6 @@ let NoteSchema = new mongoose.Schema(
         courseID: String,
         title: String,
         content: String,
-        tags: {
-            type: [String],
-            default: []
-        }
     },
     {
         toJSON: { virtuals: true }
