@@ -49,7 +49,7 @@ const NoteSearchFrom = () => {
                 return (
                     <div>
                         <br></br>
-                        <NoteCard id={note._id.valueOf()} courseID={note.courseID} title={note.title} content={note.content}></NoteCard>
+                        <NoteCard searchCourseID={courseID} setNoteList={setNoteList} id={note._id.valueOf()} noteCourseID={note.courseID} title={note.title} content={note.content}></NoteCard>
                     </div>
                 )
             })}

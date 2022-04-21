@@ -28,7 +28,15 @@ const ReviewCard = (props) => {
 
         axios.delete(`/notes/${props.id}`)
             .then((response) => {
-                console.log(response);
+                axios.get(`/notes/${props.searchCourseID}`)
+                    .then((response) => {
+                        props.setNoteList(() => {
+                            return response.data.notes;
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
             })
             .catch((error) => {
                 console.log(error);
@@ -39,7 +47,7 @@ const ReviewCard = (props) => {
         <div>
             <Card onClick={handleCardClick} style={{ cursor: "pointer", color: "black" }}>
                 <Card.Body >
-                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{props.courseID || 'Unnamed course'}</Card.Title>
+                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{props.noteCourseID || 'Unnamed course'}</Card.Title>
                     <br></br>
                     <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem", color: "black" }}>
                         <h6 style={{ position: "absolute", left: "20px" }}>{props.title}</h6>
