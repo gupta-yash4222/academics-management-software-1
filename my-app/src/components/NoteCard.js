@@ -34,13 +34,13 @@ const ReviewCard = (props) => {
         <div>
             <Card onClick={handleCardClick} style={{ cursor: "pointer", color: "black" }}>
                 <Card.Body >
-                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{props.courseID}</Card.Title>
+                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{props.courseID || 'Unnamed course'}</Card.Title>
                     <br></br>
                     <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem",  color:"black" }}>
                         <h6 style={{ position: "absolute", left: "20px" }}>{props.title}</h6>
                         <br></br>
                         {
-                            props.content
+                            props.content || 'No content'
                         }
                     </Card.Text>
 

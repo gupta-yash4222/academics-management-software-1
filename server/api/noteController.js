@@ -31,8 +31,7 @@ async function apiSearchNotes(req, res) {
 
 async function apiAddNote(req, res) {
     const username = req.username
-    const { courseID } = req.params
-    const { title, content, tags } = req.body
+    const { courseID, title, content, tags } = req.body
 
     if (!title)
         res.status(422).json("A required field is empty");

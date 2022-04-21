@@ -78,11 +78,12 @@ const AddNotes = function () {
     function handleNoteSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
-        // console.log(note);
-        // alert(note);
+        
+        console.log(note.courseID);
 
-        axios.post(`/notes/${note.courseID}/addNote`,
+        axios.post(`/notes`,
             {
+                courseID: note.courseID,
                 title: note.title,
                 content: note.content,
                 tags: note.tags
@@ -93,13 +94,16 @@ const AddNotes = function () {
         )
             .then((res) => {
                 if (res.status === 200) {
-                    console.log("posted successfully");
+                    console.log('Note added');
+                    alert('Note added');
                 }
                 else {
-                    console.log("error1: " + "oops!! there was some ERROR");
+                    console.log('There was some ERROR');
+                    alert('Note could not be added');
                 }
             }).catch((error) => {
-                console.log("oops!! API request failed");
+                console.log('API request failed');
+                alert('Note could not be added');
             });
     }
 

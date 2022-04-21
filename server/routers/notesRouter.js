@@ -10,7 +10,7 @@ router.get('/', authorization, apiGetNotes);
 router.get('/:courseID', authorization, apiSearchNotes);
 
 // router.post('/:courseID/addNote', authorization, validateCourseID, apiAddNote);
-router.post('/:courseID/addNote', authorization, apiAddNote);
+router.post('/', authorization, apiAddNote);
 
 router.delete('/deleteNote/:noteID', authorization, apiDeleteNote);
 
