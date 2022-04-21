@@ -55,11 +55,7 @@ const MyNavbar = ({ setToken }) => {
               <NavDropdown.Item as={Link} to="/calendar/events" >Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/calendar/timetable" >Time</NavDropdown.Item>
             </NavDropdown>
-
-            <NavDropdown title="CoursePlanner" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/planner" >Events</NavDropdown.Item>
-              {/* <NavDropdown.Item as={Link} to="/calendar/timetable" >Time</NavDropdown.Item> */}
-            </NavDropdown>
+            <Nav.Link as={Link} to="/planner">Course Planner</Nav.Link>
 
             <NavDropdown title="Profile" id="collasible-nav-dropdown" style={{ position: "absolute", right: "10px", color: "#ffffff" }}>
               <NavDropdown.Item as={Link} to="/profile" onClick={handleLogOut}>view profile</NavDropdown.Item>

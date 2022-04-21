@@ -4,7 +4,7 @@ const { apiGetNotes, apiSearchNotes, apiAddNote, apiDeleteNote } = require("../a
 const { authorization } = require("../api/login.js");
 const { validateCourseID } = require('../api/validation.js');
 
-var router = express.Router();
+let router = express.Router();
 
 router.get('/', authorization, apiGetNotes);
 router.get('/:courseID', authorization, apiSearchNotes);
