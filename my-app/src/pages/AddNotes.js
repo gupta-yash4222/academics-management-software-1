@@ -78,8 +78,6 @@ const AddNotes = function () {
     function handleNoteSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
-        
-        console.log(note.courseID);
 
         axios.post(`/notes`,
             {

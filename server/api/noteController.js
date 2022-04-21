@@ -47,12 +47,14 @@ async function apiAddNote(req, res) {
 }
 
 async function apiDeleteNote(req, res) {
-    deleteNote(req.params.noteID)
+    const username = req.username
+    const { noteID } = req.params
+    deleteNote(username, noteID)
         .then(result => {
-            res.status(result.status).json(result.response);
+            res.status(result.status).json(result.message);
         })
         .catch(error => {
-            res.status(error.status).json(error.response);
+            res.status(error.status).json(error.message);
         });
 }
 

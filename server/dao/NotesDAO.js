@@ -91,98 +91,35 @@ async function addNote(username, courseID, title, content, tags) {
     });
 }
 
-function deleteNote(noteID) {
+async function deleteNote(username, noteID) {
     return new Promise((resolve, reject) => {
-        Note.findOneAndDelete({
-            _id: noteID
-        },
-            function (err, note) {
-                if (err) {
-                    reject({
-                        status: 500,
-                        response: "A server error occurred"
-                    });
-                }
-                else if (!note) {
-                    reject({
-                        status: 404,
-                        response: "Note not found"
-                    });
+        User.findOne({ username: username }, (err, user) => {
+            if (err) {
+                reject({
+                    status: 500,
+                    message: SERVER_ERROR_MSG
+                });
+            }
+            else if (!user) {
+                reject({
+                    status: 400,
+                    message: USER_NOT_FOUND_ERROR_MSG
+                });
+            }
+            else {
+                let noteIndex = user.notes.findIndex(note => note._id.valueOf() == noteID);
+                if (noteIndex == -1) {
+                    reject({ status: 400, message: "Note not found" });
                 }
                 else {
-                    resolve({
-                        status: 202,
-                        response: "Note successfully deleted"
-                    });
+                    user.notes.splice(noteIndex, 1);
+                    user.save();
+                    return resolve({ status: 200, message: "Note deleted" });
                 }
-            });
+            }
+        });
     });
 }
-
-
-
-function fetchNotesByCourseID(currRollNo, currCourseID) {
-    return new Promise((resolve, reject) => {
-        Note.find({
-            courseID: currCourseID,
-            rollNo: currRollNo
-        },
-            function (err, note) {
-                if (err) {
-                    reject({
-                        status: 500,
-                        response: "A server error occurred"
-                    });
-                }
-                else if (!note) {
-                    reject({
-                        status: 404,
-                        response: "Note not found"
-                    });
-                }
-                else {
-                    resolve({
-                        status: 202,
-                        response: "Note successfully deleted"
-                    });
-                }
-            });
-    });
-
-}
-
-
-/*
-
-function fetchNotes(noteID){
-  return new Promise((resolve, reject) => {
-    Note.findOneAndDelete({
-      _id: noteID
-    }, 
-    function(err, note){
-      if(err){
-        reject({
-          status: 500,
-          response: "A server error occurred"
-        });
-      }
-      else if(!note){
-        reject({
-          status: 404,
-          response: "Note not found"
-        });
-      }
-      else{
-        resolve({
-          status: 202,
-          response: "Note successfully deleted"
-        });
-      }
-    });
-  });
-}
-
-*/
 
 function updateNote(noteID, username, title, content, tags) {
     return new Promise((resolve, reject) => {
