@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import axios from 'axios';
 
 const ReviewCard = (props) => {
     const [favFlag, setFavFlag] = useState(false);
@@ -14,7 +15,7 @@ const ReviewCard = (props) => {
 
     const popover = (
         <Popover id="popover-basic">
-            <Popover.Body style={{color:"black"}}>
+            <Popover.Body style={{ color: "black" }}>
                 Added
             </Popover.Body>
         </Popover>
@@ -22,12 +23,16 @@ const ReviewCard = (props) => {
 
 
 
-    function addCourseToFav(event) {
-        setFavFlag(() => {
-            return true;
-        });
+    async function deleteNote(event) {
+        event.preventDefault();
 
-        //make api request to add current(props.courseID) course to fav
+        axios.delete(`/notes/${props.id}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     return (
@@ -36,7 +41,7 @@ const ReviewCard = (props) => {
                 <Card.Body >
                     <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{props.courseID || 'Unnamed course'}</Card.Title>
                     <br></br>
-                    <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem",  color:"black" }}>
+                    <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem", color: "black" }}>
                         <h6 style={{ position: "absolute", left: "20px" }}>{props.title}</h6>
                         <br></br>
                         {
@@ -45,7 +50,7 @@ const ReviewCard = (props) => {
                     </Card.Text>
 
                     <OverlayTrigger trigger="click" placement="right" overlay={popover} delay={{ show: 250, hide: 400 }}>
-                        <Button variant="success" style={{ position: "absolute", bottom: "10px", right: "10px" }} onClick={addCourseToFav}>View Details</Button>
+                        <Button variant="success" style={{ position: "absolute", bottom: "10px", right: "10px" }} onClick={deleteNote}>Delete</Button>
                     </OverlayTrigger>
 
                 </Card.Body>
