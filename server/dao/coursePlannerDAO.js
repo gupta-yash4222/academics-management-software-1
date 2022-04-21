@@ -163,17 +163,17 @@ async function getNumberOfSemesters(username) {
 }
 
 async function getAllSemesters(username) {
-	return new Promise((resolve, reject) => {
-		User.findOne({ username: username }, (err, user) => {
-			if(err) return reject({ status: 500, message: SERVER_ERROR_MSG });
-			else if(!user) return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
-			else return resolve({
-				status: 200,
-				message: "Found all semesters successfully!",
-				semesters: user.coursePlan.sems,
-			});
-		});
-	});
+    return new Promise((resolve, reject) => {
+        User.findOne({ username: username }, (err, user) => {
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
+            else if (!user) return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+            else return resolve({
+                status: 200,
+                message: "Found all semesters successfully!",
+                semesters: user.coursePlan.sems,
+            });
+        });
+    });
 }
 
 async function getSemester(semNumber, username) {
@@ -228,7 +228,7 @@ module.exports = {
     addSemesterAtEnd,
     deleteSemester,
     getNumberOfSemesters,
-		getAllSemesters,
+    getAllSemesters,
     getSemester,
     getCourse,
 };

@@ -30,7 +30,7 @@ async function apiSearchNotes(req, res) {
 }
 
 async function apiAddNote(req, res) {
-    const username = req
+    const username = req.username;
     const { courseID, title, content } = req.body
 
     if (!title)
