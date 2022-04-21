@@ -1,5 +1,6 @@
 const {
 	getNumberOfSemesters,
+	getAllSemesters,
 	getSemester,
 	getCourse,
 	addSemester,
@@ -104,6 +105,21 @@ async function apiGetSemester(req, res) {
 		});
 }
 
+async function apiGetAllSemesters(req, res) {
+	const { username } = req;
+
+	getAllSemesters(username)
+		.then(result => {
+			return res.status(result.status).json({
+				message: result.message,
+				semesters: result.semesters,
+			});
+		})
+		.catch(error => {
+			return res.status(error.status).json({ message: error.message });
+		});
+}
+
 async function apiGetCourse(req, res) {
 	const { username } = req;
 	const { courseID, semNumber } = req.params;
@@ -127,6 +143,7 @@ module.exports = {
 	apiAddSemester,
 	apiDeleteSemester,
 	apiGetNumberOfSemesters,
+	apiGetAllSemesters,
 	apiGetSemester,
 	apiGetCourse,
 };

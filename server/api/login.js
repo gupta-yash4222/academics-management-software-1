@@ -29,9 +29,9 @@ async function loginUser(req, res) {  // JWT token yet to be done
             const token = jwt.sign({ username: username }, "cs253ams", { expiresIn: "15m" });
       
             return res
-                // .cookie("token", token, {
-                //     httpOnly: true
-                // })
+                .cookie("token", token, {
+                    httpOnly: true
+                })
                 .status(200)
                 .json({ message: "Logged in successfully", token: token });
 
