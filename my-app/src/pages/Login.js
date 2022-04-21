@@ -64,6 +64,8 @@ const Login = function ({ setToken }) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        console.log(inputs);
+
         axios.post(baseUrl + 'login', inputs)
             .then(function (res) {
                 console.log(res);
