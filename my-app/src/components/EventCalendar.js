@@ -17,7 +17,7 @@ export default class EventCalendar extends React.Component {
   fnGetEvents = async () => {
 
     try {
-      let res = await axios.get('http://localhost:3000/calender')
+      let res = await axios.get('http://localhost:3000/calender/getEvents')
 
       console.log(res)
       console.log(res.data.events);

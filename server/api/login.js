@@ -30,7 +30,7 @@ async function loginUser(req, res) {  // JWT token yet to be done
       
             return res
                 .cookie("token", token, {
-                    httpOnly: true
+                     httpOnly: true
                 })
                 .status(200)
                 .json({ message: "Logged in successfully", token: token });

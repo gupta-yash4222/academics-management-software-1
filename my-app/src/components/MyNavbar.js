@@ -44,6 +44,7 @@ const MyNavbar = ({ setToken }) => {
             <NavDropdown title="Feedback" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to="/feedback/create" >add review</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/feedback/browse" >browse reviews</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/course/browse" >browse courses</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="Notes" id="collasible-nav-dropdown">

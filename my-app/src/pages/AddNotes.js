@@ -32,7 +32,7 @@ const AddNotes = function () {
         // console.log(note);
     }
 
-    function handleCourseNameChange(event) {
+    function handleCourseIDChange(event) {
         setNote(previousState => {
             return { ...previousState, course: event.target.value }
         });
@@ -78,19 +78,30 @@ const AddNotes = function () {
     function handleNoteSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
-        // console.log(note);
-        // alert(note);
 
-        axios.post('http://localhost:3000/notes', { title: note.title, tags: note.tags, content: note.content, course: note.course })
-            .then(function (res) {
-                if (res.status === 201) {
-                    console.log("posted successfully");
+        axios.post(`/notes`,
+            {
+                courseID: note.courseID,
+                title: note.title,
+                content: note.content,
+                tags: note.tags
+            },
+            {
+                withCredentials: true
+            }
+        )
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log('Note added');
+                    alert('Note added');
                 }
                 else {
-                    console.log("error1: " + "oops!! there was some ERROR");
+                    console.log('There was some ERROR');
+                    alert('Note could not be added');
                 }
-            }).catch(function (res) {
-                console.log("oops!! API request failed");
+            }).catch((error) => {
+                console.log('API request failed');
+                alert('Note could not be added');
             });
     }
 
@@ -104,7 +115,7 @@ const AddNotes = function () {
 
                 <div>
                     <label>select relevant course: </label>
-                    <select value={note.courseName} className="input-select" onChange={handleCourseNameChange}>
+                    <select value={note.courseID} className="input-select" onChange={handleCourseIDChange}>
                         {
                             options.map(currValue => {
                                 return <option value={currValue}>{currValue}</option>

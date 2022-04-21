@@ -1,76 +1,61 @@
-const {insertNote, deleteNote, updateNote, fetchNotesByCourseID} = require('../dao/NotesDAO.js');
+const { getNotes, searchNotes, addNote, deleteNote } = require('../dao/NotesDAO.js');
 
-function apiCreateNote(req, res) {
-
-    const username = req.username,
-        content = req.body.content,
-        courseID = req.params['courseID'],
-        title = req.body.title,
-        tags = req.body.tags;
-
-    if(!title)
-        res.status(422).json("A required field is empty");
-    else {  
-        insertNote(username, title, courseID, content, tags)
+async function apiGetNotes(req, res) {
+    const username = req.username;
+    getNotes(username)
         .then(result => {
-            res.status(result.status).json(result.response);
+            res.status(result.status).json({
+                message: result.message,
+                notes: result.notes,
+            });
         })
         .catch(error => {
-            res.status(error.status).json(error.response);
+            res.status(error.status).json(error.message);
         });
-    }
 }
 
-function apiDeleteNote(req, res) {
-    deleteNote(req.params.noteID)
-    .then(result => {
-        res.status(result.status).json(result.response);
-    })
-    .catch(error => {
-        res.status(error.status).json(error.response);
-    });
+async function apiSearchNotes(req, res) {
+    const username = req.username;
+    const { courseID } = req.params
+    searchNotes(username, courseID)
+        .then(result => {
+            res.status(result.status).json({
+                message: result.message,
+                notes: result.notes,
+            });
+        })
+        .catch(error => {
+            res.status(error.status).json(error.message);
+        });
 }
 
-function apiUpdateNote(req, res){
+async function apiAddNote(req, res) {
+    const username = req
+    const { courseID, title, content } = req.body
 
-    const username = req.username,
-        noteID = req.params.noteID,
-        content = req.body.content,
-        title = req.body.title,
-        tags = req.body.tags;
-
-    if(!noteID ||!title)
+    if (!title)
         res.status(422).json("A required field is empty");
     else {
-        updateNote(noteID, username, title, content, tags)
-        .then(result => {
-            res.status(result.status).json(result.response);
-        })
-        .catch(error => {
-            res.status(error.status).json(error.response);
-        });
+        addNote(username, courseID, title, content)
+            .then(result => {
+                res.status(result.status).json(result.message);
+            })
+            .catch(error => {
+                res.status(error.status).json(error.message);
+            });
     }
 }
 
-function apiFetchNotes(req, res){
-    var courseID = req.params.courseID,
-        rollNo = req.body.rollNo;
-    //    console.log(courseID);
-    if(!courseID)
-        res.status(422).json("A required field is empty");
-    else {
-        // console.log("hello");
-        fetchNotesByCourseID(rollNo, courseID)
+async function apiDeleteNote(req, res) {
+    const username = req.username
+    const { noteID } = req.params
+    deleteNote(username, noteID)
         .then(result => {
-            // console.log("database worked fine");
-            res.status(result.status).json(result.response);
+            res.status(result.status).json(result.message);
         })
         .catch(error => {
-            console.log(error.status);
-            console.log(error.response);
-            res.status(error.status).json(error.response);
+            res.status(error.status).json(error.message);
         });
-    }
 }
 
-module.exports = {apiCreateNote, apiDeleteNote, apiUpdateNote, apiFetchNotes};
+module.exports = { apiGetNotes, apiSearchNotes, apiAddNote, apiDeleteNote };
