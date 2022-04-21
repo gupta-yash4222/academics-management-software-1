@@ -30,33 +30,40 @@ async function getNotes(username) {
     });
 }
 
-function insertNote(username, title, courseID, content, tags) {
+async function addNote(username, title, courseID, content, tags) {
     return new Promise((resolve, reject) => {
-        var note = new Note({
-            username: username,
-            title: title,
-            courseID: courseID,
-            content: content,
-            tags: tags
-        });
-        note.save(function (err) {
+        User.findOne({ username: username }, (err, user) => {
             if (err) {
                 reject({
+                    status: 500,
+                    message: SERVER_ERROR_MSG
+                });
+            }
+            else if (!user) {
+                reject({
                     status: 400,
-                    response: "Note not inserted"
+                    message: USER_NOT_FOUND_ERROR_MSG
                 });
             }
             else {
-                console.log(note._id);
+                let note = new Note({
+                    username: username,
+                    title: title,
+                    courseID: courseID,
+                    content: content,
+                    tags: tags
+                });
+                note.save();
+                user.notes.push(note);
+                user.save();
                 resolve({
-                    status: 201,
-                    response: "Note successfully inserted"
+                    status: 200,
+                    message: 'Note inserted'
                 });
             }
         });
     });
 }
-
 
 function deleteNote(noteID) {
     return new Promise((resolve, reject) => {
@@ -213,8 +220,4 @@ function updateNote(noteID, username, title, content, tags) {
     });
 }
 
-
-
-//module.exports = {insertNote, deleteNote, updateNote, fetchNotesByCourseID};
-
-module.exports = { getNotes, insertNote, deleteNote, updateNote };
+module.exports = { getNotes, addNote, deleteNote, updateNote };

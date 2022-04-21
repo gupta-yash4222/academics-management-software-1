@@ -1,7 +1,6 @@
 const express = require('express');
 
-//const {apiCreateNote, apiDeleteNote, apiUpdateNote, apiFetchNotes} = require('../api/noteController.js');
-const { apiGetNotes, apiCreateNote, apiDeleteNote, apiUpdateNote } = require("../api/noteController.js")
+const { apiGetNotes, apiAddNote, apiDeleteNote, apiUpdateNote } = require("../api/noteController.js")
 const { authorization } = require("../api/login.js");
 const { validateCourseID } = require('../api/validation.js');
 
@@ -9,7 +8,8 @@ var router = express.Router();
 
 router.get('/', authorization, apiGetNotes);
 
-router.post('/:courseID/createNote', authorization, validateCourseID, apiCreateNote);
+// router.post('/:courseID/addNote', authorization, validateCourseID, apiAddNote);
+router.post('/:courseID/addNote', authorization, apiAddNote);
 
 router.delete('/deleteNote/:noteID', authorization, apiDeleteNote);
 

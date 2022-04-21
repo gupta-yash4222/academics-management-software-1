@@ -81,9 +81,9 @@ const AddNotes = function () {
         // console.log(note);
         // alert(note);
         
-        axios.post(`/notes/${note.courseName}/createNote`, { title: note.title, tags: note.tags, content: note.content, course: note.courseName }, { withCredentials: true })
+        axios.post(`/notes/${note.courseName}/addNote`, { title: note.title, tags: note.tags, content: note.content, course: note.courseName }, { withCredentials: true })
             .then((res) => {
-                if (res.status === 201) {
+                if (res.status === 200) {
                     console.log("posted successfully");
                 }
                 else {
