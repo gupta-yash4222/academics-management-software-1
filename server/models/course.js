@@ -82,4 +82,5 @@ var Comment = mongoose.model('Comment', CommentSchema);
 var Review = mongoose.model('Review', ReviewSchema);
 var Course = mongoose.model('Course', CourseSchema);
 
-module.exports = {Course, Review, Comment};
+module.exports = {CourseSchema, Course, Review, Comment};
+// CourseSchema exported for courseplanner models

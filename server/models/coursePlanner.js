@@ -1,19 +1,20 @@
 const mongoose = require('mongoose');
+const { CourseSchema } = require('../models/course');
 
-const CPCourseSchema = new mongoose.Schema(
-    {
-        courseID: String,
-        name: String,
-    },
-    {
-        toJSON: { virtuals: true }
-    }
-);
+// const CPCourseSchema = new mongoose.Schema(
+//     {
+//         courseID: String,
+//         name: String,
+//     },
+//     {
+//         toJSON: { virtuals: true }
+//     }
+// );
 
 const SemSchema = new mongoose.Schema(
     {
         courses: {
-            type: [CPCourseSchema],
+            type: [CourseSchema],
             default: []
         }
     },
@@ -34,13 +35,12 @@ const CoursePlanSchema = new mongoose.Schema(
     }
 );
 
-let CPCourse = mongoose.model('CPCourse', CPCourseSchema);
+// let CPCourse = mongoose.model('CPCourse', CPCourseSchema);
 let Semester = mongoose.model('Semester', SemSchema)
 let CoursePlan = mongoose.model('CoursePlan', CoursePlanSchema);
 
 module.exports = {
-	CoursePlanSchema,
-	CPCourse,
+	// CPCourse,
 	Semester,
 	CoursePlan
 };

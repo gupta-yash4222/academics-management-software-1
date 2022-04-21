@@ -1,4 +1,5 @@
-const { CPCourse, Semester, CoursePlan } = require('../models/coursePlanner');
+const { Semester, CoursePlan } = require('../models/coursePlanner');
+const { Course } = require('../models/course');
 const User = require('../models/user');
 
 const SERVER_ERROR_MSG = "Internal Server Error";
@@ -7,7 +8,7 @@ const SEM_NOT_FOUND_ERROR_MSG = semNumber => `Semester ${semNumber} does not exi
 
 async function addCourse(courseID, semNumber, username) {
     return new Promise((resolve, reject) => {
-        CPCourse.findOne({ courseID: courseID }, (err, course) => {
+        Course.findOne({ courseID: courseID }, (err, course) => {
             if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!course) return reject({ status: 400, message: `Course ${courseID} not found` });
             else User.findOne({ username: username }, (err, user) => {
