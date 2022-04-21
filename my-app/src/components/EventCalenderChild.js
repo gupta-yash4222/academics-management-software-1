@@ -23,7 +23,7 @@ export default class EventCalendar extends React.Component {
           {
             "title": "event1",
             "startTime": "05:00",
-            "endTime": "06:30",
+            "endTime": "08:00",
             "repeatDays": [
               0,
               2,

@@ -17,7 +17,7 @@ export default class EventCalendar extends React.Component {
   fnGetEvents = async () => {
 
     try {
-      let res = await axios.get('http://localhost:3000/calender/getEvents')
+      let res = await axios.get('http://localhost:3000/calendar/getEvents')
 
       console.log(res)
       console.log(res.data.events);
@@ -26,12 +26,38 @@ export default class EventCalendar extends React.Component {
       let events = []
 
       for (let i = 0; i < arr.length; i++) {
-        let temp = {
-          "title": arr[i].title,
-          "startTime": arr[i].startTime,
-          "endTime": arr[i].endTime,
-          "daysOfWeek": arr[i].daysOfWeek,
+
+        let temp = {};
+
+        if(arr[i].startDate === arr[i].endDate) {
+            temp = {
+              title: arr[i].title,
+              start: arr[i].startDate.concat("T", arr[i].startTime),
+              end: arr[i].endDate.concat("T", arr[i].endTime),
+              repeatWeekly: arr[i].repeatWeekly,
+              content: arr[i].content
+          }     
         }
+
+        else {
+            temp = {
+              "title": arr[i].title,
+              "start": arr[i].startDate,
+              "end": arr[i].endDate,
+              "repeatWeekly": arr[i].repeatWeekly,
+              "content": arr[i].content
+            }
+        }
+
+        console.log(arr[i].repeatWeekly);
+        console.log(temp);
+
+      if(arr[i].repeatWeekly) {
+          let daysOfWeek = [];
+          const date = new Date(arr[i].startDate.split("-"));
+          daysOfWeek.push(date.getDay());
+          temp['daysOfWeek'] = daysOfWeek;
+      }
 
         events.push(temp)
       }
@@ -45,8 +71,12 @@ export default class EventCalendar extends React.Component {
   }
 
   componentDidMount() {
-    this.fnGetEvents();
+    //this.fnGetEvents();
   }
+
+  handleEventClick = ({ event, el }) => {
+    console.log("event clicked");
+  };
 
   render() {
     const calendarRef = React.createRef()
@@ -61,9 +91,11 @@ export default class EventCalendar extends React.Component {
           height="auto"
           nowIndicator={true}
           ref={calendarRef}
-          plugins={[dayGridPlugin, timeGridPlugin]}
+          plugins={[interactionPlugin, dayGridPlugin, timeGridPlugin]}
           initialView="dayGridMonth"
           events={this.state.pastEvents}
+          eventClick={this.handleEventClick}
+          editable={true}
           headerToolbar={{
             left: "prev,next",
             centre: "Title",

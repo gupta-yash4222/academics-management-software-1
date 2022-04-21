@@ -8,9 +8,7 @@ function apiCreateEvent(req, res){
         endDate = req.body.endDate,
         startTime = req.body.startTime,
         endTime = req.body.endTime,
-        daysOfWeek = req.body.daysOfWeek,
         repeatWeekly = req.body.repeatWeekly,
-        addReminder = req.body.addReminder,
         content = req.body.content;
 
     const eventDict = {
@@ -20,9 +18,7 @@ function apiCreateEvent(req, res){
         endDate: endDate,
         startTime: startTime,
         endTime: endTime,
-        daysOfWeek: daysOfWeek,
         repeatWeekly: repeatWeekly,
-        addReminder: addReminder,
         content: content
     }
 

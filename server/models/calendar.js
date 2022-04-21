@@ -7,15 +7,7 @@ var CalendarEventSchema = new mongoose.Schema(
         endDate: String,
         startTime: String,
         endTime: String, 
-        daysOfWeek: {
-            type: [Number], 
-            default: []
-        },
         repeatWeekly: {
-            type: Boolean,
-            default: false
-        },
-        addReminder: {
             type: Boolean,
             default: false
         },
