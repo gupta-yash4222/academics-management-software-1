@@ -1,4 +1,3 @@
-const Event = require('../models/event.js');
 const {CalendarEvent, UserCalendar} = require('../models/calendar.js')
 
 async function insertEvent(eventDict) {
@@ -9,9 +8,8 @@ async function insertEvent(eventDict) {
             endDate: eventDict.endDate,
             startTime: eventDict.startTime,
             endTime: eventDict.endTime, 
-            daysOfWeek: eventDict.daysOfWeek,
+            allDay: eventDict.allDay,
             repeatWeekly: eventDict.repeatWeekly,
-            addReminder: eventDict.addReminder,
             content: eventDict.content 
         });
 
@@ -51,9 +49,8 @@ async function getAllEvents(username) {
                         endDate: calendar.events[i].endDate,
                         startTime: calendar.events[i].startTime,
                         endTime: calendar.events[i].endTime,
-                        daysOfWeek: calendar.events[i].daysOfWeek,
+                        allDay: calendar.events[i].allDay,
                         repeatWeekly: calendar.events[i].repeatWeekly,
-                        addReminder: calendar.events[i].addReminder,
                         content: calendar.events[i].content
                     };
                     events.push(event);
@@ -77,11 +74,14 @@ async function deleteEvent (username, eventID) {
                   if(err) return reject({status: 500, message: "Internal server error"});
                   else if(!event) return reject({status: 400, message: "Invalid event id"});
                   else {
+                    for(var i = 0; i < calendar.events.length; ++i) {
+                        console.log(calendar.events[i]._id === eventID);
+                    }
+                    calendar.events = calendar.events.filter(cal_event => !(cal_event._id.toString() === eventID));
+                    calendar.save();
                     return resolve({status: 200, message: "Event successfully deleted"});
                   }
-              });              
-                calendar.events = calendar.events.filter(event => (event._id === eventID));
-                calendar.save();
+              });
             }
         });
     })
