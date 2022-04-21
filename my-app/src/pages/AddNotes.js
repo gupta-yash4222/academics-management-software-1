@@ -80,16 +80,16 @@ const AddNotes = function () {
         event.stopPropagation();
         // console.log(note);
         // alert(note);
-
-        axios.post('http://localhost:3000/notes', { title: note.title, tags: note.tags, content: note.content, course: note.course })
-            .then(function (res) {
+        
+        axios.post(`/notes/${note.courseName}/createNote`, { title: note.title, tags: note.tags, content: note.content, course: note.courseName }, { withCredentials: true })
+            .then((res) => {
                 if (res.status === 201) {
                     console.log("posted successfully");
                 }
                 else {
                     console.log("error1: " + "oops!! there was some ERROR");
                 }
-            }).catch(function (res) {
+            }).catch((error) => {
                 console.log("oops!! API request failed");
             });
     }

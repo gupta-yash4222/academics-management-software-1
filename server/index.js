@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
 const http = require('http');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3001;
@@ -19,11 +21,13 @@ const app = express();
 const httpServer = http.createServer({maxHeaderSize: 16384}, app);
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // // parse application/json
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(cors());
 
 app.get("/hello", authorization, (req, res) => {
     res.send("Hello " + req.username);
