@@ -1,14 +1,25 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import NoteCard from './NoteCard';
 
 const NoteSearchFrom = () => {
-    // const [tag, setTag] = useState('');
     const [courseID, setCourseID] = useState('');
     const [noteList, setNoteList] = useState();
+
+    useEffect(() => {
+        axios.get(`/notes`)
+            .then((response) => {
+                setNoteList(() => {
+                    return response.data.notes;
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     async function handleCourseIDChange(event) {
         await setCourseID((lastCourseID) => {
