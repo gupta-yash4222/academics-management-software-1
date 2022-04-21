@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import axios from 'axios';
 import { fetchSemData } from '../pages/CoursePlanner';
 import Button from 'react-bootstrap/Button';
@@ -7,6 +8,9 @@ import Tab from 'react-bootstrap/Tab';
 import Alert from 'react-bootstrap/Alert';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { FaPlus, FaTrash } from 'react-icons/fa';
+import Form from 'react-bootstrap/Form';
+// import Dropdown from 'react-bootstrap/Dropdown';
+// import FormControl from 'react-bootstrap/FormControl';
 
 const api = axios.create({
 	baseURL: "http://localhost:3000/coursePlanner",
@@ -28,7 +32,7 @@ function PlusButton({ onClick }) {
 	);
 }
 
-export default function CoursePlannerComp({ semData, setSemData }) {
+export default function CoursePlannerComp({ semData, setSemData, courses }) {
 
 	async function handleStuff(localURL, method) {
 		method(localURL).then(res => {
@@ -59,6 +63,37 @@ export default function CoursePlannerComp({ semData, setSemData }) {
 		.catch(err => alert(err.message));
 	}
 
+	function AddCourse({ num }) {
+		const [name, setName] = useState('');
+
+		async function handleSubmit(event) {
+			event.preventDefault();
+			api.post(`/semester/${num}/course/${name}`).then(res => {
+				if(res.status === 200) fetchSemData(setSemData);
+				else alert(res.message);
+			}).catch(err => {
+				alert(err.message);
+			});
+		}
+
+		function handleChange(event) {
+			const value = event.target.value;
+			setName(value);
+		}
+
+		return (
+			<Form onSubmit={handleSubmit}>
+				<Form.Group className="mb-3">
+					<Form.Label>Add Course</Form.Label>
+					<Form.Control placeholder='Enter name' name='course-name' onChange={handleChange}/>
+				</Form.Group>
+				<Button variant='success' type='submit'>
+					Add
+				</Button>
+			</Form>
+		);
+	}
+
 	function SemesterData({ semester, num }) {
 		return (
 			<div>
@@ -69,13 +104,14 @@ export default function CoursePlannerComp({ semData, setSemData }) {
 						className='d-flex justify-content-between align-items-start'
 						>
 							<div className='ms-2 me-auto'>
-								<div className="fw-bold">{course.courseID}</div>
+								<div className="fw-bold">{course.courseID.toUpperCase()}</div>
 								{course.name}
 							</div>
 							<DeleteButton onClick={() => handleDeleteCourse(num, course.courseID)} color='black' />
 						</ListGroup.Item>
 					)}
 				</ListGroup>
+				<AddCourse num={num}/>
 			</div>
 		);
 	}

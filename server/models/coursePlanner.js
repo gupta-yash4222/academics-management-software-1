@@ -40,7 +40,7 @@ let Semester = mongoose.model('Semester', SemSchema)
 let CoursePlan = mongoose.model('CoursePlan', CoursePlanSchema);
 
 module.exports = {
-	// CPCourse,
 	Semester,
-	CoursePlan
+	CoursePlan,
+	CoursePlanSchema,
 };

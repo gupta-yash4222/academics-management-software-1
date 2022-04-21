@@ -1,4 +1,14 @@
-const {addReview, getReviewDetails, addToFavourites, getFavoriteCourses, getReviews, addCommentToReview, likeComment, likeReview, getCourseDetails} = require('../dao/courseDAO.js');
+const {
+	addReview,
+	getReviewDetails,
+	addToFavourites,
+	getFavoriteCourses,
+	getReviews,
+	addCommentToReview,
+	likeComment,
+	likeReview,
+	getCourseDetails,
+} = require('../dao/courseDAO.js');
 
 async function apiAddReview(req, res) {
     const courseID = req.params['courseID'],
@@ -116,4 +126,14 @@ async function apiLikeComment (req, res) {
     })
 }
 
-module.exports = {apiAddReview, apiGetReviewDetails, apiGetReviews, apiGetCourseDetails, apiAddToFavourites, apiGetFavoriteCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};
+module.exports = {
+	apiAddReview,
+	apiGetReviewDetails,
+	apiGetReviews,
+	apiGetCourseDetails,
+	apiAddToFavourites,
+	apiGetFavoriteCourses,
+	apiAddCommentToReview,
+	apiLikeReview,
+	apiLikeComment,
+};

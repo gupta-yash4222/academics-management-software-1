@@ -2,7 +2,17 @@ express = require('express');
 
 const {validateCourseID} = require('../api/validation.js');
 const {authorization} = require('../api/login.js');
-const {apiAddReview, apiAddToFavourites, apiGetFavoriteCourses, apiGetReviews, apiAddCommentToReview, apiLikeReview, apiLikeComment, apiGetCourseDetails, apiGetReviewDetails} = require('../api/courseController.js');
+const {
+	apiAddReview,
+	apiAddToFavourites,
+	apiGetFavoriteCourses,
+	apiGetReviews,
+	apiAddCommentToReview,
+	apiLikeReview,
+	apiLikeComment,
+	apiGetCourseDetails,
+	apiGetReviewDetails,
+} = require('../api/courseController.js');
 
 router = express.Router();
 

@@ -21,7 +21,10 @@ var UserSchema = new mongoose.Schema(
             default: []
         },
         // will coursePlan be instantiated automatically?
-        coursePlan: CoursePlanSchema
+        coursePlan: {
+					type: CoursePlanSchema,
+					default: {}
+				}
         // todo: option to have multiple plans
     },
     {

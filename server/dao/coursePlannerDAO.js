@@ -1,4 +1,4 @@
-const { Semester, CoursePlan } = require('../models/coursePlanner');
+const { Semester } = require('../models/coursePlanner');
 const { Course } = require('../models/course');
 const User = require('../models/user');
 

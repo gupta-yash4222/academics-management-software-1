@@ -1,7 +1,6 @@
 const {Course, Review, Comment} = require('../models/course.js');
 const User = require('../models/user.js');
 
-
 async function getReviewContent (reviewID) {
 
     return new Promise( (resolve, reject) => {
@@ -358,4 +357,15 @@ async function addCourse (courseID, courseName) {
 }
 
 
-module.exports = {addReview, getReviewDetails, getReviews, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails};
+module.exports = {
+	addReview,
+	getReviewDetails,
+	getReviews,
+	addToFavourites,
+	getFavoriteCourses,
+	addCommentToReview,
+	likeReview,
+	likeComment,
+	addCourse,
+	getCourseDetails,
+};
