@@ -57,7 +57,7 @@ async function searchNotes(username, courseID) {
     });
 }
 
-async function addNote(username, title, courseID, content, tags) {
+async function addNote(username, courseID, title, content, tags) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
             if (err) {
@@ -74,9 +74,8 @@ async function addNote(username, title, courseID, content, tags) {
             }
             else {
                 let note = new Note({
-                    username: username,
-                    title: title,
                     courseID: courseID,
+                    title: title,
                     content: content,
                     tags: tags
                 });

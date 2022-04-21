@@ -80,8 +80,17 @@ const AddNotes = function () {
         event.stopPropagation();
         // console.log(note);
         // alert(note);
-        
-        axios.post(`/notes/${note.courseID}/addNote`, { title: note.title, tags: note.tags, content: note.content, course: note.courseID }, { withCredentials: true })
+
+        axios.post(`/notes/${note.courseID}/addNote`,
+            {
+                title: note.title,
+                content: note.content,
+                tags: note.tags
+            },
+            {
+                withCredentials: true
+            }
+        )
             .then((res) => {
                 if (res.status === 200) {
                     console.log("posted successfully");
