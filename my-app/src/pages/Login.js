@@ -93,7 +93,7 @@ const Login = function ({ setToken }) {
                 <input
                     type="text"
                     name="username"
-                    placeholder='usename'
+                    placeholder='Username'
                     value={inputs.username || ""}
                     style={inputStyle}
                     onChange={handleChange}
@@ -103,7 +103,7 @@ const Login = function ({ setToken }) {
                 <input
                     type="password"
                     name="password"
-                    placeholder='password'
+                    placeholder='Password'
                     value={inputs.password}
                     style={inputStyle}
                     onChange={handleChange}
