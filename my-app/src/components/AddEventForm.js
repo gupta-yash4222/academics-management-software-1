@@ -42,6 +42,7 @@ function AddEventForm() {
         inputs['endTime'] = (inputs['endTime'] || inputs['startTime']);
         inputs['repeatWeekly'] = (inputs['repeatWeekly'] || "No");
         inputs['allDay'] = (inputs['allDay'] || "No");
+        inputs['content'] = (inputs['content'] || "No Description available");
 
         console.log(inputs);
 

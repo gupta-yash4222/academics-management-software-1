@@ -157,12 +157,16 @@ export default class EventCalendar extends React.Component {
   handleEventClick = ({ event, el }) => {
     this.toggle();
     this.setState({ event: event });
+
+    console.log(this.state.event.content);
   };
 
   handleDeleteEvent = () => {
     this.state.pastEvents = this.state.pastEvents.filter(event => event.id !== this.state.event.id)
 
     console.log(`http://localhost:3000/calendar/deleteEvent/${this.state.event.id}`);
+
+    console.log(this.state.event.content);
 
     axios.delete(`http://localhost:3000/calendar/deleteEvent/${this.state.event.id}`);
     this.state.event = {}; this.toggle();
