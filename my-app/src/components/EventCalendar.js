@@ -7,6 +7,7 @@ import axios from 'axios';
 import { SelectionState } from 'draft-js';
 import EventCalendarChild from './EventCalenderChild';
 import AddEventForm from './AddEventForm';
+import ShowEventDetails from './ShowEventDetails';
 
 export default class EventCalendar extends React.Component {
   constructor(props) {
@@ -150,7 +151,7 @@ export default class EventCalendar extends React.Component {
   }
 
   handleEventClick = ({event, el}) => {
-    window.alert(event.title.concat(" --- ", event.content));
+
   }
 
   render() {
