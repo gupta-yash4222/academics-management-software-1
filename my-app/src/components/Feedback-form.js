@@ -99,20 +99,20 @@ const FeedbackForm = function () {
 
     }
 
-    // useEffect(() => {
-    //     axios.get(`http://localhost:3000/course/getAllCourses`)
-    //         .then((response) => {
-    //             // setReviewList(() => {
-    //             //     console.log("response: ", response);
-    //             //     return response.data.reviews;
-    //             // });
-    //             // console.log("logging all courses in frontend: ", response.data.courses);
-    //             setCourseList(response.data.courses);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // })
+    useEffect(() => {
+        axios.get(`http://localhost:3000/course/getAllCourses`)
+            .then((response) => {
+                // setReviewList(() => {
+                //     console.log("response: ", response);
+                //     return response.data.reviews;
+                // });
+                // console.log("logging all courses in frontend: ", response.data.courses);
+                setCourseList(response.data.courses);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    })
 
     function handleFeedbackSubmit(event) {
         event.preventDefault();
@@ -161,8 +161,16 @@ const FeedbackForm = function () {
                         <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                     </Dropdown.Menu> */}
 
+                    {/* <label>Course ID</label> */}
+                    <select value={feedback.title} className="input-select" onChange={handleCourseIDChange} required>
+                        {
+                            courseList.map((curr) => {
+                                return <option value={curr.courseID}>{curr.courseID}</option>
+                            })
+                        }
+                    </select>
 
-                    <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="MTH101A" />
+                    {/* <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="MTH101A" /> */}
                 </div>
 
                 <div className="input">

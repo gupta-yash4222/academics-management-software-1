@@ -22,14 +22,15 @@ const AddNotes = function () {
     const [title, setTitle] = useState();
     const [course, setCourse] =useState();
     const [content, setContent] = useState();
+    const [topOptions, setTopOptions] = useState();
 
     var [tag, setTag] = useState();
     var [tags, setTags] = useState([]);
-    // const [options, setOptions] = useState();
+    const [options, setOptions] = useState(['CS253A', 'CS315A', 'AE462A', 'AE712A', 'CSO203A', 'MBA634A']);
 
-    const options = [
-        'CS253A', 'CS315A', 'AE462A', 'AE712A', 'CSO203A', 'MBA634A'
-    ];
+    // const options = [
+    //     'CS253A', 'CS315A', 'AE462A', 'AE712A', 'CSO203A', 'MBA634A'
+    // ];
     const defaultOption = options[0];
 
     function handleTitleChange(event) {
@@ -114,20 +115,21 @@ const AddNotes = function () {
             });
     }
 
-    // useEffect(() => {
-    //     axios.get(`http://localhost:3000/course/getAllCourses`)
-    //         .then((response) => {
-    //             // setReviewList(() => {
-    //             //     console.log("response: ", response);
-    //             //     return response.data.reviews;
-    //             // });
-    //             console.log("logging all courses in frontend: ", response.data.courses);
-    //             setCourseList(response.data.courses);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }, []);
+    useEffect(() => {
+        axios.get(`http://localhost:3000/course/getAllCourses`)
+            .then((response) => {
+                // setReviewList(() => {
+                //     console.log("response: ", response);
+                //     return response.data.reviews;
+                // });
+                console.log("logging all courses in frontend: ", response.data.courses);
+                console.log(response.data.courses);
+                setOptions(response.data.courses);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     return (
         <div>
@@ -142,7 +144,7 @@ const AddNotes = function () {
                     <select value={course} className="input-select" required onChange={handleCourseIDChange}>
                         {
                             options.map(currValue => {
-                                return <option value={currValue}>{currValue}</option>
+                                return <option value={currValue.courseID}>{currValue.courseID}</option>
                             })
                         }
                     </select>
