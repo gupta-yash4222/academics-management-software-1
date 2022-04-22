@@ -77,7 +77,7 @@ async function updateCourseRating(courseID, rating, reviewID) {
 
             course.save()
                 .then(savedDoc => {
-                    resolve("Review added successfully");
+                    resolve("Review Added");
                 })
                 .catch(error => {
                     reject("Internal server error");
@@ -120,7 +120,7 @@ async function addReview(courseID, review, semester, year, rating, username) {
                 reviewFoundDoc.courseID = courseID;
                 reviewFoundDoc.save()
                     .then(() => {
-                        return resolve({ status: 200, message: "Review edited successfully" });
+                        return resolve({ status: 200, message: "Review Edited" });
                     })
                     .catch(() => {
                         return reject({ status: 500, message: "Internal server error" });
