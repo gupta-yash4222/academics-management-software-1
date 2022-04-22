@@ -46,7 +46,9 @@ async function searchNotes(username, courseID) {
                 });
             }
             else {
-                courseNotes = user.notes.filter(note => note.courseID.toLowerCase() == courseID.toLowerCase())
+
+
+                courseNotes = user.notes.filter(note => note.courseID && (note.courseID.toLowerCase() == courseID.toLowerCase()))
                 resolve({
                     status: 200,
                     message: 'Notes found',

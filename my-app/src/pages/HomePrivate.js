@@ -12,6 +12,7 @@ import Tab from 'react-bootstrap/Tab';
 import Popover from 'react-bootstrap/Popover';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import SearchBox from '../components/SearchBox';
 
 const popover1 = (
     <Popover id="popover-basic">
@@ -70,6 +71,7 @@ const Home = function ({ setToken }) {
     return (
         <div>
             <Card style={{ width: '36rem', color: "black", margin: "auto", padding: "25px", marginTop: "20px" }}>
+                {/* <SearchBox></SearchBox> */}
                 <h1>Welcome to AMS</h1>
                 <h3>You are logged in</h3>
                 {/* <Link to="/login" element={<Login setToken={setToken}></Login>}></Link>
