@@ -389,4 +389,4 @@ async function checkCourse(courseID) {
     });
 }
 
-module.exports = { addReview, getReviewDetails, getReviews, getAllCourses, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails, checkCourse };
+module.exports = {addReview, getReviewDetails, getReviews, getAllCourses, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails, checkCourse};
