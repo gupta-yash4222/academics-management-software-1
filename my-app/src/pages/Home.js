@@ -69,19 +69,21 @@ const Home = function ({ setToken }) {
 
     return (
         <div>
-            <Card style={{ width: '36rem', color: "black", margin: "auto", marginTop: "20px" }}>
+            <Card style={{ width: '36rem', color: "black", margin: "auto", padding: "25px", marginTop: "20px" }}>
                 <h1>Welcome to AMS</h1>
-                <h3>Login to continue</h3>
-                <br />
-                <br />
-                <Link to="/login" element={<Login setToken={setToken}></Login>}></Link>
+                <h3>Login or Sign Up to continue</h3>
+                {/* <Link to="/login" element={<Login setToken={setToken}></Login>}></Link>
+                <Link to="/login" element={<Login setToken={setToken}></Login>}></Link> */}
             </Card>
 
             <br></br>
-            <Button variant="primary" size="lg" as={Link} to = '/login' active>
-                    login
-                </Button>
-            <Card style={{ width: '60rem', color: "black", margin: "auto", padding: "25px", marginTop: "120px" }}>
+            <Button variant="primary" size="lg" as={Link} to='/login' style={{margin:"20px"}} active>
+                Login
+            </Button>
+            <Button variant="primary" size="lg" as={Link} to='/signup' style={{margin:"20px"}} active>
+                Sign Up
+            </Button>
+            <Card style={{ width: '60rem', color: "black", margin: "auto", padding: "25px", marginTop: "30px" }}>
                 <p>
                     In the duration of the semester, we face a lot of challenges in terms of managing our academic courses, even more so in online semesters. There can be various notes, assignment/report deadlines, quizzes, projects etc. that require tracking. Besides just managing current courses, it is also important to plan  future semesters and get realistic course feed-backs during the time of registrations. All of these processes can get complicated and may lead to critical mistakes.
                     The origin of the idea of our project ‘Academic Management Software’, is from a blend of functions of Google calendar, Pingala, and Mookit.
