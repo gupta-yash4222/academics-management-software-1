@@ -78,10 +78,9 @@ const Home = function ({ setToken }) {
             <Card style={{ width: '60rem', color: "black", margin: "auto", padding: "25px", marginTop: "30px" }}>
                 <p>
                     In the duration of the semester, we face a lot of challenges in terms of managing our academic courses, even more so in online semesters. There can be various notes, assignment/report deadlines, quizzes, projects etc. that require tracking. Besides just managing current courses, it is also important to plan  future semesters and get realistic course feed-backs during the time of registrations. All of these processes can get complicated and may lead to critical mistakes.
-                    The origin of the idea of our project ‘Academic Management Software’, is from a blend of functions of Google calendar, Pingala, and Mookit.
+                    The origin of the idea of our project ‘Academic Management Software’, is from a blend of functions of Pingala, Google Calendar and Notes.
                 </p><p>
-                    Our product aims at including the most useful features from a student and academic viewpoint, to provide you with an exclusive platform to manage everything related to your academics in a single place. Helping you manage the afore-mentioned tasks and utilising your time for something more productive is what we are deeply passionate about. Our team developed the product over a course of 3 months and has tried to make the app as user-friendly and helpful as possible. However the process of making the project would be incomplete without your feedback; we deeply value it! So, feel free to reach out to any of us and help us improve our project.
-                    We are grateful to our course professor, Indranil Saha, for teaching us the course CS253 and therefore helping us complete this project. The development process would not have been possible without his passionate teaching and guidance. We would also like to express our immense gratitude to our project TA Ms. Shatroopa Saxena for her support through the entire timeline.
+                    Our product aims at including the most useful features from a student and academic viewpoint, to provide you with an exclusive platform to manage everything related to your academics in a single place. Helping you manage the afore-mentioned tasks and utilising your time for something more productive is what we are deeply passionate about.
                 </p>
                 {/* <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                     
