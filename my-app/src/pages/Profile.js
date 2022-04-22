@@ -34,11 +34,11 @@ const Profile = () => {
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>
                         <ul>
-                            <li>Username: {uname}</li>
-                            <li>Roll No: {rno}</li>
-                            <li>Program: BTech</li>
-                            <li>Department: {dept}</li>
-                            <li>Sem completed: {semnum}</li>
+                            <li><b>Username: </b>{uname}</li>
+                            <li><b>Roll Number: </b>{rno}</li>
+                            {/* <li><b>Program: </b>BTech</li> */}
+                            <li><b>Department: </b>{dept}</li>
+                            <li><b>Semesters completed: </b>{semnum}</li>
                         </ul>
                     </Card.Text>
                     {/* <Button variant="primary">Progress Dashboard</Button> */}

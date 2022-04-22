@@ -54,7 +54,7 @@ const MyNavbar = ({ token, setToken }) => {
             {token && <Nav.Link as={Link} to="/planner">Course Planner</Nav.Link>}
 
             {token && <NavDropdown title="Profile" id="collasible-nav-dropdown" style={{ position: "absolute", right: "10px", color: "#ffffff" }}>
-              <NavDropdown.Item as={Link} to="/profile" onClick={handleLogOut}>View Profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/profile">View Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to="/" onClick={handleLogOut}>Log out</NavDropdown.Item>
             </NavDropdown>}
