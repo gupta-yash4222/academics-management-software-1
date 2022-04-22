@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
@@ -17,6 +17,7 @@
     "react-bootstrap": "^2.2.2",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
+    "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.2",
     "react-scripts": "^5.0.0",
     "sass": "^1.49.9",
@@ -46,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@fullcalendar/list": "^5.11.0"
   }
 }

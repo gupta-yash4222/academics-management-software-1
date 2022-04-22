@@ -6,6 +6,7 @@ const {
   apiAddCourse,
   apiDeleteCourse,
   apiGetSemester,
+	apiGetAllSemesters,
   apiAddSemester,
   apiAddSemesterAtEnd,
   apiDeleteSemester,
@@ -15,6 +16,7 @@ const {
 const router = express.Router();
 
 router.get('/getNum', authorization, apiGetNumberOfSemesters);
+router.get('/semester', authorization, apiGetAllSemesters);
 router.get('/semester/:semNumber', authorization, apiGetSemester);
 router.get('/semester/:semNumber/course/:courseID', authorization, apiGetCourse);
 

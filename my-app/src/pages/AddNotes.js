@@ -32,7 +32,7 @@ const AddNotes = function () {
         // console.log(note);
     }
 
-    function handleCourseNameChange(event) {
+    function handleCourseIDChange(event) {
         setNote(previousState => {
             return { ...previousState, course: event.target.value }
         });
@@ -78,19 +78,30 @@ const AddNotes = function () {
     function handleNoteSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
-        // console.log(note);
-        // alert(note);
 
-        axios.post('http://localhost:3000/notes', { title: note.title, tags: note.tags, content: note.content, course: note.course })
-            .then(function (res) {
-                if (res.status === 201) {
-                    console.log("posted successfully");
+        axios.post(`/notes`,
+            {
+                courseID: note.courseID,
+                title: note.title,
+                content: note.content,
+                tags: note.tags
+            },
+            {
+                withCredentials: true
+            }
+        )
+            .then((res) => {
+                if (res.status === 200) {
+                    console.log('Note added');
+                    alert('Note added');
                 }
                 else {
-                    console.log("error1: " + "oops!! there was some ERROR");
+                    console.log('There was some ERROR');
+                    alert('Note could not be added');
                 }
-            }).catch(function (res) {
-                console.log("oops!! API request failed");
+            }).catch((error) => {
+                console.log('API request failed');
+                alert('Note could not be added');
             });
     }
 
@@ -99,12 +110,12 @@ const AddNotes = function () {
             <form class="notes-form" >
                 <div>
                     <label>Note Title:</label>
-                    <input type="text" className="input-title" value={note.title} onChange={handleTitleChange} placeholder="note title" />
+                    <input type="text" className="input-title" value={note.title} onChange={handleTitleChange} placeholder="Note Title" />
                 </div>
 
                 <div>
-                    <label>select relevant course: </label>
-                    <select value={note.courseName} className="input-select" onChange={handleCourseNameChange}>
+                    <label>Select Course: </label>
+                    <select value={note.courseID} className="input-select" onChange={handleCourseIDChange}>
                         {
                             options.map(currValue => {
                                 return <option value={currValue}>{currValue}</option>
@@ -113,15 +124,9 @@ const AddNotes = function () {
                     </select>
                 </div>
 
-                <label>add tags: </label>
-                <div id="button-input-clubbed">
-                    <input type="text" className="input-tag" value={tag} onChange={handleTagChange} placeholder="enter tag" style={{ marginRight: "20px" }} />
-                    <button style={buttonStyle} value={tag} onClick={handleTagSubmit} >add tag</button>
-                </div>
-
                 <div>
                     <label >Note Description:</label>
-                    <textarea type="text" className="input-textarea" value={note.description} onChange={handleDescriptionChange} placeholder="enter your notes here..." ></textarea>
+                    <textarea type="text" className="input-textarea" value={note.description} onChange={handleDescriptionChange} placeholder="Enter your note here" ></textarea>
                 </div>
 
                 <div>

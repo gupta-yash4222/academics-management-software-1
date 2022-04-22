@@ -1,4 +1,5 @@
-const { CPCourse, Semester, CoursePlan } = require('../models/coursePlanner');
+const { Semester } = require('../models/coursePlanner');
+const { Course } = require('../models/course');
 const User = require('../models/user');
 
 const SERVER_ERROR_MSG = "Internal Server Error";
@@ -7,7 +8,7 @@ const SEM_NOT_FOUND_ERROR_MSG = semNumber => `Semester ${semNumber} does not exi
 
 async function addCourse(courseID, semNumber, username) {
     return new Promise((resolve, reject) => {
-        CPCourse.findOne({ courseID: courseID }, (err, course) => {
+        Course.findOne({ courseID: courseID.toLowerCase() }, (err, course) => {
             if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!course) return reject({ status: 400, message: `Course ${courseID} not found` });
             else User.findOne({ username: username }, (err, user) => {
@@ -29,7 +30,7 @@ async function addCourse(courseID, semNumber, username) {
                         return resolve({ status: 200, message: `Course ${courseID} added to semester ${semNumber} courses` });
                     }
                     else {
-                        return reject({ status: 400, message: `Course ${courseID} already exists in semester ${semNumber}` });
+                        return reject({ status: 405, message: `Course ${courseID} already exists in semester ${semNumber}` });
                     }
                 }
             });
@@ -123,6 +124,25 @@ async function deleteSemester(semNumber, username) {
     });
 }
 
+// async function deleteSemesterFromEnd(username) {
+//     return new Promise((resolve, reject) => {
+//         User.findOne({ username: username }, (err, user) => {
+//             if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
+//             else if (!user) {
+//                 return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+//             }
+//             else if() {
+//                 return reject({ status: 400, message: SEM_NOT_FOUND_ERROR_MSG(semNumber) });
+//             }
+//             else {
+//                 user.coursePlan.sems.splice(semNumber - 1, 1); // removes semester
+//                 user.save();
+//                 return resolve({ status: 200, message: `Deleted semester ${semNumber} successfully!` });
+//             }
+//         });
+//     });
+// }
+
 async function getNumberOfSemesters(username) {
     return new Promise((resolve, reject) => {
         User.findOne({ username: username }, (err, user) => {
@@ -138,6 +158,20 @@ async function getNumberOfSemesters(username) {
                     numSem: numSem,
                 });
             }
+        });
+    });
+}
+
+async function getAllSemesters(username) {
+    return new Promise((resolve, reject) => {
+        User.findOne({ username: username }, (err, user) => {
+            if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
+            else if (!user) return reject({ status: 400, message: USER_NOT_FOUND_ERROR_MSG });
+            else return resolve({
+                status: 200,
+                message: "Found all semesters successfully!",
+                semesters: user.coursePlan.sems,
+            });
         });
     });
 }
@@ -194,6 +228,7 @@ module.exports = {
     addSemesterAtEnd,
     deleteSemester,
     getNumberOfSemesters,
+    getAllSemesters,
     getSemester,
     getCourse,
 };

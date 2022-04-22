@@ -1,18 +1,17 @@
 const express = require('express');
 
-//const {apiCreateNote, apiDeleteNote, apiUpdateNote, apiFetchNotes} = require('../api/noteController.js');
-const {apiCreateNote, apiDeleteNote, apiUpdateNote} = require("../api/noteController.js")
-const {authorization} = require("../api/login.js");
+const { apiGetNotes, apiSearchNotes, apiAddNote, apiDeleteNote } = require("../api/noteController.js")
+const { authorization } = require("../api/login.js");
 const { validateCourseID } = require('../api/validation.js');
 
-var router = express.Router();
+let router = express.Router();
 
-router.post('/:courseID/createNote', authorization, validateCourseID, apiCreateNote);
+router.get('/', authorization, apiGetNotes);
+router.get('/:courseID', authorization, apiSearchNotes);
 
-router.delete('/deleteNote/:noteID', authorization, apiDeleteNote);
+// router.post('/:courseID/addNote', authorization, validateCourseID, apiAddNote);
+router.post('/', authorization, apiAddNote);
 
-router.patch('/updateNote/:noteID', authorization, apiUpdateNote);
-
-//router.get('/fetchNotes/:courseID', authorization, apiFetchNotes);
+router.delete('/:noteID', authorization, apiDeleteNote);
 
 module.exports = router;

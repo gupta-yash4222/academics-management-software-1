@@ -9,7 +9,7 @@ import DropdownMenu from 'react-bootstrap/DropdownMenu';
 
 
 const buttonStyle = {
-    width: "10%",
+    width: "17%",
     backgroundColor: "#474948",
     color: "white",
     padding: "10px 10px",
@@ -121,21 +121,26 @@ const FeedbackForm = function () {
         // alert(feedback);
 
         //make sure courseID is filled
-        console.log(feedback.courseID);
-        axios.post(`http://localhost:3000/course/${feedback.courseID}/addReview`, {
-            courseID: feedback.courseID, tags: feedback.tags,
+        const courseID = feedback.courseID.toLowerCase();
+        console.log(feedback.year);
+        axios.post(`http://localhost:3000/course/${courseID}/addReview`, {
+            courseID: courseID,
             sem: feedback.sem, year: feedback.year, rating: rating,
             review: feedback.review
         })
-            .then(function (res) {
-                if (res.status === 200) {
+            .then(function (response) {
+                if (response.status === 200) {
                     console.log("posted successfully");
+                    alert(response.data.message)
                 }
                 else {
                     console.log("error1: " + "oops!! there was some ERROR");
                 }
-            }).catch(function (res) {
-                console.log(res);
+            }).catch(function (error) {
+                const response = error.response;
+                alert(response.data.message);
+                window.location.reload();
+                console.log(error);
                 console.log("oops!! API request failed");
             });
     }
@@ -183,16 +188,6 @@ const FeedbackForm = function () {
                     </select>
                 </div>
 
-                <div className="input">
-                    <label>add tags: </label>
-                    <div id="button-input-clubbed">
-                        <input type="text" className="input-tag" value={tag} onChange={handleTagChange} placeholder="enter tag" style={{ marginRight: "20px" }} />
-                        <button className="button-submit" value={tag} onClick={handleTagSubmit} style={{
-                            backgroundColor: "#474948", padding: "10px",
-                            color: "white", borderRadius: "5px", border: "none"
-                        }}>add tag</button>
-                    </div>
-                </div>
                 <div className="input">
                     <label>Feedback Description:</label>
                     <br />

@@ -3,10 +3,12 @@ const {addReview, getReviewDetails, addToFavourites, getAllCourses, getFavoriteC
 async function apiAddReview(req, res) {
     const courseID = req.params['courseID'],
         review = req.body.review,
+        semester = req.body.semester,
+        year = req.body.year,
         rating = req.body.rating || 0,
         username = req.username;
 
-    addReview(courseID, review, rating, username)
+    addReview(courseID, review, semester, year, rating, username)
         .then(result => {
             return res.status(result.status).json({ message: result.message });
         })

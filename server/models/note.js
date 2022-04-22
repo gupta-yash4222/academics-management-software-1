@@ -1,24 +1,20 @@
-
 const mongoose = require('mongoose');
 
-var NotesSchema = new mongoose.Schema({
-    timestamp : {
-        type : Date,
-        default : Date.now
+let NoteSchema = new mongoose.Schema(
+    {
+        timestamp: {
+            type: Date,
+            default: Date.now
+        },
+        courseID: String,
+        title: String,
+        content: String,
     },
-    username: String,
-    title: String,
-    courseID: String,
-    content: String,
-    tags: {
-        type: [String],
-        default: []
+    {
+        toJSON: { virtuals: true }
     }
-},
-{
-    toJSON: { virtuals: true } 
-});
+);
 
-var Note = mongoose.model('Note', NotesSchema);
+let Note = mongoose.model('Note', NoteSchema);
 
 module.exports = Note;

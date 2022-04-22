@@ -7,8 +7,9 @@ import Home from './pages/Home';
 import AddNotes from './pages/AddNotes';
 import Blogs from './pages/Blogs';
 import Signup from './pages/Signup'
-import MyNavbar from './components/MyNavbar';
 import Login from './pages/Login';
+import CoursePlannerPage from './pages/CoursePlanner'
+import MyNavbar from './components/MyNavbar';
 import FeedbackForm from './components/Feedback-form';
 import BrowseNotes from './components/BrowseNotes';
 import BrowseReview from './components/BrowseReview';
@@ -22,7 +23,6 @@ import HomePrivate from './pages/HomePrivate';
 import ReviewList from './components/ReviewList';
 
 function App() {
-
   const { token, setToken } = useToken();
   const [courseID, setCourseID] = useState();
   const [review, setReview] = useState();
@@ -45,6 +45,7 @@ function App() {
             <Route path='/feedback/browse/:courseID/reviews/:reviewID' element={<ReviewDetail review={review} setReview={setReview} />} />
             <Route path='/feedback/browse/:courseID/reviews' exact element={<ReviewList courseID={courseID} review={review} setReview = {setReview}/>} />
             <Route path='/calendar/events' element={<EventCalendar />} />
+						<Route path='/planner' element={<CoursePlannerPage />} />
             <Route path='random' element={<ReviewDetail />} />
 
             {/* <Route path='/feedback/browse/:courseID' element={<ReviewDetail />} /> */}

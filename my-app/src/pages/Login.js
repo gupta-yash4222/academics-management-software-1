@@ -34,7 +34,7 @@ const Login = function ({ setToken }) {
     }
 
     const buttonStyle = {
-        width: "10%",
+        width: "17%",
         backgroundColor: "#474948",
         color: "white",
         padding: "10px 10px",
@@ -48,6 +48,13 @@ const Login = function ({ setToken }) {
     const [inputs, setInputs] = useState({});
     const baseUrl = 'http://localhost:3000/';
 
+    const config = {
+        header: {
+            "Content-Type": "application/json",
+            "Clear-Site-Data": "*"
+        }
+    }
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -56,6 +63,8 @@ const Login = function ({ setToken }) {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        console.log(inputs);
 
         axios.post(baseUrl + 'login', inputs)
             .then(function (res) {
@@ -70,20 +79,22 @@ const Login = function ({ setToken }) {
                     console.log("authentication failed");
                 }
             }).catch(function (error) {
-                console.log(error);
+                const response = error.response;
+                alert(response.data.message);
+                window.location.reload();
             });
     }
 
     return (
         <form className="notes-form" onSubmit={handleSubmit}>
             <div>
-                <h1 style={{ color: "black" }}>Login</h1>
+                <h1 style={{color:"black"}}>Login</h1>
             </div>
             <div>
                 <input
                     type="text"
                     name="username"
-                    placeholder='usename'
+                    placeholder='Username'
                     value={inputs.username || ""}
                     style={inputStyle}
                     onChange={handleChange}
@@ -93,7 +104,7 @@ const Login = function ({ setToken }) {
                 <input
                     type="password"
                     name="password"
-                    placeholder='password'
+                    placeholder='Password'
                     value={inputs.password}
                     style={inputStyle}
                     onChange={handleChange}

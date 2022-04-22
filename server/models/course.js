@@ -18,6 +18,8 @@ const ReviewSchema = new mongoose.Schema({
     author: String,    // username of the author
     review: String,
     courseID: String,
+    semester: Number,
+    year: String, 
     likes: {
         type: Number,
         default: 0
@@ -71,7 +73,7 @@ const CourseSchema = new mongoose.Schema({
     rating: {
         type: Number,
         min: 0,
-        max: 10,
+        max: 5,
         default: 0
     }
 },
@@ -83,4 +85,5 @@ var Comment = mongoose.model('Comment', CommentSchema);
 var Review = mongoose.model('Review', ReviewSchema);
 var Course = mongoose.model('Course', CourseSchema);
 
-module.exports = {Course, Review, Comment};
+module.exports = {CourseSchema, Course, Review, Comment};
+// CourseSchema exported for courseplanner models

@@ -1,8 +1,12 @@
 import { React, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const Signup = function () {
+
+    const navigate = useNavigate()
+
     const formStyle = {
         borderRadius: "5px",
         backgroundColor: "#f2f2f2",
@@ -48,19 +52,17 @@ const Signup = function () {
             .then(function (res) {
                 console.log(res);
                 if (res.status === 200) {
-                    console.log("Success")
                     alert("User registered successfully!")
-                    this.props.history.push('/login')
+                    navigate('/login')
                 }
-                else if (res.status === 208) {
-                    alert("User already exists")
-                }
-                else {
-                    console.log("error1");
-                    alert("Invalid user credentials")
+                else if(res.status === 208) {
+                    alert(res.data.message)
+                    window.location.reload()
                 }
             }).catch(function (error) {
-                console.log(error);
+                const response = error.response
+                alert(response.data.message)
+                window.location.reload()
             });
     }
 
@@ -73,7 +75,7 @@ const Signup = function () {
                 <input
                     type="text"
                     name="username"
-                    placeholder='usename'
+                    placeholder='Username'
                     value={inputs.username || ""}
                     style={inputStyle}
                     onChange={handleChange}
@@ -83,8 +85,8 @@ const Signup = function () {
                 <input
                     type="text"
                     name="rollNo"
-                    placeholder='IITK rollnumber'
-                    value={inputs.age}
+                    placeholder='IITK Roll Number'
+                    value={inputs.rollNo}
                     style={inputStyle}
                     onChange={handleChange}
                 />
@@ -93,8 +95,18 @@ const Signup = function () {
                 <input
                     type="text"
                     name="name"
-                    placeholder='IITK registered name'
+                    placeholder='IITK Registered Name'
                     value={inputs.name}
+                    style={inputStyle}
+                    onChange={handleChange}
+                />
+            </div>
+            <div>
+                <input
+                    type="text"
+                    name="department"
+                    placeholder='Department'
+                    value={inputs.department}
                     style={inputStyle}
                     onChange={handleChange}
                 />
@@ -103,7 +115,7 @@ const Signup = function () {
                 <input
                     type="password"
                     name="password"
-                    placeholder='password'
+                    placeholder='Password'
                     value={inputs.password}
                     style={inputStyle}
                     onChange={handleChange}

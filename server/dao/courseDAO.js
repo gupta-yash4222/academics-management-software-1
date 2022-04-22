@@ -1,7 +1,6 @@
 const {Course, Review, Comment} = require('../models/course.js');
 const User = require('../models/user.js');
 
-
 async function getReviewContent (reviewID) {
 
     return new Promise( (resolve, reject) => {
@@ -44,7 +43,12 @@ async function getCourseDetails (courseID) {
                     var course_details = {
                         name: course.name,
                         courseID: course.courseID,
+                        credits: course.credits,
                         description: course.description,
+                        prerequisites: course.prerequisites,
+                        lecture_time: course.lecture_time,
+                        tutorial_time: course.tutorial_time,
+                        practical_time: course.practical_time,
                         stars: course.stars,
                         ratings: course.rating,
                         reviews: reviewsList
@@ -68,7 +72,7 @@ async function updateCourseRating (courseID, rating, reviewID) {
 
             else if(!course) reject("Invalid course id");
 
-            course.rating = (( course.rating * course.reviews.length ) + rating ) / (course.reviews.length + 1);   // averaging the available ratings
+            //course.rating = (( course.rating * course.reviews.length ) + rating ) / (course.reviews.length + 1);   // averaging the available ratings
             course.reviews.push(reviewID);
 
             course.save()
@@ -84,18 +88,19 @@ async function updateCourseRating (courseID, rating, reviewID) {
     });
 }
 
-async function addReview (courseID, review, rating, username) {
+async function addReview (courseID, review, semester, year, rating, username) {
     return new Promise( (resolve, reject) => {
 
         const tempReviewID = courseID.concat("-", username);
-        console.log(tempReviewID);
         Review.findOne({reviewID: tempReviewID}, (err, reviewFoundDoc) => {
             if(!reviewFoundDoc){
                 const reviewDoc = new Review({
                     reviewID: courseID.concat("-", username),
                     author: username,
                     courseID: courseID,
-                    review: review
+                    review: review,
+                    semester: semester,
+                    year: year
                 }); 
                 
                 reviewDoc.save();
@@ -111,7 +116,6 @@ async function addReview (courseID, review, rating, username) {
             } 
 
             else{
-                console.log("Hello");
                 reviewFoundDoc.review = review;
                 reviewFoundDoc.courseID = courseID;
                 reviewFoundDoc.save()
@@ -374,5 +378,14 @@ async function addCourse (courseID, courseName) {
     })
 }
 
+async function checkCourse (courseID) {
+    return new Promise( (resolve, reject) => {
+        Course.findOne({courseID: courseID}, (err, course) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if (!course) return reject({status: 403, message: "Invalid course id"});
+            else return resolve("Course found successfully")
+        });
+    });
+}
 
 module.exports = {addReview, getReviewDetails, getReviews, getAllCourses, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails};
