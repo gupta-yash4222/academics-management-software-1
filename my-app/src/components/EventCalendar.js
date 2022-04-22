@@ -27,7 +27,7 @@ export default class EventCalendar extends React.Component {
 
       for (let i = 0; i < arr.length; i++) {
 
-        let temp = {};
+        let temp = {};  
 
         /*
 
@@ -61,8 +61,9 @@ export default class EventCalendar extends React.Component {
       }
 
       */
+    
 
-
+      
       if(arr[i].allDay === "Yes") {
 
         if(arr[i].repeatWeekly === "Yes") {
@@ -70,8 +71,8 @@ export default class EventCalendar extends React.Component {
           const date = new Date(arr[i].startDate.split("-"));
           daysOfWeek.push(date.getDay());
           temp = {
+            id: arr[i]._id,
             daysOfWeek: daysOfWeek,
-            allDay: true,
             title: arr[i].title, 
             start: arr[i].startDate,
             end: arr[i].endDate,
@@ -83,10 +84,11 @@ export default class EventCalendar extends React.Component {
 
         else {
           temp = {
+            id: arr[i]._id,
             allDay: true,
             title: arr[i].title,
-            startStr: arr[i].startDate,
-            endStr: arr[i].endDate,
+            start: arr[i].startDate,
+            end: arr[i].endDate,
             repeatWeekly: arr[i].repeatWeekly,
             content: arr[i].content
           }
@@ -101,6 +103,7 @@ export default class EventCalendar extends React.Component {
           const date = new Date(arr[i].startDate.split("-"));
           daysOfWeek.push(date.getDay());
           temp = {
+            id: arr[i]._id,
             daysOfWeek: daysOfWeek,
             allDay: false,
             title: arr[i].title,
@@ -114,6 +117,7 @@ export default class EventCalendar extends React.Component {
 
         else {
           temp = {
+            id: arr[i]._id,
             allDay: false,
             title: arr[i].title,
             start: arr[i].startDate.concat("T", arr[i].startTime),
@@ -124,6 +128,7 @@ export default class EventCalendar extends React.Component {
         }
 
       }
+
 
       console.log(arr[i].repeatWeekly);
       console.log(temp);
@@ -145,7 +150,7 @@ export default class EventCalendar extends React.Component {
   }
 
   handleEventClick = ({event, el}) => {
-    console.log("event clicked");
+    window.alert(event.title.concat(" --- ", event.content));
   }
 
   render() {

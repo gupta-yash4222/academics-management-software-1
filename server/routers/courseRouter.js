@@ -36,7 +36,7 @@ router.post('/:courseID/addReview', authorization, validateCourseID, apiAddRevie
 
 router.post('/:courseID/addToFavorite', authorization, validateCourseID, apiAddToFavourites)
 
-router.get('/:reviewID/getReviewDetails', authorization, validateCourseID, apiGetReviewDetails);
+router.get('/:reviewID/getReviewDetails', authorization, apiGetReviewDetails);
 
 router.get('/:courseID/getReviews', authorization, validateCourseID, apiGetReviews);
 
