@@ -28,7 +28,7 @@ const FeedbackForm = function () {
     const [courseList, setCourseList] = useState([]);
 
     const semOptions = [
-        { semText: 'summer', code: 0 }, { semText: 'odd', code: 1 }, { semText: 'even', code: 2 }
+        { semText: 'Odd', code: 0 }, { semText: 'Even', code: 1 }, { semText: 'Summer', code: 2 }
     ];
     // const defaultOption = semOptions[0];
 
@@ -153,7 +153,7 @@ const FeedbackForm = function () {
                     <h1>Add Review</h1>
                 </div>
                 <div className="input">
-                    <span><label>courseID</label></span>
+                    <span><label>Course ID</label></span>
 
                     {/* <Dropdown.Menu>
                         <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
@@ -162,11 +162,11 @@ const FeedbackForm = function () {
                     </Dropdown.Menu> */}
 
 
-                    <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="courseID(i.e. MTH101A)" />
+                    <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="MTH101A" />
                 </div>
 
                 <div className="input">
-                    <label>semester</label>
+                    <label>Semester</label>
                     <select value={feedback.sem} className="input-select" onChange={handleSemChange} required>
                         {
                             semOptions.map((currSem) => {
@@ -177,7 +177,7 @@ const FeedbackForm = function () {
                 </div>
                 <div className="input">
 
-                    <label>year</label>
+                    <label>Year</label>
                     <select value={feedback.year} className="input-select" onChange={handleYearChange} required>
                         {
                             YearList.map((currYear) => {
@@ -189,13 +189,13 @@ const FeedbackForm = function () {
                 </div>
 
                 <div className="input">
-                    <label>Feedback Description:</label>
+                    <label>Feedback:</label>
                     <br />
-                    <textarea type="text" className="input-textarea" value={feedback.description} onChange={handleReviewChange} placeholder="enter your feedbacks here..." ></textarea>
+                    <textarea type="text" className="input-textarea" value={feedback.description} onChange={handleReviewChange} placeholder="Enter your feedback here..." ></textarea>
                 </div>
 
                 <div className="input">
-                    <label>overall course rating</label>
+                    <label>Course Rating</label>
                     <div className="star-rating">
                         {[...Array(5)].map((star, index) => {
                             index += 1;
