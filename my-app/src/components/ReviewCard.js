@@ -63,13 +63,10 @@ const ReviewCard = ({ currReview, setReview, courseID }) => {
         <div>
             <Card style={{ color: "black" }}>
                 <Card.Body >
-                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{currReview.courseID}</Card.Title>
-                    <h5>
-                        <Badge bg="secondary" style={{ position: "absolute", top: "10px", right: "10px" }} onClick={handleBadgeClick}> likes: {currReview.likes}</Badge>
-                    </h5>
+                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{currReview.courseID.toUpperCase()}</Card.Title>
                     <br></br>
                     <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem", color: "black" }}>
-                        <h6 style={{ position: "absolute", left: "20px" }}>review content:</h6>
+                        <h6 style={{ position: "absolute", left: "20px" }}>Review:</h6>
                         <br></br>
                         {
                             currReview.review

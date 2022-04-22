@@ -70,7 +70,7 @@ const ReviewDetail = ({ review, setReview }) => {
             <Card style={{ color: "black", textAlign: "left", paddingLeft: "3%", paddingRight: "2%" }}>
 
                 <div style={{ paddingTop: "2%" }}>
-                    <h4 style={{ display: "inline" }}>{"author: " + review.author}</h4>
+                    <h4 style={{ display: "inline" }}>{"Author username: " + review.author}</h4>
                     {/* <Stack gap={2} style={{ float: 'right'}}>
                     <img src="https://i.pravatar.cc/300" style={{ borderRadius: "50%", float: 'right', width: "25%", height: "25%" }} />
                         <span style={{ float: 'right', position: "" }}>{username}</span>
@@ -87,7 +87,7 @@ const ReviewDetail = ({ review, setReview }) => {
                 <br></br>
                 <div style={{ paddingRight: "5%" }}>
                     
-                    <p> <b >review content:         </b>
+                    <p> <b >Review:         </b>
                         {review.review}
                     </p>
                     {/* <br></br> */}
@@ -121,7 +121,7 @@ const ReviewDetail = ({ review, setReview }) => {
                     {' '}
                     {/* <Badge bg="success" width="40px" height="22px" verticalAlign="super">{"rating"}</Badge> */}
                     <p style={{ textAlign: "center", opacity: "0.5" }}>
-                        posted on: {new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() + ' ' + new Date().getHours() + ':' + new Date().getMinutes()}
+                        Posted on: {new Date().getDate() + '/' + new Date().getMonth() + '/' + new Date().getFullYear() + ' ' + new Date().getHours() + ':' + new Date().getMinutes()}
                     </p>
 
 
@@ -139,7 +139,7 @@ const ReviewDetail = ({ review, setReview }) => {
             <Form>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Form.Label><strong>Add comment:</strong></Form.Label>
-                    <Form.Control as="textarea" rows={3} value={myComment} onChange={handleCommentChange}/>
+                    <Form.Control placeholder="Add your comment here..." as="textarea" rows={3} value={myComment} onChange={handleCommentChange}/>
                 </Form.Group>
                 <br />
                 <Button variant="primary" type="submit" onClick={handleCommentSubmission}>

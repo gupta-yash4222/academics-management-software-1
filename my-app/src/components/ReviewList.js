@@ -41,7 +41,7 @@ const ReviewList = ({ courseID, reveiw, setReview }) => {
 
     return (
         <div>
-            <h2>Below are the reviews for course {courseID}</h2>
+            <h2>Reviews for course {courseID.toUpperCase()}</h2>
             <hr></hr>
             {reviews ? reviews.map((currReview) => {return  <div><ReviewCard currReview={currReview} courseID={courseID} setReview={setReview}/> <br></br> </div> }) : "Loading..."}
         </div>
