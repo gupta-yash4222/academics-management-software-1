@@ -76,20 +76,20 @@ function AddEventForm() {
                 <Modal.Body style={{ color: "#000000" }}><Form onSubmit={handleSubmit}>
                     <Row className="mb-1">
                         <Form.Group className="mb-3" controlId="formGridAddress1">
-                            <Form.Label><strong>Event title</strong></Form.Label>
-                            <Form.Control type="text" placeholder="title" name="title" defaultValue={inputs.title} onChange={handleChange} />
+                            <Form.Label><strong>Title</strong></Form.Label>
+                            <Form.Control type="text" placeholder="Title" name="title" defaultValue={inputs.title} onChange={handleChange} />
                         </Form.Group>
                     </Row>
 
                     <Row className="mb-3">
                         <Form.Group className="mb-3" controlId="formGridAddress1">
-                            <Form.Label><strong>start date</strong></Form.Label>
+                            <Form.Label><strong>Start Date</strong></Form.Label>
                             <span>
                                 <Form.Control type="text" placeholder="YYYY-MM-DD" name="startDate" defaultValue={defaultDateValue} value={inputs.startDate} onChange={handleChange}  /></span>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formGridAddress1">
-                            <Form.Label><strong>end date</strong></Form.Label>
+                            <Form.Label><strong>End Date</strong></Form.Label>
                             <span>
                                 <Form.Control type="text" placeholder="YYYY-MM-DD" name="endDate" defaultValue={inputs['startDate'] || defaultDateValue} value={inputs.endDate} onChange={handleChange}  /></span>
                         </Form.Group>
@@ -109,13 +109,13 @@ function AddEventForm() {
 
                     <Row className="mb-3">
                         <Form.Group className="mb-3" controlId="formGridAddress1">
-                            <Form.Label><strong>start time</strong></Form.Label>
+                            <Form.Label><strong>Start Time</strong></Form.Label>
                             <span>
                                 <Form.Control type="text" placeholder="HH:MM" name="startTime" defaultValue={defaultTimeValue} value={inputs.startTime} onChange={handleChange}  /></span>
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formGridAddress1">
-                            <Form.Label><strong>end time</strong></Form.Label>
+                            <Form.Label><strong>End Time</strong></Form.Label>
                             <span>
                                 <Form.Control type="text" placeholder="HH:MM" name="endTime" defaultValue={inputs.startTime || defaultTimeValue} value={inputs.endTime} onChange={handleChange}  /></span>
                         </Form.Group>
@@ -135,7 +135,7 @@ function AddEventForm() {
 
                     <Row className='mb-1'>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Label><strong>add content:</strong></Form.Label>
+                            <Form.Label><strong>Description:</strong></Form.Label>
                             <Form.Control as="textarea" rows={3} name="content" value={inputs.content} onChange={handleChange} />
                         </Form.Group>
                     </Row>
