@@ -62,6 +62,7 @@ const Login = function ({ setToken }) {
                 console.log(res);
                 if (res.status === 200) {
                     // console.log(res.data.token);
+                    console.log("res data => ", res.data);
                     setToken(res.data.token);
                     navigate('/');
                 }

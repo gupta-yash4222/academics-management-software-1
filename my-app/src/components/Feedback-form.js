@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import StarRating from './Start-rating';
 import 'react-dropdown/style.css';
+import DropdownMenu from 'react-bootstrap/DropdownMenu';
+// import Dropdown from 'react-bootstrap/Dropdown'
 
 
 const buttonStyle = {
@@ -23,6 +25,7 @@ const FeedbackForm = function () {
     var [tag, setTag] = useState();
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
+    const [courseList, setCourseList] = useState([]);
 
     const semOptions = [
         { semText: 'summer', code: 0 }, { semText: 'odd', code: 1 }, { semText: 'even', code: 2 }
@@ -96,6 +99,21 @@ const FeedbackForm = function () {
 
     }
 
+    // useEffect(() => {
+    //     axios.get(`http://localhost:3000/course/getAllCourses`)
+    //         .then((response) => {
+    //             // setReviewList(() => {
+    //             //     console.log("response: ", response);
+    //             //     return response.data.reviews;
+    //             // });
+    //             // console.log("logging all courses in frontend: ", response.data.courses);
+    //             setCourseList(response.data.courses);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // })
+
     function handleFeedbackSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -125,12 +143,20 @@ const FeedbackForm = function () {
     return (
         <div>
 
-            <form className="notes-form" style={{color : "black"}}>
+            <form className="notes-form" style={{ color: "black" }}>
                 <div>
                     <h1>Add Review</h1>
-                </div>  
+                </div>
                 <div className="input">
                     <span><label>courseID</label></span>
+
+                    {/* <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu> */}
+
+
                     <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="courseID(i.e. MTH101A)" />
                 </div>
 

@@ -20,6 +20,14 @@ var UserSchema = new mongoose.Schema(
             type: [String],
             default: []
         },
+        likedReviews: {
+            type:[String],
+            default:[]
+        },
+        likedComments:{
+            type:[String],
+            default:[]
+        },
         // will coursePlan be instantiated automatically?
         coursePlan: CoursePlanSchema
         // todo: option to have multiple plans
