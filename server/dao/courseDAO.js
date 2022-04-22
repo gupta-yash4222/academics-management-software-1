@@ -70,7 +70,7 @@ async function updateCourseRating(courseID, rating, reviewID) {
 
             if (err) reject("Internal server error");
 
-            else if (!course) reject("Invalid course id");
+            else if (!course) reject("Invalid Course ID");
 
             //course.rating = (( course.rating * course.reviews.length ) + rating ) / (course.reviews.length + 1);   // averaging the available ratings
             course.reviews.push(reviewID);

@@ -121,7 +121,7 @@ const FeedbackForm = function () {
         // alert(feedback);
 
         //make sure courseID is filled
-        const courseID = feedback.courseID.toLowerCase();
+        const courseID = feedback.courseID && feedback.courseID.toLowerCase();
         console.log(feedback.year);
         axios.post(`http://localhost:3000/course/${courseID}/addReview`, {
             courseID: courseID,
