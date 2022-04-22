@@ -78,9 +78,9 @@ const Login = function ({ setToken }) {
                     console.log("authentication failed");
                 }
             }).catch(function (error) {
-                const response = error.response
-                alert(response.data.message)
-                navigate('/')
+                const response = error.response;
+                alert(response.data.message);
+                window.location.reload();
             });
     }
 
