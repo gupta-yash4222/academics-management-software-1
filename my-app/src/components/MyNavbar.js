@@ -42,25 +42,20 @@ const MyNavbar = ({ setToken }) => {
             {/* <Nav.Link as={Link} to="/feedback/browse/detailedReview">detailedReview</Nav.Link> */}
 
             <NavDropdown title="Feedback" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/feedback/create" >add review</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/feedback/browse" >browse reviews</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/course/browse" >browse courses</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/feedback/create" >Add Review</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/feedback/browse" >Browse Reviews</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/course/browse" >Browse Courses</NavDropdown.Item>
             </NavDropdown>
 
             <NavDropdown title="Notes" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/notes/create" >add notes</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/notes/browse" >browse notes</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/notes/create" >Add Notes</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/notes/browse" >Browse Notes</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title="Calendar" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to="/calendar/events" >Events</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/calendar/timetable" >Time</NavDropdown.Item>
-            </NavDropdown>
+            <Nav.Link as={Link} to="/calendar/events">Calendar</Nav.Link>
             <Nav.Link as={Link} to="/planner">Course Planner</Nav.Link>
 
             <NavDropdown title="Profile" id="collasible-nav-dropdown" style={{ position: "absolute", right: "10px", color: "#ffffff" }}>
-              <NavDropdown.Item as={Link} to="/profile" onClick={handleLogOut}>view profile</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item as={Link} to="/profile" onClick={handleLogOut}>progress dashboard</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/profile" onClick={handleLogOut}>View Profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item as={Link} to="/" onClick={handleLogOut}>Log out</NavDropdown.Item>
             </NavDropdown>
