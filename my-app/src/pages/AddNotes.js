@@ -110,11 +110,11 @@ const AddNotes = function () {
             <form class="notes-form" >
                 <div>
                     <label>Note Title:</label>
-                    <input type="text" className="input-title" value={note.title} onChange={handleTitleChange} placeholder="note title" />
+                    <input type="text" className="input-title" value={note.title} onChange={handleTitleChange} placeholder="Note Title" />
                 </div>
 
                 <div>
-                    <label>select relevant course: </label>
+                    <label>Select Course: </label>
                     <select value={note.courseID} className="input-select" onChange={handleCourseIDChange}>
                         {
                             options.map(currValue => {
@@ -124,15 +124,9 @@ const AddNotes = function () {
                     </select>
                 </div>
 
-                <label>add tags: </label>
-                <div id="button-input-clubbed">
-                    <input type="text" className="input-tag" value={tag} onChange={handleTagChange} placeholder="enter tag" style={{ marginRight: "20px" }} />
-                    <button style={buttonStyle} value={tag} onClick={handleTagSubmit} >add tag</button>
-                </div>
-
                 <div>
                     <label >Note Description:</label>
-                    <textarea type="text" className="input-textarea" value={note.description} onChange={handleDescriptionChange} placeholder="enter your notes here..." ></textarea>
+                    <textarea type="text" className="input-textarea" value={note.description} onChange={handleDescriptionChange} placeholder="Enter your note here" ></textarea>
                 </div>
 
                 <div>

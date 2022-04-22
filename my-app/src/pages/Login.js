@@ -71,6 +71,7 @@ const Login = function ({ setToken }) {
                 console.log(res);
                 if (res.status === 200) {
                     // console.log(res.data.token);
+                    console.log("res data => ", res.data);
                     setToken(res.data.token);
                     navigate('/');
                 }
@@ -78,9 +79,9 @@ const Login = function ({ setToken }) {
                     console.log("authentication failed");
                 }
             }).catch(function (error) {
-                const response = error.response
-                alert(response.data.message)
-                navigate('/')
+                const response = error.response;
+                alert(response.data.message);
+                window.location.reload();
             });
     }
 
@@ -93,7 +94,7 @@ const Login = function ({ setToken }) {
                 <input
                     type="text"
                     name="username"
-                    placeholder='usename'
+                    placeholder='Username'
                     value={inputs.username || ""}
                     style={inputStyle}
                     onChange={handleChange}
@@ -103,7 +104,7 @@ const Login = function ({ setToken }) {
                 <input
                     type="password"
                     name="password"
-                    placeholder='password'
+                    placeholder='Password'
                     value={inputs.password}
                     style={inputStyle}
                     onChange={handleChange}

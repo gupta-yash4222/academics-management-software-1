@@ -75,7 +75,7 @@ const Signup = function () {
                 <input
                     type="text"
                     name="username"
-                    placeholder='usename'
+                    placeholder='Username'
                     value={inputs.username || ""}
                     style={inputStyle}
                     onChange={handleChange}
@@ -85,7 +85,7 @@ const Signup = function () {
                 <input
                     type="text"
                     name="rollNo"
-                    placeholder='IITK rollnumber'
+                    placeholder='IITK Roll Number'
                     value={inputs.rollNo}
                     style={inputStyle}
                     onChange={handleChange}
@@ -95,7 +95,7 @@ const Signup = function () {
                 <input
                     type="text"
                     name="name"
-                    placeholder='IITK registered name'
+                    placeholder='IITK Registered Name'
                     value={inputs.name}
                     style={inputStyle}
                     onChange={handleChange}
@@ -115,7 +115,7 @@ const Signup = function () {
                 <input
                     type="password"
                     name="password"
-                    placeholder='password'
+                    placeholder='Password'
                     value={inputs.password}
                     style={inputStyle}
                     onChange={handleChange}

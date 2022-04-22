@@ -17,6 +17,7 @@ const ReviewSchema = new mongoose.Schema({
     reviewID: String,
     author: String,    // username of the author
     review: String,
+    courseID: String,
     semester: Number,
     year: String, 
     likes: {

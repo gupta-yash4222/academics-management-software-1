@@ -1,9 +1,11 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-dropdown';
 import StarRating from './Start-rating';
 import 'react-dropdown/style.css';
+import DropdownMenu from 'react-bootstrap/DropdownMenu';
+// import Dropdown from 'react-bootstrap/Dropdown'
 
 
 const buttonStyle = {
@@ -23,9 +25,10 @@ const FeedbackForm = function () {
     var [tag, setTag] = useState();
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
+    const [courseList, setCourseList] = useState([]);
 
     const semOptions = [
-        { semText: 'summer', code: 0 }, { semText: 'odd', code: 1 }, { semText: 'even', code: 2 }
+        { semText: 'Odd', code: 0 }, { semText: 'Even', code: 1 }, { semText: 'Summer', code: 2 }
     ];
     // const defaultOption = semOptions[0];
 
@@ -96,6 +99,21 @@ const FeedbackForm = function () {
 
     }
 
+    // useEffect(() => {
+    //     axios.get(`http://localhost:3000/course/getAllCourses`)
+    //         .then((response) => {
+    //             // setReviewList(() => {
+    //             //     console.log("response: ", response);
+    //             //     return response.data.reviews;
+    //             // });
+    //             // console.log("logging all courses in frontend: ", response.data.courses);
+    //             setCourseList(response.data.courses);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // })
+
     function handleFeedbackSubmit(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -103,7 +121,7 @@ const FeedbackForm = function () {
         // alert(feedback);
 
         //make sure courseID is filled
-        const courseID = feedback.courseID.toLowerCase();
+        const courseID = feedback.courseID && feedback.courseID.toLowerCase();
         console.log(feedback.year);
         axios.post(`http://localhost:3000/course/${courseID}/addReview`, {
             courseID: courseID,
@@ -130,17 +148,25 @@ const FeedbackForm = function () {
     return (
         <div>
 
-            <form className="notes-form" style={{color : "black"}}>
+            <form className="notes-form" style={{ color: "black" }}>
                 <div>
                     <h1>Add Review</h1>
-                </div>  
+                </div>
                 <div className="input">
-                    <span><label>courseID</label></span>
-                    <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="courseID(i.e. MTH101A)" />
+                    <span><label>Course ID</label></span>
+
+                    {/* <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu> */}
+
+
+                    <input type="text" className="input-title" value={feedback.title} onChange={handleCourseIDChange} required placeholder="MTH101A" />
                 </div>
 
                 <div className="input">
-                    <label>semester</label>
+                    <label>Semester</label>
                     <select value={feedback.sem} className="input-select" onChange={handleSemChange} required>
                         {
                             semOptions.map((currSem) => {
@@ -151,7 +177,7 @@ const FeedbackForm = function () {
                 </div>
                 <div className="input">
 
-                    <label>year</label>
+                    <label>Year</label>
                     <select value={feedback.year} className="input-select" onChange={handleYearChange} required>
                         {
                             YearList.map((currYear) => {
@@ -163,13 +189,13 @@ const FeedbackForm = function () {
                 </div>
 
                 <div className="input">
-                    <label>Feedback Description:</label>
+                    <label>Feedback:</label>
                     <br />
-                    <textarea type="text" className="input-textarea" value={feedback.description} onChange={handleReviewChange} placeholder="enter your feedbacks here..." ></textarea>
+                    <textarea type="text" className="input-textarea" value={feedback.description} onChange={handleReviewChange} placeholder="Enter your feedback here..." ></textarea>
                 </div>
 
                 <div className="input">
-                    <label>overall course rating</label>
+                    <label>Course Rating</label>
                     <div className="star-rating">
                         {[...Array(5)].map((star, index) => {
                             index += 1;

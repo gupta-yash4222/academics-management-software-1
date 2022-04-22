@@ -9,7 +9,7 @@ function registerUser(req, res) { // validating the username not done yet (usern
            department = req.body.department;
 					// department = 'EE';
 
-    if(!username || !rollNo || !name || !password || !department ) return res.status(400).json({message: "Missing fields"});
+    if(!username || !rollNo || !name || !password || !department ) return res.status(400).json({message: "Please fill all the fields"});
     if(password.length == 0) return res.status(400).json({message: "Password should have a finite length"});
     /*
     bcrypt.hash(password, 10, (err, hash) => {

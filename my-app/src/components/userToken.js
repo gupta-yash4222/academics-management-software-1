@@ -13,7 +13,8 @@ export default function useToken() {
     const saveToken = userToken => {
         localStorage.setItem('token', JSON.stringify(userToken));
         setToken(userToken);
-        //Cookies.set('token', userToken);
+        console.log("token: ", userToken);
+        Cookies.set('token', userToken);
     };
 
     return {
