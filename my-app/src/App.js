@@ -27,7 +27,7 @@ function App() {
     <div className="App">
       <Container fluid>
         <Router>
-          <MyNavbar setToken={setToken}></MyNavbar>
+          <MyNavbar token={token} setToken={setToken}></MyNavbar>
           <Routes>
             <Route path='/' exact element={!token ? <Home setToken={setToken}/> : <HomePrivate />} />
             <Route path='/notes/create' element={<AddNotes />} />
