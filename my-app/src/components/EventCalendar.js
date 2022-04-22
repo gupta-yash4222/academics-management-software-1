@@ -3,15 +3,21 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction';
+import Modal from "react-bootstrap/Modal";
+import ModalBody from "react-bootstrap/ModalBody";
+import ModalHeader from "react-bootstrap/ModalHeader";
+import ModalFooter from "react-bootstrap/ModalFooter";
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { SelectionState } from 'draft-js';
 import EventCalendarChild from './EventCalenderChild';
 import AddEventForm from './AddEventForm';
+import ShowEventDetails from './ShowEventDetails';
 
 export default class EventCalendar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pastEvents: [], addedEvents: [] };
+    this.state = { modal: false, event: {}, pastEvents: [], addedEvents: [] };
   }
 
   fnGetEvents = async () => {
@@ -19,15 +25,13 @@ export default class EventCalendar extends React.Component {
     try {
       let res = await axios.get('http://localhost:3000/calendar/getEvents')
 
-      console.log(res)
-      console.log(res.data.events);
       let arr = res.data.events
 
       let events = []
 
       for (let i = 0; i < arr.length; i++) {
 
-        let temp = {};
+        let temp = {};  
 
         /*
 
@@ -61,8 +65,9 @@ export default class EventCalendar extends React.Component {
       }
 
       */
+    
 
-
+      
       if(arr[i].allDay === "Yes") {
 
         if(arr[i].repeatWeekly === "Yes") {
@@ -70,8 +75,8 @@ export default class EventCalendar extends React.Component {
           const date = new Date(arr[i].startDate.split("-"));
           daysOfWeek.push(date.getDay());
           temp = {
+            id: arr[i].id,
             daysOfWeek: daysOfWeek,
-            allDay: true,
             title: arr[i].title, 
             start: arr[i].startDate,
             end: arr[i].endDate,
@@ -83,10 +88,11 @@ export default class EventCalendar extends React.Component {
 
         else {
           temp = {
+            id: arr[i].id,
             allDay: true,
             title: arr[i].title,
-            startStr: arr[i].startDate,
-            endStr: arr[i].endDate,
+            start: arr[i].startDate,
+            end: arr[i].endDate,
             repeatWeekly: arr[i].repeatWeekly,
             content: arr[i].content
           }
@@ -101,6 +107,7 @@ export default class EventCalendar extends React.Component {
           const date = new Date(arr[i].startDate.split("-"));
           daysOfWeek.push(date.getDay());
           temp = {
+            id: arr[i].id,
             daysOfWeek: daysOfWeek,
             allDay: false,
             title: arr[i].title,
@@ -114,6 +121,7 @@ export default class EventCalendar extends React.Component {
 
         else {
           temp = {
+            id: arr[i].id,
             allDay: false,
             title: arr[i].title,
             start: arr[i].startDate.concat("T", arr[i].startTime),
@@ -124,9 +132,6 @@ export default class EventCalendar extends React.Component {
         }
 
       }
-
-      console.log(arr[i].repeatWeekly);
-      console.log(temp);
 
       events.push(temp)
 
@@ -144,9 +149,28 @@ export default class EventCalendar extends React.Component {
     this.fnGetEvents();
   }
 
-  handleEventClick = ({event, el}) => {
-    console.log("event clicked");
-  }
+
+  toggle = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+
+  handleEventClick = ({ event, el }) => {
+    this.toggle();
+    this.setState({ event: event });
+
+    console.log(this.state.event.content);
+  };
+
+  handleDeleteEvent = () => {
+    this.state.pastEvents = this.state.pastEvents.filter(event => event.id !== this.state.event.id)
+
+    console.log(`http://localhost:3000/calendar/deleteEvent/${this.state.event.id}`);
+
+    console.log(this.state.event.content);
+
+    axios.delete(`http://localhost:3000/calendar/deleteEvent/${this.state.event.id}`);
+    this.state.event = {}; this.toggle();
+  };
 
   render() {
     const calendarRef = React.createRef()
@@ -172,6 +196,28 @@ export default class EventCalendar extends React.Component {
             right: "dayGridMonth,timeGridDay,timeGridWeek"
           }}
         />
+
+        <Modal
+          show={this.state.modal}
+          toggle={this.toggle}
+          className={this.props.className}
+        >
+          <ModalHeader style={{color: 'black'}}>
+            <b>Title:</b> {this.state.event.title}
+          </ModalHeader>
+          <ModalBody style={{color: 'black'}}>
+            <div>
+              <b>Description:</b> {this.state.event.content}
+            </div>
+          </ModalBody>
+          <ModalFooter>
+            <Button variant='danger' onClick={this.handleDeleteEvent} >Delete Event</Button>{" "}
+            <Button variant='secondary' onClick={this.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
       </div>
     )
   }

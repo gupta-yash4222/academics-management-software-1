@@ -105,7 +105,7 @@ const ReviewSearch = ({courseID, setCourseID}) => {
             <br></br>
             <Form onSubmit={handleCourseIDSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Control size='lg' value={courseName} placeholder="Seach for courseIDs" onChange={handleCourseNameChange} />
+                    <Form.Control size='lg' value={courseName} placeholder="Search for courseIDs" onChange={handleCourseNameChange} />
                 </Form.Group>
                 {/* <Button variant="primary" type="submit" >
                     Submit
@@ -121,7 +121,7 @@ const ReviewSearch = ({courseID, setCourseID}) => {
                         {curr.name}
                     </ListGroup.Item>)
                 }
-            </ListGroup>,
+            </ListGroup>
         </div>
     );
 };

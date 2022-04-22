@@ -44,6 +44,7 @@ async function getAllEvents(username) {
                 var events = []
                 for(var i = 0; i < calendar.events.length; ++i) {
                     var event = {
+                        id: calendar.events[i]._id,
                         title: calendar.events[i].title,
                         startDate: calendar.events[i].startDate,
                         endDate: calendar.events[i].endDate,
