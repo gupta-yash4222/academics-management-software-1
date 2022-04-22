@@ -72,7 +72,12 @@ export default function CoursePlannerComp({ semData, setSemData, courses }) {
 				if(res.status === 200) fetchSemData(setSemData);
 				else alert(res.message);
 			}).catch(err => {
-				alert(err.message);
+				if(err.response.status == 405){
+					alert('Course is already added');
+				}
+				else{
+					alert('Course not found');
+				}
 			});
 		}
 

@@ -8,7 +8,7 @@ const SEM_NOT_FOUND_ERROR_MSG = semNumber => `Semester ${semNumber} does not exi
 
 async function addCourse(courseID, semNumber, username) {
     return new Promise((resolve, reject) => {
-        Course.findOne({ courseID: courseID }, (err, course) => {
+        Course.findOne({ courseID: courseID.toLowerCase() }, (err, course) => {
             if (err) return reject({ status: 500, message: SERVER_ERROR_MSG });
             else if (!course) return reject({ status: 400, message: `Course ${courseID} not found` });
             else User.findOne({ username: username }, (err, user) => {
@@ -30,7 +30,7 @@ async function addCourse(courseID, semNumber, username) {
                         return resolve({ status: 200, message: `Course ${courseID} added to semester ${semNumber} courses` });
                     }
                     else {
-                        return reject({ status: 400, message: `Course ${courseID} already exists in semester ${semNumber}` });
+                        return reject({ status: 405, message: `Course ${courseID} already exists in semester ${semNumber}` });
                     }
                 }
             });
