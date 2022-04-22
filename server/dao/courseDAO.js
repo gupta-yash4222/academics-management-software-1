@@ -143,11 +143,12 @@ async function getCommentContent(commentID) {
     });
 }
 
-async function getReviewDetails(reviewID) {
-    return new Promise((resolve, reject) => {
-        Review.findOne({ reviewID: reviewID }, (err, reviewDoc) => {
-            if (err) return reject({ status: 500, message: "Internal server error" });
-            else if (!reviewDoc) return reject({ status: 400, message: "Invalid course id" });
+
+async function getReviewDetails (reviewID) {
+    return new Promise( (resolve, reject) => {
+        Review.findOne({reviewID: reviewID}, (err, reviewDoc) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            else if(!reviewDoc) return reject({status: 400, message: "Invalid review id"});
 
             else {
 
