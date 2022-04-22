@@ -1,14 +1,4 @@
-const {
-	addReview,
-	getReviewDetails,
-	addToFavourites,
-	getFavoriteCourses,
-	getReviews,
-	addCommentToReview,
-	likeComment,
-	likeReview,
-	getCourseDetails,
-} = require('../dao/courseDAO.js');
+const {addReview, getReviewDetails, addToFavourites, getAllCourses, getFavoriteCourses, getReviews, addCommentToReview, likeComment, likeReview, getCourseDetails} = require('../dao/courseDAO.js');
 
 async function apiAddReview(req, res) {
     const courseID = req.params['courseID'],
@@ -56,6 +46,7 @@ async function apiGetReviews(req, res) {
 
     getReviews(courseID)
         .then(result => {
+            console.log("results: ", result.reviewsList);
             res.status(result.status).json({ message: result.message, reviews: result.reviewsList });
         })
         .catch(error => {
@@ -90,13 +81,30 @@ async function apiGetFavoriteCourses(req, res) {
     });
 }
 
+async function apiGetAllCourses(req, res) {
+    // const username = req.username;
+
+    // console.log(username);
+
+    getAllCourses()
+    .then( result => {
+        res.status(result.status).json({message: result.message, courses: result.courses});
+    })
+    .catch( error => {
+        res.status(error.status).json({message: error.message});
+    });
+}
+
+
 async function apiAddCommentToReview (req, res) {
     const reviewID = req.params['reviewID'],
         username = req.username,
         comment = req.body.comment;
+        
 
     addCommentToReview(reviewID, username, comment)
     .then( result => {
+        // console.log("message: ", result.message);
         return res.status(result.status).json({message: result.message});
     })
     .catch( error => {
@@ -106,8 +114,9 @@ async function apiAddCommentToReview (req, res) {
 
 async function apiLikeReview (req, res) {
     const reviewID = req.params['reviewID'];
+    const like = req.body.like;
 
-    likeReview(reviewID)
+    likeReview(reviewID, like)
     .then( result => {
         return res.status(result.status).json({message: result.message});
     })
@@ -128,14 +137,4 @@ async function apiLikeComment (req, res) {
     })
 }
 
-module.exports = {
-	apiAddReview,
-	apiGetReviewDetails,
-	apiGetReviews,
-	apiGetCourseDetails,
-	apiAddToFavourites,
-	apiGetFavoriteCourses,
-	apiAddCommentToReview,
-	apiLikeReview,
-	apiLikeComment,
-};
+module.exports = {apiAddReview, apiGetReviewDetails, apiGetReviews, apiGetCourseDetails, apiAddToFavourites, apiGetFavoriteCourses, apiGetAllCourses, apiAddCommentToReview, apiLikeReview, apiLikeComment};

@@ -2,17 +2,7 @@ express = require('express');
 
 const {validateCourseID} = require('../api/validation.js');
 const {authorization} = require('../api/login.js');
-const {
-	apiAddReview,
-	apiAddToFavourites,
-	apiGetFavoriteCourses,
-	apiGetReviews,
-	apiAddCommentToReview,
-	apiLikeReview,
-	apiLikeComment,
-	apiGetCourseDetails,
-	apiGetReviewDetails,
-} = require('../api/courseController.js');
+const {apiAddReview, apiAddToFavourites, apiGetFavoriteCourses, apiGetAllCourses, apiGetReviews, apiAddCommentToReview, apiLikeReview, apiLikeComment, apiGetCourseDetails, apiGetReviewDetails} = require('../api/courseController.js');
 
 router = express.Router();
 
@@ -36,11 +26,16 @@ router.post('/:courseID/addReview', authorization, validateCourseID, apiAddRevie
 
 router.post('/:courseID/addToFavorite', authorization, validateCourseID, apiAddToFavourites)
 
-router.get('/:reviewID/getReviewDetails', authorization, validateCourseID, apiGetReviewDetails);
+// router.post('/getCourseDetails', authorization, validateCourseID, apiGetCourseDetails);
+
+router.get('/:reviewID/getReviewDetails', authorization, apiGetReviewDetails);
 
 router.get('/:courseID/getReviews', authorization, validateCourseID, apiGetReviews);
 
 router.get('/getFavoriteCourses', authorization, apiGetFavoriteCourses);
+
+//no auth for getAllCourses
+router.get('/getAllCourses', apiGetAllCourses);
 
 router.post('/:reviewID/addComment', authorization, apiAddCommentToReview);
 

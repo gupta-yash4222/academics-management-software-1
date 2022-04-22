@@ -97,6 +97,7 @@ async function addReview (courseID, review, semester, year, rating, username) {
                 const reviewDoc = new Review({
                     reviewID: courseID.concat("-", username),
                     author: username,
+                    courseID: courseID,
                     review: review,
                     semester: semester,
                     year: year
@@ -116,6 +117,7 @@ async function addReview (courseID, review, semester, year, rating, username) {
 
             else{
                 reviewFoundDoc.review = review;
+                reviewFoundDoc.courseID = courseID;
                 reviewFoundDoc.save()
                 .then( () => {
                     return resolve({status: 200, message: "Review edited successfully"});
@@ -149,6 +151,7 @@ async function getReviewDetails (reviewID) {
 
             else {
 
+                console.log("reviewDoc", reviewDoc);
                 var commentsList = [];
                 var requests = [];
 
@@ -188,15 +191,18 @@ async function getReviews (courseID) {
 
             for(var i = 0; i < course.reviews.length; i++) {
                 var p = Review.findOne({reviewID: course.reviews[i]}).exec();
+                // console.log("review: ", p);
                 requests.push(p);
             }
 
             p = Promise.all(requests)
                 .then( reviewDoc => {
+                    console.log("reviewDoc: ", reviewDoc);
                     reviewsList = reviewDoc;
                 });
 
             p.then( () => {
+                // console.log("reviewList: ", reviewList); 
                 return resolve({status: 200, message: "Reviews found successfully", reviewsList: reviewsList});
             });
         })
@@ -239,6 +245,20 @@ async function getFavoriteCourses (username) {
 
             else{
                 return resolve({status: 200, message: "Favorite courses found successfully", favoriteCourses: user.favoriteCourses});
+            }
+        });
+    });
+}
+
+async function getAllCourses () {
+    return new Promise( (resolve, reject) => {
+        Course.find({}, (err, courses) => {
+            if(err) return reject({status: 500, message: "Internal server error"});
+            // else if(!course) return reject({status: 400, message: "User not registered with the application"});
+
+            else{
+                // console.log("logging all courses from getAllCourses: ", courses);
+                return resolve({status: 200, message: "courses found successfully", courses: courses});
             }
         });
     });
@@ -326,13 +346,13 @@ async function likeReview (reviewID) {
     });
 }
 
-async function likeComment (commentID) {
+async function likeComment (commentID, like) {
     return new Promise( (resolve, reject) => {
         Comment.findOne({commentID: commentID}, (err, commentDoc) => {
             if(err) return reject({status: 500, message: "Internal server error"});
             else if(!commentDoc) return reject({status: 400, message: "Invalid comment id"});
             else{
-                commentDoc.likes = commentDoc.likes + 1;
+                commentDoc.likes = commentDoc.likes + like;
                 commentDoc.save()
                 .then( () => {
                     return resolve({status: 200, message: "Review liked successfully"});
@@ -368,16 +388,4 @@ async function checkCourse (courseID) {
     });
 }
 
-module.exports = {
-	addReview,
-	getReviewDetails,
-	getReviews,
-	addToFavourites,
-	getFavoriteCourses,
-	addCommentToReview,
-	likeReview,
-	likeComment,
-	addCourse,
-	checkCourse,
-	getCourseDetails,
-};
+module.exports = {addReview, getReviewDetails, getReviews, getAllCourses, addToFavourites, getFavoriteCourses, addCommentToReview, likeReview, likeComment, addCourse, getCourseDetails};

@@ -21,6 +21,15 @@ let UserSchema = new mongoose.Schema(
             type: [String],
             default: []
         },
+        likedReviews: {
+            type:[String],
+            default:[]
+        },
+        likedComments:{
+            type:[String],
+            default:[]
+        },
+        // todo: option to have multiple plans
         coursePlan: {
 					type: CoursePlanSchema,
 					default: {}

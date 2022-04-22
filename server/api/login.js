@@ -30,7 +30,7 @@ async function loginUser(req, res) {  // JWT token yet to be done
       
             return res
                 .cookie("token", token, {
-                     httpOnly: true
+                    httpOnly: true
                 })
                 .status(200)
                 .json({ message: "Logged in successfully", token: token });
@@ -52,13 +52,18 @@ async function loginUser(req, res) {  // JWT token yet to be done
 
 const authorization = async (req, res, next) => {
     const token = req.cookies.token;
+    // console.log("req in authorization: ", req);
+    // console.log("token in authorization is: ", token);
 
     if (!token) return res.status(401).json({ message: "Access denied. Token is required for authentication" });
 
+    // console.log("req: ", req.body);
     try {
         const data = await jwt.verify(token, "cs253ams");
+        // console.log("jwt data: ", data);
         req.username = data.username;
         req.rollNo = data.rollNo;
+        console.log("req: ", req.body);
         return next();
     }
     catch {
