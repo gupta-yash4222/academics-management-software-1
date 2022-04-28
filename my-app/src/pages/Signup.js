@@ -83,7 +83,7 @@ const Signup = function () {
             </div>
             <div>
                 <input
-                    type="text"
+                    type="number"
                     name="rollNo"
                     placeholder='IITK Roll Number'
                     value={inputs.rollNo}
