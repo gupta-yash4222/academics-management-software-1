@@ -13,6 +13,15 @@ function findUser(username) {
     });
 }
 
+function findUserByRoll(rollNo) {
+    User.findOne({rollNo: rollNo}, (err, result) => {
+        console.log(result);
+        if(err) return false;
+        else if (!result) return true;
+        else return false;
+    })
+}
+
 
 function addUser(username, rollNo, name, hashPassword, department) {
     return new Promise( (resolve, reject) => {
@@ -26,10 +35,13 @@ function addUser(username, rollNo, name, hashPassword, department) {
 
         findUser(username)
             .then(result => {
-                reject({ status: 208, message: "User already exists" });
+                reject({ status: 208, message: "User with the entered username already exists" });
             })
             .catch(error => {
                 if (error.message === "User not found") {
+
+                    if ( !findUserByRoll(rollNo) ) return reject({ status: 208, message: "User with the entered roll-number already exists"});
+
                     user.save(err => {
                         if (err) {
                             reject({ status: 500, message: "Internal server error" });
