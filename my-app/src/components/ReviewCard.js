@@ -13,7 +13,6 @@ import ReviewDetail from './ReviewDetail';
 const ReviewCard = ({ currReview, setReview, courseID }) => {
     const [flag, setFlag] = useState(false);
     const [like, setLike] = useState(1);
-    // const [reviewID, setReviewID] = useState();
 
     const navigate = useNavigate();
 
@@ -30,15 +29,7 @@ const ReviewCard = ({ currReview, setReview, courseID }) => {
         </Popover>
     );
 
-    // useEffect(()=>{
-    //     console.log("currReview data in ReviewCard: ", currReview);
-    // }, [currReview]);
-
-
     function handleViewDetails(event) {
-        // setFavFlag(() => {
-        //     return true;
-        // });
 
         setFlag(!flag);
         setReview(currReview);
@@ -63,7 +54,7 @@ const ReviewCard = ({ currReview, setReview, courseID }) => {
         <div>
             <Card style={{ color: "black" }}>
                 <Card.Body >
-                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{currReview.courseID.toUpperCase()}</Card.Title>
+                    <Card.Title style={{ position: "absolute", top: "10px", left: "20px" }}>{courseID.toUpperCase()}</Card.Title>
                     <br></br>
                     <Card.Text style={{ marginTop: "1rem", marginBottom: "2rem", color: "black" }}>
                         <h6 style={{ position: "absolute", left: "20px" }}>Review:</h6>

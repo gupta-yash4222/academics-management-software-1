@@ -192,15 +192,15 @@ async function getReviews(courseID) {
 
             for (var i = 0; i < course.reviews.length; i++) {
                 var p = Review.findOne({ reviewID: course.reviews[i] }).exec();
-                // console.log("review: ", p);
+                console.log("review: ", p);
                 requests.push(p);
             }
 
             p = Promise.all(requests)
                 .then(reviewDoc => {
                     console.log("reviewDoc: ", reviewDoc);
-                    reviewsList = reviewDoc;
-                });
+                    reviewsList= reviewDoc;
+                }); 
 
             p.then(() => {
                 // console.log("reviewList: ", reviewList); 

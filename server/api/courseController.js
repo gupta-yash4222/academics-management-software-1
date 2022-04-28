@@ -43,11 +43,18 @@ async function apiGetReviewDetails (req, res) {
 
 async function apiGetReviews(req, res) {
     const courseID = req.params['courseID'];
+    let tempList = [];
 
     getReviews(courseID)
         .then(result => {
             console.log("results: ", result.reviewsList);
-            res.status(result.status).json({ message: result.message, reviews: result.reviewsList });
+            for(let i = 0;i < result.reviewsList.length;i++){
+                if(result.reviewsList[i])
+                    tempList.push(result.reviewsList[i]);
+
+            }
+
+            res.status(result.status).json({ message: result.message, reviews: tempList });
         })
         .catch(error => {
             res.status(error.status).json({ message: error.message });
