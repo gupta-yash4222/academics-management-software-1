@@ -79,6 +79,7 @@ const Signup = function () {
                     value={inputs.username || ""}
                     style={inputStyle}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <div>
@@ -89,6 +90,7 @@ const Signup = function () {
                     value={inputs.rollNo}
                     style={inputStyle}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <div>
@@ -99,6 +101,7 @@ const Signup = function () {
                     value={inputs.name}
                     style={inputStyle}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <div>
@@ -109,6 +112,7 @@ const Signup = function () {
                     value={inputs.department}
                     style={inputStyle}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <div>
@@ -119,6 +123,7 @@ const Signup = function () {
                     value={inputs.password}
                     style={inputStyle}
                     onChange={handleChange}
+                    required
                 />
             </div>
             <div>
