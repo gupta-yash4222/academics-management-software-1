@@ -21,18 +21,17 @@ const ReviewDetail = ({ review, setReview }) => {
     function handleCommentSubmission(event){
         event.preventDefault();
 
-        //  temp = allComments;
-        // temp.push(myComment);
-        // console.log(temp);
-        // setAllComments(last => { return [...last, myComment]});
+        // setMyComment(event.target.value);
+        console.log("new comment is: ", event.target.value);
 
-        setFlag(flag === "1" ? "2" : "1");
+        // setAllComments([...allComments, myComment]);
 
         axios.post(`http://localhost:3000/course/${review.reviewID}/addComment`, {
             comment: myComment
         })
         .then((res) => {
             console.log("comment added");
+            setFlag(flag === "1" ? "2" : "1");
         })
         .catch((err) => {
             console.log(err);
@@ -44,11 +43,7 @@ const ReviewDetail = ({ review, setReview }) => {
     }
 
     useEffect(()=>{
-        //fetch all comments for a reviewID
-
-        // if(flag === "0")
-        // return ;
-
+     
         axios.get(`http://localhost:3000/course/${review.reviewID}/getReviewDetails`)
         .then((res)=>{
             // setMyComment(res.)
