@@ -54,8 +54,6 @@ const ReviewSearch = ({courseID, setCourseID}) => {
     }
 
     function handleCourseIDSubmit(event) {
-
-
     }
 
     function handleCourseClick(event){

@@ -160,6 +160,12 @@ button {
   content: none;
 }
 
+:root {
+  --fc-background-color: white;
+  --fc-border-color: white;
+  --fc-daygrid-event-dot-width: 5px;
+}
+
 /* body {
   padding: 100px;
 } */
